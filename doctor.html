@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Health Connect | Panel Médico</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body class="dashboard-body">
+    <div class="dashboard">
+      <aside class="sidebar">
+        <div class="logo">
+          <span class="logo-mark"><i class="fa-solid fa-heart-pulse"></i></span>
+          <div>
+            <p class="logo-title">Health Connect</p>
+            <p class="logo-subtitle">Panel médico</p>
+          </div>
+        </div>
+        <nav class="sidebar-nav">
+          <a class="active" href="#">
+            <i class="fa-solid fa-chart-line"></i>
+            Resumen
+          </a>
+          <a href="#">
+            <i class="fa-solid fa-user-doctor"></i>
+            Mi perfil
+          </a>
+          <a href="#">
+            <i class="fa-solid fa-user-group"></i>
+            Pacientes
+          </a>
+          <a href="#">
+            <i class="fa-solid fa-calendar-check"></i>
+            Agenda
+          </a>
+          <a href="#">
+            <i class="fa-solid fa-file-waveform"></i>
+            Historial clínico
+          </a>
+          <a href="#">
+            <i class="fa-solid fa-shield-halved"></i>
+            Privacidad & seguridad
+          </a>
+          <a href="#">
+            <i class="fa-solid fa-gear"></i>
+            Configuración
+          </a>
+          <a href="#">
+            <i class="fa-solid fa-scale-balanced"></i>
+            Legal
+          </a>
+          <a href="#">
+            <i class="fa-solid fa-headset"></i>
+            Contacto con Health Connect
+          </a>
+        </nav>
+        <button class="ghost-btn logout">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          Cerrar sesión
+        </button>
+      </aside>
+
+      <main class="dashboard-main">
+        <header class="dashboard-header">
+          <div>
+            <p class="tag">Bienvenido, Dra. Valentina Ortiz</p>
+            <h1>Panel médico profesional</h1>
+            <p class="header-subtitle">
+              Especialista en cardiología · ID HC-92348 · Validez: 2026
+            </p>
+          </div>
+          <div class="header-actions">
+            <button class="ghost-btn">Editar perfil</button>
+            <button class="primary-btn">Iniciar videollamada</button>
+          </div>
+        </header>
+
+        <section class="dashboard-metrics">
+          <article>
+            <div>
+              <h3>128</h3>
+              <p>Pacientes activos</p>
+            </div>
+            <i class="fa-solid fa-user-group"></i>
+          </article>
+          <article>
+            <div>
+              <h3>18</h3>
+              <p>Consultas hoy</p>
+            </div>
+            <i class="fa-solid fa-stethoscope"></i>
+          </article>
+          <article>
+            <div>
+              <h3>42</h3>
+              <p>Mensajes pendientes</p>
+            </div>
+            <i class="fa-solid fa-comments"></i>
+          </article>
+          <article>
+            <div>
+              <h3>96%</h3>
+              <p>Calificación promedio</p>
+            </div>
+            <i class="fa-solid fa-star"></i>
+          </article>
+        </section>
+
+        <section class="dashboard-grid">
+          <div class="card profile-card">
+            <div class="card-header">
+              <h2>Mi perfil</h2>
+              <button class="ghost-btn">Actualizar datos</button>
+            </div>
+            <div class="profile-details">
+              <div>
+                <h3>Dra. Valentina Ortiz</h3>
+                <p>Cardióloga · 12 años de experiencia</p>
+                <p>valentina.ortiz@healthconnect.com</p>
+                <p>+1 (555) 347-8890</p>
+              </div>
+              <div class="profile-tags">
+                <span><i class="fa-solid fa-circle-check"></i> Certificada</span>
+                <span><i class="fa-solid fa-shield-heart"></i> Seguro activo</span>
+                <span><i class="fa-solid fa-lock"></i> 2FA habilitado</span>
+              </div>
+            </div>
+            <div class="profile-actions">
+              <button class="primary-btn">Privacidad</button>
+              <button class="ghost-btn">Configuración</button>
+              <button class="ghost-btn">Legal</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h2>Listado de pacientes</h2>
+              <button class="ghost-btn">Ver todos</button>
+            </div>
+            <div class="patient-list">
+              <article>
+                <div>
+                  <h4>Ana Torres</h4>
+                  <p>32 años · Ciudad de México</p>
+                </div>
+                <span class="status">En tratamiento</span>
+              </article>
+              <article class="active">
+                <div>
+                  <h4>Javier Morales</h4>
+                  <p>41 años · Bogotá</p>
+                </div>
+                <span class="status pending">Pendiente</span>
+              </article>
+              <article>
+                <div>
+                  <h4>Lucía Pérez</h4>
+                  <p>28 años · Lima</p>
+                </div>
+                <span class="status">Seguimiento</span>
+              </article>
+              <article>
+                <div>
+                  <h4>Diego Rivera</h4>
+                  <p>55 años · Santiago</p>
+                </div>
+                <span class="status">Crónico</span>
+              </article>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h2>Perfil del paciente</h2>
+              <button class="ghost-btn">Abrir ficha</button>
+            </div>
+            <div class="patient-tabs">
+              <button class="active">
+                <i class="fa-solid fa-user"></i>
+                Resumen
+              </button>
+              <button>
+                <i class="fa-solid fa-file-waveform"></i>
+                Historial clínico
+              </button>
+              <button>
+                <i class="fa-solid fa-video"></i>
+                Videollamada
+              </button>
+              <button>
+                <i class="fa-solid fa-message"></i>
+                Chat seguro
+              </button>
+            </div>
+            <div class="patient-profile">
+              <div>
+                <h3>Javier Morales</h3>
+                <p>28 años · Alergia crónica</p>
+                <p>Última consulta: 12/03/2024</p>
+              </div>
+              <div class="profile-actions">
+                <button class="primary-btn">Chat directo</button>
+                <button class="ghost-btn">Videollamada</button>
+              </div>
+              <div class="profile-summary">
+                <h4>Resumen IA</h4>
+                <p>
+                  El paciente mantiene evolución estable, sigue el plan terapéutico y presenta
+                  mejoras en los indicadores de inflamación. Recomendado continuar controles cada
+                  15 días y mantener hidratación.
+                </p>
+              </div>
+              <div class="patient-actions">
+                <div>
+                  <h4>Última consulta</h4>
+                  <p>Teleconsulta · 45 min</p>
+                </div>
+                <div>
+                  <h4>Tratamiento</h4>
+                  <p>Betabloqueadores · 2 dosis/día</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h2>Accesos rápidos</h2>
+            </div>
+            <div class="quick-actions">
+              <button>
+                <i class="fa-solid fa-file-medical"></i>
+                Nueva receta
+              </button>
+              <button>
+                <i class="fa-solid fa-notes-medical"></i>
+                Nota clínica
+              </button>
+              <button>
+                <i class="fa-solid fa-user-check"></i>
+                Alta médica
+              </button>
+              <button>
+                <i class="fa-solid fa-clipboard-list"></i>
+                Reportes
+              </button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h2>Agenda próxima</h2>
+            </div>
+            <ul class="agenda">
+              <li>
+                <span>09:30</span>
+                <div>
+                  <h4>Consulta cardiología</h4>
+                  <p>Paciente: Ana Torres</p>
+                </div>
+              </li>
+              <li>
+                <span>11:00</span>
+                <div>
+                  <h4>Videollamada control</h4>
+                  <p>Paciente: Javier Morales</p>
+                </div>
+              </li>
+              <li>
+                <span>14:15</span>
+                <div>
+                  <h4>Revisión post operatoria</h4>
+                  <p>Paciente: Diego Rivera</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h2>Seguridad y soporte</h2>
+            </div>
+            <div class="security-grid">
+              <div>
+                <h4>Centro legal</h4>
+                <p>Consentimientos, términos y auditorías clínicas.</p>
+              </div>
+              <div>
+                <h4>Soporte prioritario</h4>
+                <p>Chat interno con especialistas de Health Connect.</p>
+              </div>
+              <div>
+                <h4>Alertas críticas</h4>
+                <p>Notificaciones de resultados y seguimiento.</p>
+              </div>
+            </div>
+            <button class="primary-btn full-width">Abrir centro de ayuda</button>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
