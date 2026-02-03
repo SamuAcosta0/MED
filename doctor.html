@@ -114,7 +114,65 @@
           </article>
         </section>
 
-        <section class="dashboard-grid">
+        <div class="panel-nav" data-panel-nav>
+          <button class="active" data-panel-target="summary">Resumen</button>
+          <button data-panel-target="profile">Mi perfil</button>
+          <button data-panel-target="patients">Pacientes</button>
+          <button data-panel-target="agenda">Agenda</button>
+          <button data-panel-target="records">Historial clínico</button>
+          <button data-panel-target="privacy">Privacidad</button>
+          <button data-panel-target="settings">Configuración</button>
+        </div>
+
+        <section class="dashboard-grid panel-body active" data-panel="summary">
+          <div class="card">
+            <div class="card-header">
+              <h2>Resumen ejecutivo</h2>
+              <button class="ghost-btn">Descargar reporte</button>
+            </div>
+            <p>
+              Seguimiento general del desempeño clínico, niveles de satisfacción y progreso de los
+              pacientes activos.
+            </p>
+            <div class="metrics-grid">
+              <div>
+                <h3>42</h3>
+                <p>Consultas completadas</p>
+              </div>
+              <div>
+                <h3>6</h3>
+                <p>Casos en revisión</p>
+              </div>
+              <div>
+                <h3>12</h3>
+                <p>Derivaciones</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h2>Alertas críticas</h2>
+            </div>
+            <ul class="agenda">
+              <li>
+                <span>Hoy</span>
+                <div>
+                  <h4>Paciente Javier Morales</h4>
+                  <p>Revisión de medicación y síntomas recientes.</p>
+                </div>
+              </li>
+              <li>
+                <span>24h</span>
+                <div>
+                  <h4>Resultados de laboratorio</h4>
+                  <p>Disponibles para análisis cardiológico.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="dashboard-grid panel-body" data-panel="profile">
           <div class="card profile-card">
             <div class="card-header">
               <h2>Mi perfil</h2>
@@ -139,7 +197,28 @@
               <button class="ghost-btn">Legal</button>
             </div>
           </div>
+          <div class="card">
+            <div class="card-header">
+              <h2>Licencias y documentos</h2>
+            </div>
+            <div class="security-grid">
+              <div>
+                <h4>Título validado</h4>
+                <p>Institución: Universidad Central · 2012</p>
+              </div>
+              <div>
+                <h4>Cédula profesional</h4>
+                <p>HC-92348 · Renovación 2026</p>
+              </div>
+              <div>
+                <h4>Especialidad</h4>
+                <p>Cardiología avanzada · Certificación internacional.</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
+        <section class="dashboard-grid panel-body" data-panel="patients">
           <div class="card">
             <div class="card-header">
               <h2>Listado de pacientes</h2>
@@ -254,7 +333,46 @@
               </button>
             </div>
           </div>
+        </section>
 
+        <section class="dashboard-grid panel-body" data-panel="agenda">
+          <div class="card">
+            <div class="card-header">
+              <h2>Calendario semanal</h2>
+              <button class="ghost-btn">Sincronizar agenda</button>
+            </div>
+            <div class="calendar-grid">
+              <div>
+                <span>Lun</span>
+                <p>09:30 Ana Torres</p>
+                <p>15:00 Teleconsulta</p>
+              </div>
+              <div>
+                <span>Mar</span>
+                <p>11:00 Javier Morales</p>
+              </div>
+              <div>
+                <span>Mié</span>
+                <p>10:00 Control post cirugía</p>
+              </div>
+              <div>
+                <span>Jue</span>
+                <p>14:15 Diego Rivera</p>
+              </div>
+              <div>
+                <span>Vie</span>
+                <p>12:00 Consulta externa</p>
+              </div>
+              <div>
+                <span>Sáb</span>
+                <p>Libre</p>
+              </div>
+              <div>
+                <span>Dom</span>
+                <p>Libre</p>
+              </div>
+            </div>
+          </div>
           <div class="card">
             <div class="card-header">
               <h2>Agenda próxima</h2>
@@ -283,29 +401,81 @@
               </li>
             </ul>
           </div>
+        </section>
 
+        <section class="dashboard-grid panel-body" data-panel="records">
           <div class="card">
             <div class="card-header">
-              <h2>Seguridad y soporte</h2>
+              <h2>Historial clínico</h2>
             </div>
+            <div class="search-bar inline">
+              <input type="text" placeholder="Buscar paciente" />
+              <input type="text" placeholder="Especialidad" />
+              <button class="primary-btn">Buscar</button>
+            </div>
+            <div class="patient-list">
+              <article>
+                <div>
+                  <h4>Lucía Pérez</h4>
+                  <p>Historial actualizado · 3 consultas</p>
+                </div>
+                <span class="status">Activo</span>
+              </article>
+              <article>
+                <div>
+                  <h4>Diego Rivera</h4>
+                  <p>Reporte 08/03/2024 · seguimiento</p>
+                </div>
+                <span class="status pending">Pendiente</span>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="dashboard-grid panel-body" data-panel="privacy">
+          <div class="card">
+            <div class="card-header">
+              <h2>Privacidad y seguridad</h2>
+            </div>
+            <p>
+              Consulta las cláusulas de tratamiento de datos, normativas de la plataforma y
+              protocolos de seguridad clínica. Esta sección es un borrador para el panel legal.
+            </p>
             <div class="security-grid">
               <div>
-                <h4>Centro legal</h4>
-                <p>Consentimientos, términos y auditorías clínicas.</p>
+                <h4>Consentimiento informado</h4>
+                <p>Documentación firmada por pacientes y médicos.</p>
               </div>
               <div>
-                <h4>Soporte prioritario</h4>
-                <p>Chat interno con especialistas de Health Connect.</p>
-              </div>
-              <div>
-                <h4>Alertas críticas</h4>
-                <p>Notificaciones de resultados y seguimiento.</p>
+                <h4>Encriptación</h4>
+                <p>Datos protegidos con estándares de salud internacionales.</p>
               </div>
             </div>
-            <button class="primary-btn full-width">Abrir centro de ayuda</button>
+          </div>
+        </section>
+
+        <section class="dashboard-grid panel-body" data-panel="settings">
+          <div class="card">
+            <div class="card-header">
+              <h2>Configuración</h2>
+            </div>
+            <div class="form-grid">
+              <label for="notif">Notificaciones</label>
+              <select id="notif">
+                <option>Tiempo real</option>
+                <option>Resumen diario</option>
+              </select>
+              <label for="language">Idioma</label>
+              <select id="language">
+                <option>Español</option>
+                <option>Inglés</option>
+              </select>
+              <button class="primary-btn">Guardar cambios</button>
+            </div>
           </div>
         </section>
       </main>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>

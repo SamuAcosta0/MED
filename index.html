@@ -37,8 +37,14 @@
           <a href="#contacto">Contacto</a>
         </div>
         <div class="nav-actions">
-          <button class="ghost-btn">Ingresar</button>
-          <button class="primary-btn">Registrarse</button>
+          <button class="ghost-btn" data-open-modal="login">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            Ingresar
+          </button>
+          <button class="primary-btn" data-open-modal="register">
+            <i class="fa-solid fa-user-plus"></i>
+            Registrarse
+          </button>
         </div>
       </nav>
     </header>
@@ -260,6 +266,72 @@
         © 2024 Health Connect. Todos los derechos reservados.
       </p>
     </footer>
+
+    <div class="modal-overlay" id="login-modal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3>Iniciar sesión</h3>
+          <button class="modal-close" data-close-modal>×</button>
+        </div>
+        <form class="form-grid" data-login-form>
+          <label for="login-email">Usuario o correo</label>
+          <input id="login-email" type="email" placeholder="doctor@healthconnect.com" required />
+          <label for="login-password">Contraseña</label>
+          <input id="login-password" type="password" placeholder="••••••••" required />
+          <p class="form-hint">
+            Si eres médico ingresarás al panel médico. Si eres paciente, accederás a tu panel
+            personal.
+          </p>
+          <button class="primary-btn" type="submit">Ingresar</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="register-modal">
+      <div class="modal">
+        <div class="modal-header">
+          <h3>Registro Health Connect</h3>
+          <button class="modal-close" data-close-modal>×</button>
+        </div>
+        <div class="role-toggle" data-role-toggle>
+          <button class="active" type="button" data-role="doctor">Médico</button>
+          <button type="button" data-role="patient">Paciente</button>
+        </div>
+        <form class="form-grid" data-register-form>
+          <div data-role-section="doctor">
+            <label for="doctor-name">Nombre y apellido</label>
+            <input id="doctor-name" type="text" placeholder="Dra. Valentina Ortiz" required />
+            <label for="doctor-email">Email</label>
+            <input id="doctor-email" type="email" placeholder="valentina@healthconnect.com" required />
+            <label for="doctor-contact">Contacto</label>
+            <input id="doctor-contact" type="tel" placeholder="+1 (555) 234-5678" required />
+            <label for="doctor-license">Cédula / validación de título</label>
+            <input id="doctor-license" type="text" placeholder="HC-29384" required />
+            <label for="doctor-location">País · Región · Dirección</label>
+            <input id="doctor-location" type="text" placeholder="México · CDMX · Av. Central 202" required />
+            <label for="doctor-practice">Región de atención</label>
+            <input id="doctor-practice" type="text" placeholder="Latinoamérica · Telemedicina" required />
+            <label for="doctor-bio">Biografía profesional</label>
+            <textarea id="doctor-bio" placeholder="Especialista en cardiología con 12 años de experiencia..."></textarea>
+          </div>
+          <div data-role-section="patient" hidden>
+            <label for="patient-name">Nombre y apellido</label>
+            <input id="patient-name" type="text" placeholder="Lucía Pérez" />
+            <label for="patient-email">Email</label>
+            <input id="patient-email" type="email" placeholder="lucia@email.com" />
+            <label for="patient-location">Ubicación</label>
+            <input id="patient-location" type="text" placeholder="Lima, Perú" />
+            <label for="patient-history">Historial médico relevante</label>
+            <textarea id="patient-history" placeholder="Alergias, tratamientos anteriores..."></textarea>
+          </div>
+          <p class="form-hint">
+            * Los datos se guardarán en una base de datos en fases posteriores. Esta vista es
+            demostrativa.
+          </p>
+          <button class="primary-btn" type="submit">Crear cuenta</button>
+        </form>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>
