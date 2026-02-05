@@ -1,0 +1,17 @@
+{% extends "layouts/patient_base.html" %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Mis Turnos</h2>
+        <button class="primary-btn sm">
+            <i class="fa-solid fa-plus"></i> Nuevo turno
+        </button>
+    </div>
+
+    <div class="empty-state" style="text-align: center; padding: 48px; color: var(--text-sec);">
+        <i class="fa-solid fa-calendar-xmark" style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;"></i>
+        <p>No tienes turnos programados.</p>
+    </div>
+</div>
+{% endblock %}

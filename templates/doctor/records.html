@@ -1,0 +1,18 @@
+{% extends "layouts/doctor_base.html" %}
+
+{% block content %}
+<header class="dashboard-header">
+    <div>
+        <p class="tag">Clínica</p>
+        <h1>Historial Clínico Digital</h1>
+    </div>
+</header>
+<div class="card">
+    <div class="empty-state" style="text-align: center; padding: 48px;">
+        <i class="fa-solid fa-file-medical"
+            style="font-size: 48px; color: var(--text-sec); opacity: 0.3; margin-bottom: 16px;"></i>
+        <p>Selecciona un paciente para ver su historial.</p>
+        <button class="primary-btn" style="margin-top: 16px;">Buscar paciente</button>
+    </div>
+</div>
+{% endblock %}

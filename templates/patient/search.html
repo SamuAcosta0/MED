@@ -1,0 +1,198 @@
+{% extends "layouts/patient.html" %}
+
+{% block title %}Buscar Médicos | CareConnect{% endblock %}
+{% block header_title %}Buscar Médicos{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-12 gap-8">
+
+    <!-- Filters Sidebar (Sticky on Desktop) -->
+    <div class="col-span-3 hidden-mobile">
+        <div class="card p-4 sticky-top">
+            <h3 class="text-base mb-4">Filtrar por</h3>
+
+            <div class="mb-6">
+                <label class="input-label mb-2 block">Especialidad</label>
+                <select class="input w-full" style="height: 40px; font-size: 14px;">
+                    <option>Todas</option>
+                    <option>Clínica Médica</option>
+                    <option>Pediatría</option>
+                    <option>Dermatología</option>
+                </select>
+            </div>
+
+            <div class="mb-6">
+                <label class="input-label mb-2 block">Modalidad</label>
+                <div class="flex flex-col gap-2">
+                    <label class="flex items-center gap-2 text-sm text-sec">
+                        <input type="checkbox" checked> Videoconsulta
+                    </label>
+                    <label class="flex items-center gap-2 text-sm text-sec">
+                        <input type="checkbox"> Presencial
+                    </label>
+                    <label class="flex items-center gap-2 text-sm text-sec">
+                        <input type="checkbox"> Chat
+                    </label>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="input-label mb-2 block">Disponibilidad</label>
+                <div class="flex flex-wrap gap-2">
+                    <span class="chip active">Hoy</span>
+                    <span class="chip">Mañana</span>
+                    <span class="chip">Esta semana</span>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="input-label mb-2 block">Precio</label>
+                <input type="range" class="w-full">
+                <div class="flex justify-between text-xs text-sec mt-1">
+                    <span>$10k</span>
+                    <span>$50k+</span>
+                </div>
+            </div>
+
+            <button class="btn btn-secondary w-full text-sm">Limpiar filtros</button>
+        </div>
+    </div>
+
+    <!-- Results List -->
+    <div class="col-span-9 mobile-col-span-12">
+
+        <!-- Search Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h2 style="font-size: 20px;">32 especialistas encontrados</h2>
+            <div class="flex items-center gap-2 text-sm text-sec">
+                Ordenar por: <span class="font-medium text-main">Recomendados</span>
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-4">
+            <!-- Doctor Card 1 -->
+            <div class="doctor-card card p-0 flex hover-lift">
+                <div class="p-6 flex gap-6 flex-1 items-start">
+                    <div
+                        class="avatar-lg bg-soft-primary text-primary flex items-center justify-center rounded-full text-xl font-bold">
+                        LM</div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <h3>Dra. Laura Martínez</h3>
+                            <svg class="icon text-primary w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                            </svg>
+                        </div>
+                        <p class="text-sec text-sm mb-3">Cardiología • Adultos</p>
+
+                        <div class="flex items-center gap-4 text-sm mb-4">
+                            <span class="flex items-center gap-1 text-sec"><span class="stars text-warning">★ 4.9</span>
+                                (120)</span>
+                            <span class="flex items-center gap-1 text-sec">obs. $15.000</span>
+                        </div>
+
+                        <div class="flex gap-2">
+                            <span class="chip text-xs">Video</span>
+                            <span class="chip text-xs">Español</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Action Panel -->
+                <div class="availability-panel border-l p-6 bg-soft flex flex-col justify-center items-center gap-3"
+                    style="width: 200px;">
+                    <div class="text-center">
+                        <div class="text-xs font-bold text-success uppercase mb-1">Próximo turno</div>
+                        <div class="font-medium">Hoy, 15:30</div>
+                    </div>
+                    <a href="/doctors/1" class="btn btn-primary w-full text-sm">Reservar</a>
+                    <a href="/doctors/1" class="btn btn-tertiary w-full text-sm">Ver perfil</a>
+                </div>
+            </div>
+
+            <!-- Doctor Card 2 -->
+            <div class="doctor-card card p-0 flex hover-lift">
+                <div class="p-6 flex gap-6 flex-1 items-start">
+                    <div
+                        class="avatar-lg bg-soft-accent text-accent flex items-center justify-center rounded-full text-xl font-bold">
+                        JP</div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <h3>Dr. Jorge Pérez</h3>
+                        </div>
+                        <p class="text-sec text-sm mb-3">Dermatología • Niños y Adultos</p>
+
+                        <div class="flex items-center gap-4 text-sm mb-4">
+                            <span class="flex items-center gap-1 text-sec"><span class="stars text-warning">★ 4.8</span>
+                                (85)</span>
+                            <span class="flex items-center gap-1 text-sec">obs. $12.000</span>
+                        </div>
+
+                        <div class="flex gap-2">
+                            <span class="chip text-xs">Presencial</span>
+                            <span class="chip text-xs">Video</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Action Panel -->
+                <div class="availability-panel border-l p-6 bg-soft flex flex-col justify-center items-center gap-3"
+                    style="width: 200px;">
+                    <div class="text-center">
+                        <div class="text-xs font-bold text-success uppercase mb-1">Próximo turno</div>
+                        <div class="font-medium">Mañana, 09:00</div>
+                    </div>
+                    <a href="/doctors/2" class="btn btn-primary w-full text-sm">Reservar</a>
+                    <a href="/doctors/2" class="btn btn-tertiary w-full text-sm">Ver perfil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .sticky-top {
+        position: sticky;
+        top: 100px;
+    }
+
+    .avatar-lg {
+        width: 64px;
+        height: 64px;
+        min-width: 64px;
+    }
+
+    .text-warning {
+        color: var(--warning);
+    }
+
+    .border-l {
+        border-left: 1px solid var(--border-color);
+    }
+
+    .bg-soft {
+        background-color: #FBFBFD;
+    }
+
+    /* Responsive Search */
+    @media (max-width: 768px) {
+        .doctor-card {
+            flex-direction: column;
+        }
+
+        .availability-panel {
+            width: 100%;
+            border-left: none;
+            border-top: 1px solid var(--border-color);
+            padding: 16px;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .mobile-col-span-12 {
+            grid-column: span 12;
+        }
+    }
+</style>
+{% endblock %}

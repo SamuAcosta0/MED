@@ -1,0 +1,17 @@
+{% extends "layouts/patient_base.html" %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Historia Clínica</h2>
+        <button class="ghost-btn sm">
+            <i class="fa-solid fa-download"></i> Exportar
+        </button>
+    </div>
+
+    <div class="empty-state" style="text-align: center; padding: 48px; color: var(--text-sec);">
+        <i class="fa-solid fa-file-medical" style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;"></i>
+        <p>Aún no hay registros médicos disponibles.</p>
+    </div>
+</div>
+{% endblock %}

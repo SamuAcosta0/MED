@@ -1,220 +1,307 @@
-from __future__ import annotations
-
-from typing import Any, Dict, List, Optional, Sequence, Tuple
-
-import psycopg2
-from psycopg2.extras import RealDictCursor
-from flask import Flask, jsonify, render_template, request
-
-DB_CONFIG: Dict[str, Any] = {
-    "dbname": "nexo_precios",
-    "user": "TU_USUARIO_AQUI",
-    "password": "TU_PASSWORD_AQUI",
-    "host": "localhost",
-    "port": 5432,
-}
+from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from config import Config
+from models import db, User, Doctor, Patient, Appointment
 
 app = Flask(__name__)
+app.config.from_object(Config)
 
+# Initialize extensions
+db.init_app(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+login_manager.login_message = 'Por favor inicia sesión para acceder a esta página.'
 
-def get_connection() -> Optional[psycopg2.extensions.connection]:
-    """Crea y devuelve una conexión a la base de datos o None si falla."""
-    try:
-        return psycopg2.connect(**DB_CONFIG)
-    except psycopg2.Error as exc:
-        app.logger.error("No se pudo conectar a la base de datos: %s", exc)
-    except Exception as exc:  # noqa: BLE001
-        app.logger.exception("Error inesperado al conectar a la base de datos: %s", exc)
-    return None
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
-
-def run_query(
-    query: str,
-    params: Optional[Sequence[object]] = None,
-    fetch: str = "all",
-) -> Tuple[Optional[List[Dict[str, Any]]], Optional[str]]:
-    """Ejecuta una consulta y devuelve filas y un posible mensaje de error."""
-    connection = get_connection()
-    if connection is None:
-        return None, "No se pudo conectar a la base de datos."
-
-    try:
-        with connection:
-            with connection.cursor(cursor_factory=RealDictCursor) as cursor:
-                cursor.execute(query, params)
-                if fetch == "one":
-                    return cursor.fetchone(), None
-                return list(cursor.fetchall()), None
-    except psycopg2.Error as exc:
-        app.logger.error("Falló la ejecución de la consulta: %s", exc)
-        return None, "Ocurrió un problema al consultar la base de datos."
-    except Exception as exc:  # noqa: BLE001
-        app.logger.exception("Error inesperado durante la consulta: %s", exc)
-        return None, "Ocurrió un error inesperado durante la consulta."
-    finally:
-        connection.close()
-
-
-FILTER_FIELDS = {
-    "producto": "pr.nombre",
-    "barrio": "b.nombre_barrio",
-    "comercio": "c.nombre_comercio",
-}
-
-
-def build_filter_clause(args: Dict[str, str]) -> Tuple[str, List[object]]:
-    conditions: List[str] = []
-    params: List[object] = []
-
-    for field, column in FILTER_FIELDS.items():
-        value = args.get(field, "").strip()
-        if value:
-            conditions.append(f"{column} ILIKE %s")
-            params.append(f"%{value}%")
-
-    fecha_desde = args.get("fecha_desde", "").strip()
-    if fecha_desde:
-        conditions.append("p.fecha_captura >= %s")
-        params.append(fecha_desde)
-
-    fecha_hasta = args.get("fecha_hasta", "").strip()
-    if fecha_hasta:
-        conditions.append("p.fecha_captura <= %s")
-        params.append(fecha_hasta)
-
-    where_clause = " WHERE " + " AND ".join(conditions) if conditions else ""
-    return where_clause, params
-
-
-def fetch_price_rows(filters: Dict[str, str]) -> Tuple[List[Dict[str, Any]], Optional[str]]:
-    where_clause, params = build_filter_clause(filters)
-    query = f"
-        SELECT
-            p.id_precio,
-            pr.nombre AS producto,
-            pr.marca,
-            s.nombre_sucursal,
-            b.nombre_barrio,
-            c.nombre_comercio,
-            f.nombre_fuente,
-            p.precio_lista,
-            p.fecha_captura
-        FROM precio AS p
-        JOIN producto AS pr ON p.id_producto = pr.id_producto
-        JOIN sucursal AS s ON p.id_sucursal = s.id_sucursal
-        JOIN barrio AS b ON s.id_barrio = b.id_barrio
-        JOIN comercio AS c ON s.id_comercio = c.id_comercio
-        JOIN fuente_datos AS f ON p.id_fuente = f.id_fuente
-        {where_clause}
-        ORDER BY p.fecha_captura DESC, p.id_precio DESC;
-    ""
-
-    rows, error = run_query(query, params)
-    return rows or [], error
-
-
-def fetch_price_summary(filters: Dict[str, str]) -> Tuple[Dict[str, Any], Optional[str]]:
-    where_clause, params = build_filter_clause(filters)
-    query = f"
-        SELECT
-            MIN(p.precio_lista) AS precio_minimo,
-            MAX(p.precio_lista) AS precio_maximo,
-            AVG(p.precio_lista) AS precio_promedio,
-            COUNT(*) AS total_precios
-        FROM precio AS p
-        JOIN producto AS pr ON p.id_producto = pr.id_producto
-        JOIN sucursal AS s ON p.id_sucursal = s.id_sucursal
-        JOIN barrio AS b ON s.id_barrio = b.id_barrio
-        JOIN comercio AS c ON s.id_comercio = c.id_comercio
-        {where_clause};
-    ""
-
-    summary, error = run_query(query, params, fetch="one")
-    return summary or {}, error
-
+# --- PUBLIC ROUTES ---
 
 @app.route("/")
-def index() -> str:
-    filters = {
-        "producto": request.args.get("producto", ""),
-        "barrio": request.args.get("barrio", ""),
-        "comercio": request.args.get("comercio", ""),
-        "fecha_desde": request.args.get("fecha_desde", ""),
-        "fecha_hasta": request.args.get("fecha_hasta", ""),
-    }
+def home():
+    """Public Home"""
+    return render_template("home.html")
 
-    precios, price_error = fetch_price_rows(filters)
-    resumen, summary_error = fetch_price_summary(filters)
-    error = price_error or summary_error
+# --- AUTHENTICATION ROUTES ---
 
-    return render_template(
-        "index.html",
-        precios=precios,
-        resumen=resumen,
-        filtros=filters,
-        error=error,
-    )
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    """Login page with role-based redirect"""
+    if current_user.is_authenticated:
+        # Already logged in, redirect based on role
+        if current_user.role == 'doctor':
+            return redirect(url_for('doctor_dashboard'))
+        else:
+            return redirect(url_for('patient_dashboard'))
+    
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        remember = request.form.get('remember', False)
+        
+        user = User.query.filter_by(email=email).first()
+        
+        if user and user.check_password(password):
+            if not user.is_active:
+                flash('Tu cuenta ha sido desactivada. Contacta al soporte.', 'error')
+                return render_template("auth/login.html")
+            
+            login_user(user, remember=remember)
+            
+            # Redirect based on role
+            next_page = request.args.get('next')
+            if next_page:
+                return redirect(next_page)
+            
+            if user.role == 'doctor':
+                return redirect(url_for('doctor_dashboard'))
+            else:
+                return redirect(url_for('patient_dashboard'))
+        else:
+            flash('Email o contraseña incorrectos.', 'error')
+    
+    return render_template("auth/login.html")
 
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    """Registration page with role selection"""
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    
+    if request.method == 'POST':
+        role = request.form.get('role', 'patient')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        
+        # Check if user exists
+        if User.query.filter_by(email=email).first():
+            flash('Este email ya está registrado.', 'error')
+            return render_template("auth/register.html")
+        
+        # Create user
+        user = User(email=email, role=role)
+        user.set_password(password)
+        db.session.add(user)
+        db.session.flush()
+        
+        # Create profile based on role
+        if role == 'doctor':
+            doctor = Doctor(
+                user_id=user.id,
+                first_name=request.form.get('first_name', ''),
+                last_name=request.form.get('last_name', ''),
+                phone=request.form.get('phone', ''),
+                license_number=request.form.get('license_number', ''),
+                specialties=request.form.get('specialties', ''),
+                bio=request.form.get('bio', ''),
+                country=request.form.get('country', ''),
+                region=request.form.get('region', ''),
+                address=request.form.get('address', ''),
+                practice_regions=request.form.get('practice_regions', ''),
+                validation_status='pending'
+            )
+            db.session.add(doctor)
+        else:
+            patient = Patient(
+                user_id=user.id,
+                first_name=request.form.get('first_name', ''),
+                last_name=request.form.get('last_name', ''),
+                phone=request.form.get('phone', ''),
+                country=request.form.get('country', ''),
+                city=request.form.get('city', ''),
+                medical_history=request.form.get('medical_history', '')
+            )
+            db.session.add(patient)
+        
+        db.session.commit()
+        
+        flash('Cuenta creada exitosamente! Ya puedes iniciar sesión.', 'success')
+        return redirect(url_for('login'))
+    
+    return render_template("auth/register.html")
 
-@app.route("/api/sucursales")
-def api_sucursales() -> Any:
-    filters = {
-        "producto": request.args.get("producto", ""),
-        "barrio": request.args.get("barrio", ""),
-        "comercio": request.args.get("comercio", ""),
-        "fecha_desde": request.args.get("fecha_desde", ""),
-        "fecha_hasta": request.args.get("fecha_hasta", ""),
-    }
+@app.route("/logout")
+@login_required
+def logout():
+    """Logout current user"""
+    logout_user()
+    flash('Sesión cerrada exitosamente.', 'success')
+    return redirect(url_for('home'))
 
-    where_clause, params = build_filter_clause(filters)
+# --- PATIENT ROUTES ---
 
-    precio_minimo_expr = "MIN(p.precio_lista) AS precio_minimo" if filters.get("producto") else "NULL AS precio_minimo"
+@app.route("/me")
+@login_required
+def patient_dashboard():
+    """Patient Dashboard"""
+    if current_user.role != 'patient':
+        return redirect(url_for('doctor_dashboard'))
+    
+    patient = Patient.query.filter_by(user_id=current_user.id).first()
+    appointments = Appointment.query.filter_by(patient_id=patient.id).order_by(Appointment.date.desc()).all() if patient else []
+    
+    return render_template("patient/dashboard.html", 
+                         active_page='dashboard',
+                         patient=patient,
+                         appointments=appointments)
 
-    query = f"
-        SELECT
-            s.id_sucursal,
-            s.nombre_sucursal,
-            b.nombre_barrio,
-            c.nombre_comercio,
-            COUNT(p.id_precio) AS total_precios,
-            MAX(p.fecha_captura) AS ultima_captura,
-            {precio_minimo_expr}
-        FROM sucursal AS s
-        JOIN barrio AS b ON s.id_barrio = b.id_barrio
-        JOIN comercio AS c ON s.id_comercio = c.id_comercio
-        JOIN precio AS p ON p.id_sucursal = s.id_sucursal
-        JOIN producto AS pr ON p.id_producto = pr.id_producto
-        {where_clause}
-        GROUP BY s.id_sucursal, s.nombre_sucursal, b.nombre_barrio, c.nombre_comercio
-        HAVING COUNT(p.id_precio) > 0
-        ORDER BY ultima_captura DESC, total_precios DESC;
-    ""
+@app.route("/search")
+def search():
+    """Doctor Search"""
+    # Get all approved doctors
+    doctors = Doctor.query.filter_by(validation_status='approved').all()
+    return render_template("patient/search.html", 
+                         active_page='search',
+                         doctors=doctors)
 
-    rows, error = run_query(query, params)
-    if error is not None:
-        return jsonify({"error": error}), 500
+@app.route("/doctors/<int:doctor_id>")
+def doctor_profile(doctor_id):
+    """Doctor Profile"""
+    doctor = Doctor.query.get_or_404(doctor_id)
+    return render_template("patient/doctor_profile.html", 
+                         active_page='search',
+                         doctor=doctor)
 
-    return jsonify({"sucursales": rows})
+@app.route("/booking/<int:doctor_id>")
+@login_required
+def booking(doctor_id):
+    """Booking Stepper"""
+    if current_user.role != 'patient':
+        flash('Solo los pacientes pueden reservar citas.', 'error')
+        return redirect(url_for('home'))
+    
+    doctor = Doctor.query.get_or_404(doctor_id)
+    return render_template("patient/booking.html", 
+                         active_page='search',
+                         doctor=doctor)
 
+@app.route("/visit/<int:visit_id>/waiting-room")
+@login_required
+def waiting_room(visit_id):
+    """Waiting Room"""
+    appointment = Appointment.query.get_or_404(visit_id)
+    return render_template("patient/waiting_room.html", 
+                         active_page='appointments',
+                         appointment=appointment)
 
-@app.route("/api/precios")
-def api_precios() -> Any:
-    filters = {
-        "producto": request.args.get("producto", ""),
-        "barrio": request.args.get("barrio", ""),
-        "comercio": request.args.get("comercio", ""),
-        "fecha_desde": request.args.get("fecha_desde", ""),
-        "fecha_hasta": request.args.get("fecha_hasta", ""),
-    }
+@app.route("/patient/appointments")
+@login_required
+def patient_appointments():
+    """Patient Appointments"""
+    if current_user.role != 'patient':
+        return redirect(url_for('doctor_dashboard'))
+    return render_template("patient/appointments.html", active_page='appointments')
 
-    precios, price_error = fetch_price_rows(filters)
-    resumen, summary_error = fetch_price_summary(filters)
-    error = price_error or summary_error
-    if error is not None:
-        return jsonify({"error": error}), 500
+@app.route("/patient/records")
+@login_required
+def patient_records():
+    """Patient Medical Records"""
+    if current_user.role != 'patient':
+        return redirect(url_for('doctor_dashboard'))
+    return render_template("patient/records.html", active_page='records')
 
-    return jsonify({"precios": precios, "resumen": resumen})
+@app.route("/patient/profile")
+@login_required
+def patient_profile_view():
+    """Patient Profile"""
+    if current_user.role != 'patient':
+        return redirect(url_for('doctor_dashboard'))
+    return render_template("patient/profile.html", active_page='profile')
 
+# --- DOCTOR ROUTES ---
+
+@app.route("/doctor")
+@login_required
+def doctor_dashboard():
+    """Doctor Dashboard - Resumen"""
+    if current_user.role != 'doctor':
+        return redirect(url_for('patient_dashboard'))
+    
+    doctor = Doctor.query.filter_by(user_id=current_user.id).first()
+    
+    # Get statistics
+    total_patients = Appointment.query.filter_by(doctor_id=doctor.id).distinct(Appointment.patient_id).count() if doctor else 0
+    today_appointments = Appointment.query.filter_by(
+        doctor_id=doctor.id,
+        date=db.func.current_date()
+    ).all() if doctor else []
+    
+    return render_template("doctor/dashboard.html", 
+                         doctor=doctor,
+                         total_patients=total_patients,
+                         today_appointments=today_appointments)
+
+@app.route("/doctor/profile")
+@login_required
+def doctor_profile_view():
+    """Doctor Profile View/Edit"""
+    if current_user.role != 'doctor':
+        return redirect(url_for('patient_dashboard'))
+    
+    doctor = Doctor.query.filter_by(user_id=current_user.id).first()
+    return render_template("doctor/profile.html", doctor=doctor)
+
+@app.route("/doctor/patients")
+@login_required
+def doctor_patients():
+    """Doctor Patients List"""
+    if current_user.role != 'doctor':
+        return redirect(url_for('patient_dashboard'))
+    
+    doctor = Doctor.query.filter_by(user_id=current_user.id).first()
+    patients = Patient.query.join(Appointment).filter(
+        Appointment.doctor_id == doctor.id
+    ).distinct().all() if doctor else []
+    
+    return render_template("doctor/patients.html", 
+                         doctor=doctor,
+                         patients=patients)
+
+@app.route("/doctor/calendar")
+@login_required
+def doctor_calendar():
+    """Doctor Calendar/Agenda"""
+    if current_user.role != 'doctor':
+        return redirect(url_for('patient_dashboard'))
+    
+    doctor = Doctor.query.filter_by(user_id=current_user.id).first()
+    appointments = Appointment.query.filter_by(doctor_id=doctor.id).all() if doctor else []
+    
+    return render_template("doctor/calendar.html", 
+                         doctor=doctor,
+                         appointments=appointments)
+
+@app.route("/doctor/records")
+@login_required
+def doctor_records():
+    """Doctor Medical Records"""
+    if current_user.role != 'doctor':
+        return redirect(url_for('patient_dashboard'))
+    
+    doctor = Doctor.query.filter_by(user_id=current_user.id).first()
+    return render_template("doctor/records.html", doctor=doctor)
+
+@app.route("/doctor/privacy")
+@login_required
+def doctor_privacy():
+    """Doctor Privacy & Security"""
+    if current_user.role != 'doctor':
+        return redirect(url_for('patient_dashboard'))
+    
+    doctor = Doctor.query.filter_by(user_id=current_user.id).first()
+    return render_template("doctor/privacy.html", doctor=doctor)
+
+@app.route("/doctor/settings")
+@login_required
+def doctor_settings():
+    """Doctor Settings"""
+    if current_user.role != 'doctor':
+        return redirect(url_for('patient_dashboard'))
+    
+    doctor = Doctor.query.filter_by(user_id=current_user.id).first()
+    return render_template("doctor/settings.html", doctor=doctor)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5000)

@@ -1,0 +1,89 @@
+{% extends "layouts/doctor_base.html" %}
+
+{% block content %}
+<header class="dashboard-header">
+    <div>
+        <p class="tag">Mi cuenta</p>
+        <h1>Perfil Profesional</h1>
+    </div>
+    <div class="header-actions">
+        <button class="primary-btn">Guardar cambios</button>
+    </div>
+</header>
+
+<div class="card">
+    <div class="card-header">
+        <h2>Información Personal</h2>
+    </div>
+
+    <div class="form-grid" style="grid-template-columns: repeat(2, 1fr); padding: 0;">
+        <div>
+            <label class="d-block mb-2 font-600">Nombre</label>
+            <input type="text" value="{{ doctor.first_name }}" class="w-full p-3 border rounded" readonly>
+        </div>
+        <div>
+            <label class="d-block mb-2 font-600">Apellido</label>
+            <input type="text" value="{{ doctor.last_name }}" class="w-full p-3 border rounded" readonly>
+        </div>
+        <div>
+            <label class="d-block mb-2 font-600">Email</label>
+            <input type="email" value="{{ current_user.email }}" class="w-full p-3 border rounded" readonly>
+        </div>
+        <div>
+            <label class="d-block mb-2 font-600">Teléfono</label>
+            <input type="text" value="{{ doctor.phone }}" class="w-full p-3 border rounded">
+        </div>
+    </div>
+</div>
+
+<div class="card" style="margin-top: 24px;">
+    <div class="card-header">
+        <h2>Información Profesional</h2>
+    </div>
+
+    <div class="form-grid" style="grid-template-columns: repeat(2, 1fr); padding: 0;">
+        <div>
+            <label class="d-block mb-2 font-600">Matrícula / Licencia</label>
+            <input type="text" value="{{ doctor.license_number }}" class="w-full p-3 border rounded" readonly>
+        </div>
+        <div>
+            <label class="d-block mb-2 font-600">Especialidades</label>
+            <input type="text" value="{{ doctor.specialties }}" class="w-full p-3 border rounded">
+        </div>
+        <div style="grid-column: span 2;">
+            <label class="d-block mb-2 font-600">Biografía</label>
+            <textarea class="w-full p-3 border rounded" rows="4">{{ doctor.bio }}</textarea>
+        </div>
+    </div>
+</div>
+
+<style>
+    .w-full {
+        width: 100%;
+    }
+
+    .p-3 {
+        padding: 0.75rem;
+    }
+
+    .border {
+        border: 1px solid var(--border-color);
+    }
+
+    .rounded {
+        border-radius: var(--radius-md);
+    }
+
+    .mb-2 {
+        margin-bottom: 0.5rem;
+    }
+
+    .font-600 {
+        font-weight: 600;
+    }
+
+    .d-block {
+        display: block;
+    }
+</style>
+{% endblock %}
