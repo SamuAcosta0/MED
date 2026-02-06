@@ -1,0 +1,86 @@
+{% extends "layouts/patient.html" %}
+
+{% block title %}Sala de Espera | CareConnect{% endblock %}
+{% block header_title %}Sala de Espera{% endblock %}
+
+{% block content %}
+<div class="container-fluid flex items-center justify-center" style="min-height: 80vh;">
+
+    <div class="card p-8 text-center max-w-lg w-full relative overflow-hidden">
+        <!-- Background accents -->
+        <div class="absolute top-0 left-0 w-full h-2 bg-primary"></div>
+
+        <div class="mb-6">
+            <div
+                class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-soft-primary text-primary mb-4 p-4">
+                <svg class="icon w-10 h-10 animate-pulse" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                </svg>
+            </div>
+            <h1 class="h3 mb-2">Tu consulta está por comenzar</h1>
+            <p class="text-sec">Tu turno: <span class="font-bold text-main">15:30 hs</span></p>
+        </div>
+
+        <div class="card bg-soft-primary border-0 p-4 mb-6 text-left">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="avatar-sm bg-white text-primary flex items-center justify-center rounded-full font-bold">LM
+                </div>
+                <div class="font-medium">Dra. Laura Martínez está revisando tu historial...</div>
+            </div>
+            <div class="w-full bg-white rounded-full h-1.5 overflow-hidden">
+                <div class="bg-primary h-full rounded-full" style="width: 70%;"></div>
+            </div>
+            <div class="text-right text-xs text-primary mt-1 font-medium">~3 min de espera</div>
+        </div>
+
+        <div class="flex flex-col gap-3 mb-8">
+            <div class="flex items-center justify-between p-3 border rounded-lg bg-white">
+                <div class="flex items-center gap-3">
+                    <svg class="icon text-success" width="20" height="20" viewBox="0 0 24 24">
+                        <path d="M23 7l-7 5 7 5V7z" />
+                        <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                    </svg>
+                    <span class="text-sm font-medium">Cámara</span>
+                </div>
+                <span class="badge bg-green-100 text-success text-xs px-2 py-1 rounded">Listo</span>
+            </div>
+            <div class="flex items-center justify-between p-3 border rounded-lg bg-white">
+                <div class="flex items-center gap-3">
+                    <svg class="icon text-success" width="20" height="20" viewBox="0 0 24 24">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                        <line x1="12" y1="19" x2="12" y2="23" />
+                        <line x1="8" y1="23" x2="16" y2="23" />
+                    </svg>
+                    <span class="text-sm font-medium">Micrófono</span>
+                </div>
+                <span class="badge bg-green-100 text-success text-xs px-2 py-1 rounded">Listo</span>
+            </div>
+        </div>
+
+        <button class="btn btn-primary w-full py-3 text-lg shadow-lg shadow-primary-20">Probar audio y video</button>
+        <p class="text-xs text-sec mt-4">Si tienes problemas, <a href="#" class="text-primary underline">contacta a
+                soporte</a>.</p>
+    </div>
+
+</div>
+
+<style>
+    .animate-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    @keyframes pulse {
+
+        0%,
+        100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: .5;
+        }
+    }
+</style>
+{% endblock %}

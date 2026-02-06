@@ -1,0 +1,27 @@
+{% extends "layouts/doctor_base.html" %}
+
+{% block content %}
+<header class="dashboard-header">
+    <div>
+        <p class="tag">Seguridad</p>
+        <h1>Privacidad y Consentimiento</h1>
+    </div>
+</header>
+<div class="card">
+    <h3>Documentos legales</h3>
+    <ul style="margin-top: 16px; list-style: none; padding: 0;">
+        <li
+            style="padding: 16px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+            <span><i class="fa-solid fa-file-contract" style="margin-right: 12px; color: var(--text-sec);"></i> Términos
+                de uso profesional</span>
+            <button class="ghost-btn">Ver</button>
+        </li>
+        <li
+            style="padding: 16px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+            <span><i class="fa-solid fa-file-shield" style="margin-right: 12px; color: var(--text-sec);"></i> Política
+                de privacidad de datos</span>
+            <button class="ghost-btn">Ver</button>
+        </li>
+    </ul>
+</div>
+{% endblock %}

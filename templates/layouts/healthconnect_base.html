@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Gregos | Cuidado médico premium{% endblock %}</title>
+
+    <!-- Health Connect Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/healthconnect.css') }}">
+
+    <!-- Fonts -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body{% block body_class %}{% endblock %}>
+    <div id="cursor-shadow"></div>
+
+    {% block header %}
+    <header class="site-header">
+        <nav class="navbar">
+            <div class="logo">
+                <span class="logo-mark"><i class="fa-solid fa-heart-pulse"></i></span>
+                <div>
+                    <p class="logo-title">Gregos</p>
+                    <p class="logo-subtitle">Cuidado médico premium</p>
+                </div>
+            </div>
+
+            <button class="menu-toggle" aria-label="Abrir menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="nav-links">
+                <a href="/#inicio">Inicio</a>
+                <a href="/#quienes-somos">Quiénes somos</a>
+                <a href="/#precios">Planes</a>
+                <a href="/#especialidades">Especialidades</a>
+                <a href="/#aliados">Aliados</a>
+                <a href="/#contacto">Contacto</a>
+            </div>
+
+            <div class="nav-actions">
+                {% if current_user.is_authenticated %}
+                {% if current_user.role == 'doctor' %}
+                <a href="{{ url_for('doctor_dashboard') }}" class="ghost-btn">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    Panel Médico
+                </a>
+                {% else %}
+                <a href="{{ url_for('patient_dashboard') }}" class="ghost-btn">
+                    <i class="fa-solid fa-user"></i>
+                    Mi Panel
+                </a>
+                {% endif %}
+                <a href="{{ url_for('logout') }}" class="primary-btn">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Cerrar Sesión
+                </a>
+                {% else %}
+                <!-- Botones que activan los modales (data-open-modal) -->
+                <button class="ghost-btn" data-open-modal="login">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    Ingresar
+                </button>
+                <button class="primary-btn" data-open-modal="register">
+                    <i class="fa-solid fa-user-plus"></i>
+                    Registrarse
+                </button>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+    {% endblock %}
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block footer %}
+    <footer id="contacto" class="site-footer">
+        <div class="footer-grid">
+            <div>
+                <h3>Gregos</h3>
+                <p>Ubicación: Av. Central 820, Ciudad Médica.</p>
+                <p>Contacto: +1 (555) 456-9800</p>
+                <p>Correo: contacto@gregos.com</p>
+            </div>
+            <div>
+                <h4>Explorar</h4>
+                <ul>
+                    <li><a href="/#inicio">Inicio</a></li>
+                    <li><a href="/#quienes-somos">Quiénes somos</a></li>
+                    <li><a href="/#especialidades">Especialidades</a></li>
+                    <li><a href="/#aliados">Aliados</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Servicios</h4>
+                <ul>
+                    <li><a href="#">Telemedicina</a></li>
+                    <li><a href="#">Agenda digital</a></li>
+                    <li><a href="#">Historia clínica</a></li>
+                    <li><a href="#">Pagos seguros</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Términos y condiciones</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                    <li><a href="#">Certificaciones</a></li>
+                </ul>
+            </div>
+        </div>
+        <p class="footer-bottom">
+            © 2024 Gregos. Todos los derechos reservados.
+        </p>
+    </footer>
+    {% endblock %}
+
+    <!-- Health Connect JS -->
+    <script src="{{ url_for('static', filename='js/healthconnect.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+    </body>
+
+</html>

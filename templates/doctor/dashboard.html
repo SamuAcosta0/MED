@@ -1,0 +1,152 @@
+{% extends "layouts/doctor_base.html" %}
+
+{% block content %}
+<header class="dashboard-header">
+    <div>
+        <p class="tag">Bienvenido, {{ current_user.doctor_profile.first_name }} {{ current_user.doctor_profile.last_name
+            }}</p>
+        <h1>Panel médico profesional</h1>
+        <p class="header-subtitle">
+            {{ current_user.doctor_profile.specialties }} · ID {{ current_user.doctor_profile.license_number }} ·
+            Estado: {{ current_user.doctor_profile.validation_status|upper }}
+        </p>
+    </div>
+    <div class="header-actions">
+        <a href="{{ url_for('doctor_profile_view') }}" class="ghost-btn">Editar perfil</a>
+        <button class="primary-btn">Iniciar videollamada</button>
+    </div>
+</header>
+
+<section class="dashboard-metrics">
+    <article>
+        <div>
+            <h3>{{ total_patients }}</h3>
+            <p>Pacientes activos</p>
+        </div>
+        <i class="fa-solid fa-user-group"></i>
+    </article>
+    <article>
+        <div>
+            <h3>{{ today_appointments|length }}</h3>
+            <p>Consultas hoy</p>
+        </div>
+        <i class="fa-solid fa-stethoscope"></i>
+    </article>
+    <article>
+        <div>
+            <h3>0</h3>
+            <p>Mensajes pendientes</p>
+        </div>
+        <i class="fa-solid fa-comments"></i>
+    </article>
+    <article>
+        <div>
+            <h3>5.0</h3>
+            <p>Calificación promedio</p>
+        </div>
+        <i class="fa-solid fa-star"></i>
+    </article>
+</section>
+
+<!-- Panel Nav for Mobile / Quick Access could go here if needed, but sidebar handles main nav -->
+
+<section class="dashboard-grid">
+    <div class="card">
+        <div class="card-header">
+            <h2>Resumen ejecutivo</h2>
+            <button class="ghost-btn">Descargar reporte</button>
+        </div>
+        <p>
+            Seguimiento general del desempeño clínico, niveles de satisfacción y progreso de los
+            pacientes activos.
+        </p>
+        <div class="metrics-grid">
+            <div>
+                <h3>{{ total_patients }}</h3>
+                <p>Consultas completadas</p>
+            </div>
+            <div>
+                <h3>0</h3>
+                <p>Casos en revisión</p>
+            </div>
+            <div>
+                <h3>0</h3>
+                <p>Derivaciones</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>Próximos turnos</h2>
+            <a href="{{ url_for('doctor_calendar') }}" class="ghost-btn">Ver agenda completa</a>
+        </div>
+
+        {% if today_appointments %}
+        <div class="appointments-list">
+            {% for apt in today_appointments %}
+            <div class="appointment-item">
+                <div class="apt-time">{{ apt.time.strftime('%H:%M') }}</div>
+                <div class="apt-details">
+                    <h4>{{ apt.patient.first_name }} {{ apt.patient.last_name }}</h4>
+                    <p>{{ apt.type }}</p>
+                </div>
+                <div class="apt-status {{ apt.status }}">{{ apt.status }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <i class="fa-solid fa-calendar-day"></i>
+            <p>No tienes turnos programados para hoy.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<style>
+    .appointments-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 16px;
+    }
+
+    .appointment-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 12px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+    }
+
+    .apt-time {
+        font-weight: 700;
+        color: var(--primary);
+    }
+
+    .apt-details h4 {
+        margin: 0;
+        font-size: 14px;
+    }
+
+    .apt-details p {
+        margin: 0;
+        font-size: 12px;
+        color: var(--text-sec);
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 32px;
+        color: var(--text-sec);
+    }
+
+    .empty-state i {
+        font-size: 32px;
+        margin-bottom: 12px;
+        opacity: 0.5;
+    }
+</style>
+{% endblock %}
