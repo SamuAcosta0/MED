@@ -1,0 +1,184 @@
+{% extends "layouts/patient.html" %}
+
+{% block title %}Dra. Laura Martínez | CareConnect{% endblock %}
+{% block header_title %}Perfil Profesional{% endblock %}
+
+{% block content %}
+<div class="container-fluid" style="max-width: 1000px;">
+
+    <a href="/search" class="text-sec text-sm mb-6 flex items-center gap-2 hover:text-primary">
+        <svg class="icon w-4 h-4" viewBox="0 0 24 24">
+            <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        Volver a la lista
+    </a>
+
+    <div class="grid grid-cols-12 gap-8">
+
+        <!-- Left: Details -->
+        <div class="col-span-8 mobile-col-span-12">
+
+            <!-- Main Card -->
+            <div class="card mb-6">
+                <div class="flex gap-6 items-start mobile-flex-col">
+                    <div
+                        class="avatar-xl bg-soft-primary text-primary flex items-center justify-center rounded-full text-2xl font-bold">
+                        LM</div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h1 class="h2 mb-1">Dra. Laura Martínez</h1>
+                                <p class="text-sec mb-2">Cardiología • MN 123.456</p>
+                                <div class="flex items-center gap-2 mb-4">
+                                    <span
+                                        class="badge bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-semibold">VERIFICADO</span>
+                                    <span class="text-sm text-sec flex items-center gap-1">★ 4.9 (120 reseñas)</span>
+                                </div>
+                            </div>
+                            <div class="text-right hidden-mobile">
+                                <div class="text-lg font-bold text-primary">$15.000</div>
+                                <div class="text-xs text-sec">por consulta</div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-2">
+                            <span class="chip">Español</span>
+                            <span class="chip">Inglés</span>
+                            <span class="chip">Adultos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About -->
+            <div class="mb-8">
+                <h3>Sobre mí</h3>
+                <p class="text-sec leading-relaxed">
+                    Especialista en cardiología clínica e insuficiencia cardíaca con más de 10 años de experiencia.
+                    Me enfoco en la prevención cardiovascular y el tratamiento de patologías crónicas.
+                    Mi objetivo es brindar una atención empática y basada en la última evidencia científica.
+                </p>
+                <p class="text-sec leading-relaxed">
+                    Ex-jefa de residentes del Hospital Italiano. Miembro de la Sociedad Argentina de Cardiología.
+                </p>
+            </div>
+
+            <!-- Reviews -->
+            <div>
+                <h3>Reseñas de pacientes</h3>
+                <div class="flex flex-col gap-4 mt-4">
+                    <div class="card card-ghost p-0 border-b pb-4 rounded-none">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium">Sofía M.</span>
+                            <span class="text-sec text-xs">Hace 2 días</span>
+                        </div>
+                        <div class="stars text-warning text-sm mb-2">★★★★★</div>
+                        <p class="text-sec text-sm">"Excelente atención, muy clara en sus explicaciones. Me sentí muy
+                            cómoda durante la videoconsulta."</p>
+                    </div>
+                    <div class="card card-ghost p-0 border-b pb-4 rounded-none">
+                        <div class="flex justify-between mb-2">
+                            <span class="font-medium">Julián R.</span>
+                            <span class="text-sec text-xs">Hace 5 días</span>
+                        </div>
+                        <div class="stars text-warning text-sm mb-2">★★★★★</div>
+                        <p class="text-sec text-sm">"Muy puntual y profesional. Resolvió todas mis dudas."</p>
+                    </div>
+                </div>
+                <button class="btn btn-tertiary w-full mt-2">Ver más reseñas</button>
+            </div>
+        </div>
+
+        <!-- Right: Booking Widget -->
+        <div class="col-span-4 mobile-col-span-12">
+            <div class="card p-6 sticky-top">
+                <h3 class="h4 mb-4">Reservar turno</h3>
+
+                <div class="mb-4">
+                    <label class="input-label mb-2 block">Modalidad</label>
+                    <div class="flex gap-2">
+                        <button class="flex-1 btn btn-secondary text-sm active">Video</button>
+                        <button class="flex-1 btn btn-tertiary text-sm border">Presencial</button>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="input-label mb-2 block">Seleccionar horario</label>
+                    <div class="calendar-mini mb-3 p-3 bg-soft rounded border text-center">
+                        <div class="font-bold mb-2">Enero 2026</div>
+                        <!-- Mock Calendar Row -->
+                        <div class="flex justify-between text-xs text-center">
+                            <div class="p-1">L</div>
+                            <div class="p-1">M</div>
+                            <div class="p-1">M</div>
+                            <div class="p-1">J</div>
+                            <div class="p-1">V</div>
+                            <div class="p-1">S</div>
+                            <div class="p-1">D</div>
+                        </div>
+                        <div class="flex justify-between text-sm text-center mt-1">
+                            <div class="p-1 text-sec">26</div>
+                            <div class="p-1 text-sec">27</div>
+                            <div
+                                class="p-1 bg-primary text-white rounded-full w-7 h-7 flex items-center justify-center mx-auto">
+                                28</div>
+                            <div class="p-1">29</div>
+                            <div class="p-1">30</div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2">
+                        <button class="btn btn-secondary text-xs px-1">15:30</button>
+                        <button class="btn btn-tertiary text-xs border px-1">16:00</button>
+                        <button class="btn btn-tertiary text-xs border px-1">16:30</button>
+                        <button class="btn btn-tertiary text-xs border px-1">17:00</button>
+                    </div>
+                </div>
+
+                <a href="/booking/1" class="btn btn-primary w-full shadow-lg shadow-primary-20">
+                    Confirmar turno
+                </a>
+                <div class="text-center mt-3 text-xs text-sec">
+                    Garantía de reembolso por cancelación
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .sticky-top {
+        position: sticky;
+        top: 32px;
+    }
+
+    .avatar-xl {
+        width: 80px;
+        height: 80px;
+        min-width: 80px;
+    }
+
+    /* .mobile-flex-col {} */
+
+    .bg-soft {
+        background-color: #F9FAFB;
+    }
+
+    .shadow-primary-20 {
+        box-shadow: 0 10px 25px rgba(30, 94, 255, 0.25);
+    }
+
+    @media (max-width: 768px) {
+        .mobile-flex-col {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .mobile-col-span-12 {
+            grid-column: span 12;
+        }
+    }
+</style>
+{% endblock %}
