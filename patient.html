@@ -14,83 +14,637 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
   </head>
-  <body class="dashboard-body">
-    <div class="dashboard">
-      <aside class="sidebar">
+  <body class="patient-body">
+    <header class="site-header">
+      <nav class="navbar patient-topbar">
         <div class="logo">
           <span class="logo-mark"><i class="fa-solid fa-heart-pulse"></i></span>
           <div>
             <p class="logo-title">Health Connect</p>
-            <p class="logo-subtitle">Panel paciente</p>
+            <p class="logo-subtitle" data-i18n-es="Panel paciente" data-i18n-en="Patient portal">
+              Panel paciente
+            </p>
           </div>
         </div>
-        <nav class="sidebar-nav">
-          <a class="active" href="#">
-            <i class="fa-solid fa-house"></i>
+        <div class="patient-links" data-patient-nav>
+          <button class="nav-link active" data-patient-target="home" data-i18n-es="Inicio" data-i18n-en="Home">
             Inicio
-          </a>
-          <a href="#">
-            <i class="fa-solid fa-user"></i>
-            Mi perfil
-          </a>
-          <a href="#">
-            <i class="fa-solid fa-calendar-check"></i>
-            Citas
-          </a>
-          <a href="#">
-            <i class="fa-solid fa-file-waveform"></i>
-            Historial
-          </a>
-          <a href="#">
-            <i class="fa-solid fa-comments"></i>
-            Mensajes
-          </a>
-        </nav>
-        <div class="account-actions">
-          <button class="ghost-btn">
-            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-            Cerrar sesión
+          </button>
+          <button
+            class="nav-link"
+            data-patient-target="search"
+            data-i18n-es="Buscar médicos"
+            data-i18n-en="Find doctors"
+          >
+            Buscar médicos
+          </button>
+          <button
+            class="nav-link"
+            data-patient-target="appointments"
+            data-i18n-es="Mis turnos"
+            data-i18n-en="Appointments"
+          >
+            Mis turnos
+          </button>
+          <button
+            class="nav-link"
+            data-patient-target="records"
+            data-i18n-es="Historia clínica"
+            data-i18n-en="Medical records"
+          >
+            Historia clínica
           </button>
         </div>
-      </aside>
+        <div class="top-actions">
+          <div class="language-toggle">
+            <button class="active" data-lang="es">ES</button>
+            <button data-lang="en">EN</button>
+          </div>
+          <div class="profile-menu-wrapper">
+            <button class="profile-button" data-profile-toggle>
+              <img
+                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=facearea&w=60&h=60&q=80"
+                alt="Perfil"
+              />
+              <span data-i18n-es="Mi perfil" data-i18n-en="My profile">Mi perfil</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="profile-menu" data-profile-menu>
+              <button data-patient-target="profile" data-i18n-es="Mi perfil" data-i18n-en="My profile">
+                Mi perfil
+              </button>
+              <button data-i18n-es="Configuración" data-i18n-en="Settings">Configuración</button>
+              <button data-i18n-es="Cerrar sesión" data-i18n-en="Log out">Cerrar sesión</button>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
 
-      <main class="dashboard-main">
-        <header class="dashboard-header">
+    <main class="patient-main">
+      <section class="patient-panel active" data-patient-panel="home">
+        <div class="panel-header">
           <div>
-            <p class="tag">Bienvenida, Lucía Pérez</p>
-            <h1>Tu espacio de salud</h1>
-            <p class="header-subtitle">Resumen de tus citas, tratamientos y comunicación médica.</p>
+            <p class="tag" data-i18n-es="Bienvenida, Lucía Pérez" data-i18n-en="Welcome, Lucía Pérez">
+              Bienvenida, Lucía Pérez
+            </p>
+            <h1 data-i18n-es="Tu espacio de salud" data-i18n-en="Your health space">
+              Tu espacio de salud
+            </h1>
+            <p
+              class="header-subtitle"
+              data-i18n-es="Resumen de tus citas, tratamientos y comunicación médica."
+              data-i18n-en="Overview of your appointments, treatments, and medical communication."
+            >
+              Resumen de tus citas, tratamientos y comunicación médica.
+            </p>
           </div>
           <div class="header-actions">
-            <button class="ghost-btn">Editar perfil</button>
-            <button class="primary-btn">Agendar cita</button>
+            <button class="ghost-btn" data-i18n-es="Editar perfil" data-i18n-en="Edit profile">
+              Editar perfil
+            </button>
+            <button
+              class="primary-btn"
+              data-patient-switch="search"
+              data-i18n-es="Nuevo turno"
+              data-i18n-en="Book appointment"
+            >
+              Nuevo turno
+            </button>
           </div>
-        </header>
+        </div>
 
-        <section class="dashboard-grid">
+        <div class="patient-grid">
           <div class="card">
             <div class="card-header">
-              <h2>Próxima consulta</h2>
+              <h2 data-i18n-es="Próxima consulta" data-i18n-en="Next appointment">Próxima consulta</h2>
+              <button class="secondary-btn" data-i18n-es="Ver agenda" data-i18n-en="View agenda">
+                Ver agenda
+              </button>
             </div>
             <p>12/04/2024 · 10:00 AM · Dra. Valentina Ortiz</p>
-            <button class="primary-btn">Ingresar a videollamada</button>
+            <button class="primary-btn" data-i18n-es="Ingresar a videollamada" data-i18n-en="Join video call">
+              Ingresar a videollamada
+            </button>
           </div>
           <div class="card">
             <div class="card-header">
-              <h2>Tratamiento actual</h2>
+              <h2 data-i18n-es="Accesos rápidos" data-i18n-en="Quick actions">Accesos rápidos</h2>
             </div>
-            <p>Plan cardiovascular · Seguimiento quincenal.</p>
+            <div class="quick-actions">
+              <button>
+                <i class="fa-solid fa-calendar-plus"></i>
+                <span data-i18n-es="Agendar" data-i18n-en="Book">Agendar</span>
+              </button>
+              <button>
+                <i class="fa-solid fa-file-medical"></i>
+                <span data-i18n-es="Historial" data-i18n-en="Records">Historial</span>
+              </button>
+              <button>
+                <i class="fa-solid fa-comments"></i>
+                <span data-i18n-es="Mensajes" data-i18n-en="Messages">Mensajes</span>
+              </button>
+              <button>
+                <i class="fa-solid fa-heart"></i>
+                <span data-i18n-es="Tratamientos" data-i18n-en="Treatments">Tratamientos</span>
+              </button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h2 data-i18n-es="Mensajes nuevos" data-i18n-en="New messages">Mensajes nuevos</h2>
+            </div>
+            <p data-i18n-es="2 conversaciones activas" data-i18n-en="2 active conversations">
+              2 conversaciones activas
+            </p>
             <div class="profile-summary">
-              <h4>Resumen IA</h4>
-              <p>
+              <h4 data-i18n-es="Resumen IA" data-i18n-en="AI summary">Resumen IA</h4>
+              <p
+                data-i18n-es="Evolución estable, sin eventos críticos. Mantener hidratación y registrar síntomas diarios."
+                data-i18n-en="Stable progress, no critical events. Maintain hydration and track symptoms daily."
+              >
                 Evolución estable, sin eventos críticos. Mantener hidratación y registrar síntomas
                 diarios.
               </p>
             </div>
           </div>
-        </section>
-      </main>
-    </div>
+          <div class="card">
+            <div class="card-header">
+              <h2 data-i18n-es="Agenda" data-i18n-en="Agenda">Agenda</h2>
+            </div>
+            <ul class="agenda">
+              <li>
+                <span>10:00</span>
+                <div>
+                  <h4 data-i18n-es="Consulta cardiología" data-i18n-en="Cardiology consult">
+                    Consulta cardiología
+                  </h4>
+                  <p data-i18n-es="Dra. Valentina Ortiz" data-i18n-en="Dr. Valentina Ortiz">
+                    Dra. Valentina Ortiz
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span>16:00</span>
+                <div>
+                  <h4 data-i18n-es="Control nutricional" data-i18n-en="Nutrition check-in">
+                    Control nutricional
+                  </h4>
+                  <p data-i18n-es="Lic. Marina López" data-i18n-en="Lic. Marina López">
+                    Lic. Marina López
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="patient-panel" data-patient-panel="search">
+        <div class="panel-header">
+          <div>
+            <h1 data-i18n-es="Buscar médicos" data-i18n-en="Find doctors">Buscar médicos</h1>
+            <p class="header-subtitle" data-i18n-es="Explora especialistas y agenda tu turno." data-i18n-en="Explore specialists and book your visit.">
+              Explora especialistas y agenda tu turno.
+            </p>
+          </div>
+          <button class="secondary-btn" data-filter-toggle data-i18n-es="Filtros" data-i18n-en="Filters">
+            Filtros
+          </button>
+        </div>
+
+        <form class="search-controls" data-search-form>
+          <div class="field">
+            <label class="sr-only" for="patient-search-specialty">Especialidad</label>
+            <i class="fa-solid fa-stethoscope"></i>
+            <input
+              id="patient-search-specialty"
+              type="text"
+              placeholder="Especialidad o condición"
+              data-i18n-placeholder-es="Especialidad o condición"
+              data-i18n-placeholder-en="Specialty or condition"
+              autocomplete="off"
+            />
+          </div>
+          <div class="field">
+            <label class="sr-only" for="patient-search-location">Ubicación</label>
+            <i class="fa-solid fa-location-dot"></i>
+            <input
+              id="patient-search-location"
+              type="text"
+              placeholder="Ciudad, barrio o código postal"
+              data-i18n-placeholder-es="Ciudad, barrio o código postal"
+              data-i18n-placeholder-en="City, neighborhood or postal code"
+              autocomplete="off"
+            />
+          </div>
+          <div class="field optional">
+            <label class="sr-only" for="patient-search-insurance">Sociedad médica</label>
+            <i class="fa-solid fa-shield"></i>
+            <input
+              id="patient-search-insurance"
+              type="text"
+              placeholder="Sociedad médica"
+              data-i18n-placeholder-es="Sociedad médica"
+              data-i18n-placeholder-en="Medical network"
+            />
+          </div>
+          <button class="primary-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span data-i18n-es="Buscar" data-i18n-en="Search">Buscar</span>
+          </button>
+        </form>
+        <p
+          class="search-alert"
+          data-search-alert
+          data-i18n-es="Ingresá especialidad o ubicación."
+          data-i18n-en="Enter a specialty or location."
+        >
+          Ingresá especialidad o ubicación.
+        </p>
+
+        <div class="filters-panel" data-filter-panel>
+          <div class="filters-header">
+            <h3 data-i18n-es="Filtros avanzados" data-i18n-en="Advanced filters">Filtros avanzados</h3>
+            <button class="ghost-btn" data-filter-toggle>×</button>
+          </div>
+          <div class="filters-grid">
+            <div>
+              <h4 data-i18n-es="Modalidad" data-i18n-en="Mode">Modalidad</h4>
+              <label>
+                <input type="checkbox" />
+                <span data-i18n-es="Presencial" data-i18n-en="In-person">Presencial</span>
+              </label>
+              <label>
+                <input type="checkbox" />
+                <span data-i18n-es="Videollamada" data-i18n-en="Video visit">Videollamada</span>
+              </label>
+            </div>
+            <div>
+              <h4 data-i18n-es="Género" data-i18n-en="Gender">Género</h4>
+              <label>
+                <input type="checkbox" />
+                <span data-i18n-es="Mujer" data-i18n-en="Woman">Mujer</span>
+              </label>
+              <label>
+                <input type="checkbox" />
+                <span data-i18n-es="Hombre" data-i18n-en="Man">Hombre</span>
+              </label>
+            </div>
+            <div>
+              <h4 data-i18n-es="Experiencia" data-i18n-en="Experience">Experiencia</h4>
+              <label>
+                <input type="checkbox" />
+                <span data-i18n-es="+5 años" data-i18n-en="+5 years">+5 años</span>
+              </label>
+              <label>
+                <input type="checkbox" />
+                <span data-i18n-es="+10 años" data-i18n-en="+10 years">+10 años</span>
+              </label>
+            </div>
+            <div>
+              <h4 data-i18n-es="Zona" data-i18n-en="Area">Zona</h4>
+              <label>
+                <input type="checkbox" />
+                <span data-i18n-es="Centro" data-i18n-en="Downtown">Centro</span>
+              </label>
+              <label>
+                <input type="checkbox" />
+                <span data-i18n-es="Costa" data-i18n-en="Coast">Costa</span>
+              </label>
+            </div>
+          </div>
+          <div class="filters-actions">
+            <button class="secondary-btn" data-clear-filters data-i18n-es="Limpiar" data-i18n-en="Clear">
+              Limpiar
+            </button>
+            <button class="primary-btn" data-i18n-es="Aplicar" data-i18n-en="Apply">Aplicar</button>
+          </div>
+        </div>
+
+        <div class="search-layout">
+          <section class="results">
+            <div class="results-header">
+              <div>
+                <h2 data-i18n-es="6 doctores" data-i18n-en="6 doctors">6 doctores</h2>
+                <p class="date-range">
+                  <button class="ghost-btn" aria-label="Rango anterior">
+                    <i class="fa-solid fa-chevron-left"></i>
+                  </button>
+                  Hoy - 18 Feb
+                  <button class="ghost-btn" aria-label="Rango siguiente">
+                    <i class="fa-solid fa-chevron-right"></i>
+                  </button>
+                </p>
+              </div>
+              <div class="results-actions">
+                <select aria-label="Ordenar resultados">
+                  <option data-i18n-es="Mejor calificados" data-i18n-en="Top rated">
+                    Mejor calificados
+                  </option>
+                  <option data-i18n-es="Más cercanos" data-i18n-en="Closest">Más cercanos</option>
+                  <option data-i18n-es="Primera disponibilidad" data-i18n-en="First available">
+                    Primera disponibilidad
+                  </option>
+                </select>
+                <button class="ghost-btn map-toggle" data-map-toggle>
+                  <i class="fa-solid fa-map-location-dot"></i>
+                  <span data-i18n-es="Ver mapa" data-i18n-en="View map">Ver mapa</span>
+                </button>
+              </div>
+            </div>
+
+            <article class="provider-card">
+              <div class="provider-info">
+                <img src="https://images.unsplash.com/photo-1502767089025-6572583495b4?auto=format&fit=facearea&w=100&h=100&q=80" alt="Doctor" />
+                <div>
+                  <h3>Dr. Chinedu Ngwudike, MD</h3>
+                  <p data-i18n-es="Medicina interna · Atención primaria" data-i18n-en="Internal medicine · Primary care">
+                    Medicina interna · Atención primaria
+                  </p>
+                  <div class="provider-meta">
+                    <span><i class="fa-solid fa-star"></i> 4.53 (1,467 reseñas)</span>
+                    <span><i class="fa-solid fa-video"></i> Video disponible</span>
+                    <span><i class="fa-solid fa-shield"></i> En red</span>
+                    <span class="link" data-i18n-es="Ver si está en tu red" data-i18n-en="Check if in-network">
+                      Ver si está en tu red
+                    </span>
+                  </div>
+                  <p
+                    class="note"
+                    data-i18n-es="Turnos para nuevos pacientes · Tiempo de espera: excelente"
+                    data-i18n-en="New patient visits · Excellent wait time"
+                  >
+                    Turnos para nuevos pacientes · Tiempo de espera: excelente
+                  </p>
+                </div>
+              </div>
+              <div class="card-actions">
+                <button class="secondary-btn">Ver perfil</button>
+              </div>
+              <div class="provider-slots">
+                <button class="slot highlight">Lun 9 · 65 turnos</button>
+                <button class="slot" disabled>Mar 10 · Sin turnos</button>
+                <button class="slot" disabled>Mié 11 · Sin turnos</button>
+                <button class="slot" disabled>Jue 12 · Sin turnos</button>
+                <button class="slot" disabled>Vie 13 · Sin turnos</button>
+                <button class="slot">Sáb 14 · Ver más</button>
+              </div>
+            </article>
+          </section>
+
+          <aside class="map-panel" data-map-panel>
+            <div class="map-header">
+              <button class="ghost-btn" data-map-toggle>
+                <i class="fa-solid fa-expand"></i>
+                <span data-i18n-es="Expandir mapa" data-i18n-en="Expand map">Expandir mapa</span>
+              </button>
+            </div>
+            <div class="map-frame">
+              <iframe
+                title="Mapa"
+                src="https://maps.google.com/maps?q=Montevideo&t=&z=12&ie=UTF8&iwloc=&output=embed"
+                loading="lazy"
+              ></iframe>
+            </div>
+            <div class="map-actions">
+              <button class="secondary-btn" data-i18n-es="Reservar turno" data-i18n-en="Book visit">
+                Reservar turno
+              </button>
+              <button class="primary-btn" data-i18n-es="Ver disponibilidad" data-i18n-en="View availability">
+                Ver disponibilidad
+              </button>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="patient-panel" data-patient-panel="appointments">
+        <div class="panel-header">
+          <div>
+            <h1 data-i18n-es="Mis turnos" data-i18n-en="Appointments">Mis turnos</h1>
+            <p class="header-subtitle" data-i18n-es="Tus próximas consultas y recordatorios." data-i18n-en="Your upcoming visits and reminders.">
+              Tus próximas consultas y recordatorios.
+            </p>
+          </div>
+        </div>
+        <div class="patient-grid">
+          <div class="card">
+            <div class="card-header">
+              <h2 data-i18n-es="Calendario" data-i18n-en="Calendar">Calendario</h2>
+            </div>
+            <div class="calendar-grid">
+              <div>
+                <span>Lun</span>
+                <p data-i18n-es="09:30 Consulta cardiología" data-i18n-en="09:30 Cardiology consult">
+                  09:30 Consulta cardiología
+                </p>
+              </div>
+              <div>
+                <span>Mar</span>
+                <p data-i18n-es="11:00 Control nutricional" data-i18n-en="11:00 Nutrition check-in">
+                  11:00 Control nutricional
+                </p>
+              </div>
+              <div>
+                <span>Mié</span>
+                <p data-i18n-es="Libre" data-i18n-en="Available">Libre</p>
+              </div>
+              <div>
+                <span>Jue</span>
+                <p data-i18n-es="15:00 Videollamada" data-i18n-en="15:00 Video visit">
+                  15:00 Videollamada
+                </p>
+              </div>
+              <div>
+                <span>Vie</span>
+                <p data-i18n-es="Libre" data-i18n-en="Available">Libre</p>
+              </div>
+              <div>
+                <span>Sáb</span>
+                <p data-i18n-es="Libre" data-i18n-en="Available">Libre</p>
+              </div>
+              <div>
+                <span>Dom</span>
+                <p data-i18n-es="Libre" data-i18n-en="Available">Libre</p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h2 data-i18n-es="Historial de turnos" data-i18n-en="Appointment history">Historial de turnos</h2>
+            </div>
+            <ul class="agenda">
+              <li>
+                <span>10:00</span>
+                <div>
+                  <h4 data-i18n-es="Chequeo general" data-i18n-en="General checkup">Chequeo general</h4>
+                  <p data-i18n-es="12/02/2024 · Clínica Central" data-i18n-en="02/12/2024 · Central Clinic">
+                    12/02/2024 · Clínica Central
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span>15:30</span>
+                <div>
+                  <h4 data-i18n-es="Consulta cardiología" data-i18n-en="Cardiology consult">
+                    Consulta cardiología
+                  </h4>
+                  <p data-i18n-es="22/01/2024 · Health Connect" data-i18n-en="01/22/2024 · Health Connect">
+                    22/01/2024 · Health Connect
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="patient-panel" data-patient-panel="records">
+        <div class="panel-header">
+          <div>
+            <h1 data-i18n-es="Historia clínica" data-i18n-en="Medical records">Historia clínica</h1>
+            <p class="header-subtitle" data-i18n-es="Documentos y reportes exportables." data-i18n-en="Documents and exportable reports.">
+              Documentos y reportes exportables.
+            </p>
+          </div>
+          <button class="primary-btn" data-i18n-es="Exportar PDF" data-i18n-en="Export PDF">
+            Exportar PDF
+          </button>
+        </div>
+        <div class="patient-grid">
+          <div class="card">
+            <div class="card-header">
+              <h2 data-i18n-es="Últimos resultados" data-i18n-en="Latest results">Últimos resultados</h2>
+            </div>
+            <ul class="agenda">
+              <li>
+                <span>Mar</span>
+                <div>
+                  <h4 data-i18n-es="Laboratorio completo" data-i18n-en="Full lab panel">
+                    Laboratorio completo
+                  </h4>
+                  <p data-i18n-es="Disponible para descargar." data-i18n-en="Ready to download.">
+                    Disponible para descargar.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span>Feb</span>
+                <div>
+                  <h4 data-i18n-es="Ecocardiograma" data-i18n-en="Echocardiogram">Ecocardiograma</h4>
+                  <p data-i18n-es="Informe actualizado." data-i18n-en="Updated report available.">
+                    Informe actualizado.
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h2 data-i18n-es="Indicaciones médicas" data-i18n-en="Medical notes">Indicaciones médicas</h2>
+            </div>
+            <p
+              data-i18n-es="Seguimiento quincenal, control de presión y registro diario."
+              data-i18n-en="Biweekly follow-up, blood pressure checks, and daily tracking."
+            >
+              Seguimiento quincenal, control de presión y registro diario.
+            </p>
+            <div class="profile-summary">
+              <h4 data-i18n-es="Resumen IA" data-i18n-en="AI summary">Resumen IA</h4>
+              <p
+                data-i18n-es="Evolución favorable, sin eventos críticos. Se recomienda mantener actividad física moderada."
+                data-i18n-en="Positive progress, no critical events. Moderate physical activity is recommended."
+              >
+                Evolución favorable, sin eventos críticos. Se recomienda mantener actividad física
+                moderada.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="patient-panel" data-patient-panel="profile">
+        <div class="panel-header">
+          <div>
+            <h1 data-i18n-es="Mi perfil" data-i18n-en="My profile">Mi perfil</h1>
+            <p class="header-subtitle" data-i18n-es="Tus datos personales y preferencias." data-i18n-en="Your personal details and preferences.">
+              Tus datos personales y preferencias.
+            </p>
+          </div>
+        </div>
+        <div class="patient-grid profile-grid">
+          <div class="card profile-card">
+            <div class="profile-details">
+              <img
+                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=facearea&w=160&h=160&q=80"
+                alt="Lucía Pérez"
+              />
+              <div>
+                <h2>Lucía Pérez</h2>
+                <p>lucia@email.com</p>
+                <p data-i18n-es="Montevideo, Uruguay" data-i18n-en="Montevideo, Uruguay">
+                  Montevideo, Uruguay
+                </p>
+                <p
+                  data-i18n-es="Dirección postal: Av. Central 2045"
+                  data-i18n-en="Mailing address: Av. Central 2045"
+                >
+                  Dirección postal: Av. Central 2045
+                </p>
+              </div>
+            </div>
+            <div class="profile-tags">
+              <span data-i18n-es="Perfil verificado" data-i18n-en="Verified profile">
+                <i class="fa-solid fa-id-card"></i> Perfil verificado
+              </span>
+              <span data-i18n-es="Español / Inglés" data-i18n-en="Spanish / English">
+                <i class="fa-solid fa-globe"></i> Español / Inglés
+              </span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h2 data-i18n-es="Ubicación" data-i18n-en="Location">Ubicación</h2>
+            </div>
+            <div class="map-frame small">
+              <iframe
+                title="Mapa"
+                src="https://maps.google.com/maps?q=Montevideo&t=&z=12&ie=UTF8&iwloc=&output=embed"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <h2 data-i18n-es="Preferencias" data-i18n-en="Preferences">Preferencias</h2>
+            </div>
+            <div class="form-grid">
+              <label for="notif-pref" data-i18n-es="Notificaciones" data-i18n-en="Notifications">
+                Notificaciones
+              </label>
+              <select id="notif-pref">
+                <option data-i18n-es="Tiempo real" data-i18n-en="Real time">Tiempo real</option>
+                <option data-i18n-es="Resumen semanal" data-i18n-en="Weekly summary">
+                  Resumen semanal
+                </option>
+              </select>
+              <label for="contact-pref" data-i18n-es="Canal preferido" data-i18n-en="Preferred channel">
+                Canal preferido
+              </label>
+              <select id="contact-pref">
+                <option data-i18n-es="WhatsApp" data-i18n-en="WhatsApp">WhatsApp</option>
+                <option data-i18n-es="Email" data-i18n-en="Email">Email</option>
+              </select>
+              <button class="primary-btn" data-i18n-es="Guardar cambios" data-i18n-en="Save changes">
+                Guardar cambios
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
     <script src="script.js"></script>
   </body>
 </html>
