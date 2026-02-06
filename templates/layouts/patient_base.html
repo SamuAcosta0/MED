@@ -19,83 +19,70 @@
 
 <body class="full-width-layout">
     <!-- Top Header -->
-    <header class="top-header">
-        <div class="header-content">
+    <header class="site-header">
+        <nav class="navbar patient-topbar">
             <!-- Logo -->
-            <div class="header-logo">
-                <div class="logo-circle">Z</div>
-                <span class="header-brand">Health Connect</span>
-            </div>
+            <a href="/" class="logo">
+                <span class="logo-mark"><i class="fa-solid fa-heart-pulse"></i></span>
+                <div>
+                    <p class="logo-title">Gregos</p>
+                    <p class="logo-subtitle" data-i18n-es="Portal Paciente" data-i18n-en="Patient Portal">
+                        Portal Paciente
+                    </p>
+                </div>
+            </a>
 
-            <!-- Search Bar (only on search page) -->
-            {% if request.endpoint == 'search' %}
-            <div class="header-search">
-                <form class="header-search-form" data-search-form>
-                    <div class="header-search-field autocomplete-wrapper">
-                        <i class="fa-solid fa-stethoscope"></i>
-                        <input id="header-search-specialty" type="text" placeholder="Primary Care Physician (PCP)"
-                            autocomplete="off" data-autocomplete="specialty">
-                        <div class="autocomplete-dropdown" id="header-specialty-dropdown"></div>
-                    </div>
-                    <div class="header-search-field autocomplete-wrapper">
-                        <i class="fa-solid fa-location-dot"></i>
-                        <input id="header-search-location" type="text" placeholder="Montevideo, MO" autocomplete="off"
-                            data-autocomplete="location">
-                        <div class="autocomplete-dropdown" id="header-location-dropdown"></div>
-                    </div>
-                    <div class="header-search-field">
-                        <i class="fa-solid fa-shield"></i>
-                        <input type="text" placeholder="Add insurance" autocomplete="off">
-                    </div>
-                    <button type="submit" class="header-search-btn">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </form>
+            <!-- Navigation Links -->
+            <div class="patient-links" data-patient-nav>
+                <a href="{{ url_for('patient_dashboard') }}"
+                    class="nav-link {% if active_page == 'dashboard' %}active{% endif %}" data-i18n-es="Inicio"
+                    data-i18n-en="Home">
+                    Inicio
+                </a>
+                <a href="{{ url_for('search') }}" class="nav-link {% if active_page == 'search' %}active{% endif %}"
+                    data-i18n-es="Buscar médicos" data-i18n-en="Find doctors">
+                    Buscar médicos
+                </a>
+                <a href="{{ url_for('patient_appointments') }}"
+                    class="nav-link {% if active_page == 'appointments' %}active{% endif %}" data-i18n-es="Mis turnos"
+                    data-i18n-en="Appointments">
+                    Mis turnos
+                </a>
+                <a href="{{ url_for('patient_records') }}"
+                    class="nav-link {% if active_page == 'records' %}active{% endif %}" data-i18n-es="Historial"
+                    data-i18n-en="Records">
+                    Historial
+                </a>
             </div>
-            {% endif %}
 
             <!-- Header Actions -->
-            <div class="header-actions">
-                <a href="#" class="header-link">Help</a>
+            <div class="top-actions">
+                <div class="language-toggle">
+                    <button class="active" data-lang="es">ES</button>
+                    <button data-lang="en">EN</button>
+                </div>
 
                 <!-- Profile Dropdown -->
-                <div class="profile-dropdown-wrapper">
-                    <button class="profile-btn" data-profile-toggle>
-                        <span>{{ current_user.email.split('@')[0] }}</span>
+                <div class="profile-menu-wrapper">
+                    <button class="profile-button" data-profile-toggle>
+                        <img src="https://images.unsplash.com/photo-1559734840-f9509ee5677f?q=80&w=100" alt="Profile">
+                        <span>{{ current_user.email.split('@')[0] | title }}</span>
                         <i class="fa-solid fa-chevron-down"></i>
                     </button>
-                    <div class="profile-dropdown" data-profile-menu>
-                        <a href="{{ url_for('patient_dashboard') }}">
-                            <i class="fa-solid fa-house-medical"></i>
-                            Inicio
-                        </a>
-                        <a href="{{ url_for('search') }}">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                            Buscar médicos
-                        </a>
-                        <a href="{{ url_for('patient_appointments') }}">
-                            <i class="fa-solid fa-calendar-check"></i>
-                            Mis Turnos
-                        </a>
-                        <a href="{{ url_for('patient_records') }}">
-                            <i class="fa-solid fa-file-medical"></i>
-                            Historia Clínica
-                        </a>
+                    <div class="profile-menu" data-profile-menu>
                         <a href="{{ url_for('patient_profile_view') }}">
-                            <i class="fa-solid fa-user"></i>
-                            Mi Perfil
+                            <i class="fa-solid fa-user-circle"></i>
+                            <span data-i18n-es="Mi Perfil" data-i18n-en="My Profile">Mi Perfil</span>
                         </a>
                         <hr>
-                        <a href="{{ url_for('logout') }}">
+                        <a href="{{ url_for('logout') }}" class="logout-link">
                             <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                            Cerrar sesión
+                            <span data-i18n-es="Cerrar sesión" data-i18n-en="Logout">Cerrar sesión</span>
                         </a>
                     </div>
                 </div>
-
-                <a href="{{ url_for('register') }}" class="primary-btn">Sign up</a>
             </div>
-        </div>
+        </nav>
     </header>
 
     <!-- Main Content -->

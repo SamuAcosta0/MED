@@ -1,109 +1,113 @@
 {% extends "layouts/patient_base.html" %}
 
-{% block title %}Health Connect | Find Providers{% endblock %}
+{% block title %}Gregos | Buscar Especialistas{% endblock %}
 
 {% block content %}
-<div class="search-page-layout">
-    <!-- Filter Chips -->
-    <section class="filters-row" data-filter-bar>
-        <button class="chip active" data-filter="date">
-            <i class="fa-regular fa-calendar"></i> I'm flexible
+<div class="patient-main">
+    <div class="panel-header">
+        <div>
+            <h1 data-i18n-es="Buscar médicos" data-i18n-en="Find doctors">Buscar médicos</h1>
+            <p class="header-subtitle" data-i18n-es="Encuentra al especialista ideal para ti"
+                data-i18n-en="Find the perfect specialist for you">
+                Encuentra al especialista ideal para ti
+            </p>
+        </div>
+        <button class="secondary-btn" data-filter-toggle>
+            <i class="fa-solid fa-sliders"></i>
+            <span data-i18n-es="Filtros" data-i18n-en="Filters">Filtros</span>
         </button>
-        <button class="chip" data-filter="time">Time of day</button>
-        <button class="chip" data-filter="type">Allergy Consultation</button>
-        <button class="chip" data-filter="specialty">Specialty</button>
-        <button class="chip" data-filter="gender">Gender</button>
-        <button class="chip" data-filter="visit">In-person/video</button>
-        <button class="chip" data-filter="more">More filters</button>
-        <button class="secondary-btn clear-filters" data-clear-filters style="margin-left: auto;">Clear filters</button>
-    </section>
+    </div>
 
-    <!-- Two Column Layout: Results + Map -->
-    <div class="search-results-container">
-        <!-- Left: Doctor Results -->
-        <div class="results-column">
-            <!-- Results Header -->
-            <div class="results-header">
-                <div>
-                    <h2 class="results-count">{{ doctors|length }} providers</h2>
-                    <div class="date-range-selector">
-                        <button class="date-nav-btn" data-date-prev>
-                            <i class="fa-solid fa-chevron-left"></i>
-                        </button>
-                        <span class="date-range-text">Today, Feb 6 - Thu, Feb 19</span>
-                        <button class="date-nav-btn" data-date-next>
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </button>
-                    </div>
+    <!-- Filters Panel -->
+    <div class="filters-panel" data-filter-panel>
+        <div class="filters-row">
+            <div class="filter-group">
+                <h4 data-i18n-es="Especialidad" data-i18n-en="Specialty">Especialidad</h4>
+                <div class="quick-filters">
+                    <button class="chip active">Cardiología</button>
+                    <button class="chip">Dermatología</button>
+                    <button class="chip">Pediatría</button>
+                    <button class="chip">Psicología</button>
                 </div>
-                <button class="ghost-btn expand-map-btn" data-expand-map>
-                    <i class="fa-solid fa-arrows-left-right"></i>
-                    Expand map
-                </button>
             </div>
+            <button class="ghost-btn" data-clear-filters data-i18n-es="Limpiar filtros" data-i18n-en="Clear filters">
+                Limpiar filtros
+            </button>
+        </div>
+    </div>
 
-            <!-- Doctor Cards -->
+    <div class="search-layout">
+        <div class="results-column">
             <div class="doctor-list">
                 {% for doctor in doctors %}
-                <article class="doctor-card-full" data-doctor-id="{{ doctor.id }}">
-                    <div class="doctor-main-info">
-                        <div class="doctor-avatar">
+                <article class="doctor-card">
+                    <div class="doctor-main-info" style="display: flex; gap: 1.5rem; align-items: flex-start;">
+                        {% if doctor.profile_image %}
+                        <img src="{{ doctor.profile_image }}" alt="Dr. {{ doctor.last_name }}" class="doctor-image">
+                        {% else %}
+                        <div class="doctor-image"
+                            style="background: var(--navy); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800;">
                             {{ doctor.first_name[0] }}{{ doctor.last_name[0] }}
                         </div>
+                        {% endif %}
+
                         <div class="doctor-details">
-                            <div class="doctor-header">
-                                <h3>Dr. {{ doctor.first_name }} {{ doctor.last_name }}, MD</h3>
-                                <i class="fa-solid fa-circle-check verified-badge"></i>
+                            <div class="doctor-header" style="display: flex; align-items: center; gap: 0.5rem;">
+                                <h3 style="font-size: 1.3rem; margin: 0;">Dr. {{ doctor.first_name }} {{
+                                    doctor.last_name }}</h3>
+                                <i class="fa-solid fa-circle-check" style="color: #4a90e2;"></i>
                             </div>
-                            <p class="doctor-specialty">{{ doctor.specialties }}</p>
+                            <p class="doctor-specialty"
+                                style="color: var(--gold); font-weight: 700; margin-bottom: 0.5rem;">{{
+                                doctor.specialties }}</p>
 
-                            <div class="doctor-badges">
-                                <span class="badge-rating">
-                                    <i class="fa-solid fa-star"></i> 4.53 · 1,477 reviews
-                                </span>
-                                <span class="badge-info">
-                                    <i class="fa-solid fa-video"></i> Video visits
-                                </span>
-                                <span class="badge-info">
-                                    <i class="fa-solid fa-shield"></i> In-network insurance only.
-                                    <a href="#" class="badge-link">See if they're in network</a>
-                                </span>
+                            <div class="doctor-badges"
+                                style="display: flex; gap: 1rem; font-size: 0.9rem; margin-bottom: 1rem;">
+                                <span><i class="fa-solid fa-star" style="color: #ffc107;"></i> 4.9 (120 reviews)</span>
+                                <span><i class="fa-solid fa-location-dot"></i> {{ doctor.region or 'Montevideo'
+                                    }}</span>
                             </div>
 
-                            <p class="doctor-note">
-                                New patient appointments · Excellent wait time
+                            <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">
+                                {{ doctor.bio[:120] }}...
                             </p>
+
+                            <div class="calendar-container">
+                                <p style="font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem;"
+                                    data-i18n-es="Próxima disponibilidad" data-i18n-en="Next availability">
+                                    Próxima disponibilidad
+                                </p>
+                                <div class="calendar-grid-14">
+                                    {% set days = ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'] %}
+                                    {% for i in range(14) %}
+                                    <div class="day-slot {% if i % 3 == 0 %}disabled{% endif %}"
+                                        data-date="2024-02-{{ 6+i }}">
+                                        <span class="slot-day" style="font-size: 0.65rem;">{{ days[(i + 4) % 7]
+                                            }}</span>
+                                        <span class="slot-date" style="font-size: 0.8rem; font-weight: 800;">{{ 6+i
+                                            }}</span>
+                                        <span class="slot-count" style="font-size: 0.65rem; color: #10b981;">{% if i % 3
+                                            != 0 %}3 slots{% else %}-{% endif %}</span>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- 14-Day Calendar Grid (2 rows x 7 columns) -->
-                    <div class="calendar-grid-14" data-doctor-id="{{ doctor.id }}">
-                        <!-- Generated by JavaScript -->
-                    </div>
-
-                    <button class="show-more-link" data-show-more="{{ doctor.id }}">
-                        <i class="fa-solid fa-plus"></i> More
-                    </button>
                 </article>
                 {% endfor %}
             </div>
         </div>
 
-        <!-- Right: Map (Always Visible) -->
-        <div class="map-column">
-            <div class="map-sticky">
-                <button class="map-action-btn">
-                    <i class="fa-solid fa-expand"></i> Expand map
-                </button>
-                <div class="map-container">
-                    <iframe title="Provider Map"
-                        src="https://maps.google.com/maps?q=Montevideo&t=&z=12&ie=UTF8&iwloc=&output=embed"
-                        loading="lazy" style="width: 100%; height: 100%; border: 0;"></iframe>
-                </div>
+        <div class="map-panel" data-map-panel>
+            <div class="card" style="padding: 0; overflow: hidden; height: 600px; position: sticky; top: 120px;">
+                <iframe src="https://maps.google.com/maps?q=Montevideo&t=&z=12&ie=UTF8&iwloc=&output=embed"
+                    loading="lazy" style="width: 100%; height: 100%; border: 0;"></iframe>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
 
 <!-- Advanced Filters Modal (reused from previous implementation) -->
 <div class="time-modal-overlay" id="advanced-filters-overlay">

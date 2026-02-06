@@ -1,113 +1,110 @@
 {% extends "layouts/patient_base.html" %}
 
 {% block content %}
-<header class="dashboard-header">
-    <div>
-        <p class="tag">Hola, {{ current_user.patient_profile.first_name }} 👋</p>
-        <h1>Bienvenido a tu salud</h1>
-        <p class="header-subtitle">
-            Desde aquí puedes gestionar tus citas, ver tu historial y buscar especialistas.
-        </p>
+<div class="patient-main">
+    <div class="panel-header">
+        <div>
+            <span class="tag" data-i18n-es="Bienvenida, {{ patient.first_name }}"
+                data-i18n-en="Welcome, {{ patient.first_name }}">
+                Bienvenida, {{ patient.first_name }}
+            </span>
+            <h1 data-i18n-es="Tu espacio de salud" data-i18n-en="Your health space">Tu espacio de salud</h1>
+            <p class="header-subtitle" data-i18n-es="Resumen de tus citas, tratamientos y comunicación médica."
+                data-i18n-en="Summary of your appointments, treatments and medical communication.">
+                Resumen de tus citas, tratamientos y comunicación médica.
+            </p>
+        </div>
+        <div class="header-actions">
+            <button class="ghost-btn" data-i18n-es="Editar perfil" data-i18n-en="Edit profile">Editar perfil</button>
+            <button class="primary-btn" data-patient-switch="search" data-i18n-es="Agendar cita"
+                data-i18n-en="Book appointment">
+                Agendar cita
+            </button>
+        </div>
     </div>
-    <div class="header-actions">
-        <button class="primary-btn">
-            <i class="fa-solid fa-plus"></i> Nuevo turno
-        </button>
-    </div>
-</header>
 
-<section class="dashboard-metrics">
-    <article>
-        <div>
-            <h3>0</h3>
-            <p>Turnos pendientes</p>
-        </div>
-        <i class="fa-solid fa-calendar-check"></i>
-    </article>
-    <article>
-        <div>
-            <h3>0</h3>
-            <p>Consultas realizadas</p>
-        </div>
-        <i class="fa-solid fa-clock-rotate-left"></i>
-    </article>
-    <article>
-        <div>
-            <h3>0</h3>
-            <p>Mensajes nuevos</p>
-        </div>
-        <i class="fa-solid fa-comments"></i>
-    </article>
-</section>
-
-<section class="dashboard-grid">
-    <!-- Próximo Turno Principal -->
-    <div class="card" style="grid-column: span 2;">
-        <div class="card-header">
-            <h2>Próximo turno</h2>
-            <span class="status-badge pending"
-                style="padding: 4px 12px; border-radius: 99px; background: var(--bg-surface); font-size: 12px; font-weight: 700; color: var(--primary);">CONFIRMADO</span>
-        </div>
-
-        <div style="display: flex; gap: 24px; margin-top: 16px; align-items: center;">
-            <div
-                style="background: var(--bg-surface); padding: 16px; border-radius: var(--radius-md); text-align: center; min-width: 100px;">
-                <div style="font-size: 32px; font-weight: 700; color: var(--primary);">28</div>
-                <div style="font-size: 14px; text-transform: uppercase; color: var(--text-sec);">Ene</div>
+    <div class="patient-grid">
+        <!-- Próxima Consulta -->
+        <div class="card">
+            <div class="card-header">
+                <h2 data-i18n-es="Próxima consulta" data-i18n-en="Next appointment">Próxima consulta</h2>
+                <i class="fa-solid fa-calendar-check" style="color: var(--gold);"></i>
             </div>
 
-            <div style="flex: 1;">
-                <h3 style="font-size: 20px; margin-bottom: 4px;">Dra. Laura Martínez</h3>
-                <p style="color: var(--text-sec); margin-bottom: 8px;">Cardiología · Videoconsulta</p>
-                <div style="display: flex; gap: 16px; font-size: 14px; color: var(--text-main);">
-                    <span><i class="fa-solid fa-clock"></i> 15:30 hs</span>
-                    <span><i class="fa-solid fa-video"></i> Link disponible 10 min antes</span>
+            {% if appointments %}
+            <div class="appointment-banner"
+                style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem;">
+                <div
+                    style="background: rgba(201, 166, 107, 0.1); padding: 1rem; border-radius: 12px; text-align: center; min-width: 80px;">
+                    <div style="font-size: 1.5rem; font-weight: 800; color: var(--navy);">{{ appointments[0].date.day }}
+                    </div>
+                    <div style="font-size: 0.75rem; text-transform: uppercase;">{{ appointments[0].date.strftime('%b')
+                        }}</div>
+                </div>
+                <div>
+                    <h4 style="margin: 0;">{{ appointments[0].doctor.last_name }}</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-sec);">{{ appointments[0].time.strftime('%H:%M') }}
+                        · {{ appointments[0].type | title }}</p>
                 </div>
             </div>
+            <button class="primary-btn" style="width: 100%; justify-content: center;"
+                data-i18n-es="Ingresar a videollamada" data-i18n-en="Join video call">
+                Ingresar a videollamada
+            </button>
+            {% else %}
+            <p style="color: var(--text-sec); text-align: center; margin: 2rem 0;"
+                data-i18n-es="No tienes citas próximas" data-i18n-en="You have no upcoming appointments">
+                No tienes citas próximas
+            </p>
+            <button class="secondary-btn" style="width: 100%;" data-patient-switch="search"
+                data-i18n-es="Buscar un médico" data-i18n-en="Find a doctor">
+                Buscar un médico
+            </button>
+            {% endif %}
+        </div>
 
-            <button class="primary-btn">Entrar a consulta</button>
+        <!-- Tratamiento / IA -->
+        <div class="card">
+            <div class="card-header">
+                <h2 data-i18n-es="Tratamiento actual" data-i18n-en="Current treatment">Tratamiento actual</h2>
+                <i class="fa-solid fa-dna" style="color: var(--gold);"></i>
+            </div>
+            <p style="font-weight: 700; margin-bottom: 1rem;">Plan cardiovascular · Seguimiento quincenal.</p>
+            <div class="profile-summary"
+                style="background: #f8fafc; padding: 1.5rem; border-radius: 16px; border: 1px dashed rgba(10, 31, 60, 0.1);">
+                <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; color: var(--navy);">
+                    <i class="fa-solid fa-sparkles"></i> Resumen IA
+                </h4>
+                <p style="font-size: 0.9rem; color: var(--text-sec);">
+                    Evolución estable, sin eventos críticos. Mantener hidratación y registrar síntomas diarios.
+                </p>
+            </div>
+        </div>
+
+        <!-- Accesos Rápidos -->
+        <div class="card">
+            <div class="card-header">
+                <h2 data-i18n-es="Accesos rápidos" data-i18n-en="Quick actions">Accesos rápidos</h2>
+            </div>
+            <div class="quick-actions">
+                <button data-patient-switch="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span data-i18n-es="Buscar" data-i18n-en="Search">Buscar</span>
+                </button>
+                <button data-patient-switch="appointments">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <span data-i18n-es="Citas" data-i18n-en="Appts">Citas</span>
+                </button>
+                <button data-patient-switch="records">
+                    <i class="fa-solid fa-file-waveform"></i>
+                    <span data-i18n-es="Historial" data-i18n-en="Records">Historial</span>
+                </button>
+                <button data-patient-switch="profile">
+                    <i class="fa-solid fa-user-gear"></i>
+                    <span data-i18n-es="Perfil" data-i18n-en="Profile">Perfil</span>
+                </button>
+            </div>
         </div>
     </div>
-
-    <!-- Accesos Rápidos -->
-    <div class="card">
-        <div class="card-header">
-            <h2>Accesos rápidos</h2>
-        </div>
-        <div style="display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 16px;">
-            <a href="{{ url_for('search') }}" class="ghost-btn" style="justify-content: flex-start; text-align: left;">
-                <i class="fa-solid fa-magnifying-glass" style="margin-right: 12px;"></i> Buscar médico
-            </a>
-            <a href="#" class="ghost-btn" style="justify-content: flex-start; text-align: left;">
-                <i class="fa-solid fa-calendar-days" style="margin-right: 12px;"></i> Ver mis turnos
-            </a>
-            <a href="#" class="ghost-btn" style="justify-content: flex-start; text-align: left;">
-                <i class="fa-solid fa-upload" style="margin-right: 12px;"></i> Subir estudios
-            </a>
-        </div>
-    </div>
-</section>
-
-<style>
-    /* Ajuste temporal para grid layout si no está en CSS global */
-    .dashboard-grid {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        gap: 24px;
-        margin-top: 32px;
-    }
-
-    @media (max-width: 900px) {
-
-        .dashboard-grid,
-        .dashboard-grid>div {
-            grid-column: span 1 !important;
-            grid-template-columns: 1fr;
-        }
-
-        .dashboard-grid>.card[style*="column"] {
-            grid-column: span 1 !important;
-        }
-    }
-</style>
+</div>
 {% endblock %}
