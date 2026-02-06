@@ -1,0 +1,101 @@
+:root {
+    /* --- GOLDEN RATIO --- */
+    --phi: 1.618;
+
+    /* --- BRAND --- */
+    --primary: #1E40FF;
+    --primary-600: #1633D6;
+    --primary-soft: #EAF0FF;
+    --accent: #22D3EE;
+    --accent-600: #14B8C8;
+    --accent-soft: #E6FAF6;
+
+    /* --- PALETTE --- */
+    --bg: #F7F8FA;
+    --bg-hero: linear-gradient(180deg, #F7F8FA 0%, #EFF4FF 100%);
+    --surface: #FFFFFF;
+    --text-main: #0B1220;
+    --text-sec: #5B6475;
+    --border-color: #E6EAF0;
+    --divider-color: #EEF2F7;
+
+    /* Status */
+    --success: #22C55E;
+    --warning: #F59E0B;
+    --error: #EF4444;
+    --info: #3B82F6;
+
+    /* --- TYPOGRAPHY (φ-based scale) --- */
+    --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+
+    --fs-h1: 52px;
+    /* 32 × φ */
+    --fs-h2: 32px;
+    /* base large */
+    --fs-h3: 20px;
+    /* 12 × φ */
+    --fs-body: 16px;
+    /* base */
+    --fs-small: 13px;
+    /* 16 / 1.236 */
+
+    --lh-h1: 1.08;
+    /* tight, serious */
+    --lh-h2: 1.15;
+    --lh-h3: 1.25;
+    --lh-body: 1.5;
+    /* readable, premium */
+
+    /* --- SPACING (φ-based rounded scale) --- */
+    --sp-1: 8px;
+    --sp-2: 12px;
+    --sp-3: 20px;
+    --sp-4: 32px;
+    --sp-5: 52px;
+    --sp-6: 84px;
+
+    /* --- RADII --- */
+    --r-sm: 10px;
+    /* buttons */
+    --r-md: 13px;
+    /* cards, premium feel */
+    --r-lg: 18px;
+    --radius-full: 999px;
+
+    /* --- SHADOWS --- */
+    --shadow-xs: 0 1px 2px rgba(11, 18, 32, 0.06);
+    --shadow-sm: 0 8px 20px rgba(11, 18, 32, 0.08);
+    --shadow-md: 0 18px 45px rgba(11, 18, 32, 0.12);
+    --shadow-glow: 0 14px 34px rgba(30, 64, 255, 0.28);
+
+    /* --- MOTION --- */
+    --transition-smooth: 180ms cubic-bezier(.4, 0, .2, 1);
+    --transition-fast: 120ms cubic-bezier(.4, 0, .2, 1);
+
+    /* --- COMPONENT DIMENSIONS (φ-based) --- */
+    --input-h: 52px;
+    --btn-h: 44px;
+    /* standard, accessible */
+    --btn-h-hero: 52px;
+    /* hero CTA, more presence */
+
+    --container-width: 1200px;
+    --header-height: 72px;
+
+    /* Backwards compatibility aliases */
+    --bg-main: var(--bg);
+    --bg-surface: var(--surface);
+    --radius-sm: var(--r-sm);
+    --radius-md: var(--r-md);
+    --radius-lg: var(--r-lg);
+
+    /* Legacy spacing (use --sp-* instead) */
+    --s-1: var(--sp-1);
+    --s-2: var(--sp-2);
+    --s-3: var(--sp-3);
+    --s-4: var(--sp-4);
+    --s-5: var(--sp-5);
+    --s-6: var(--sp-6);
+    --s-7: 48px;
+    --s-8: 64px;
+}

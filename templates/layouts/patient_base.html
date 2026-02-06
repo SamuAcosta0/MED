@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Health Connect{% endblock %}</title>
+
+    <!-- Health Connect Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/healthconnect.css') }}">
+
+    <!-- Fonts -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body class="full-width-layout">
+    <!-- Top Header -->
+    <header class="top-header">
+        <div class="header-content">
+            <!-- Logo -->
+            <div class="header-logo">
+                <div class="logo-circle">Z</div>
+                <span class="header-brand">Health Connect</span>
+            </div>
+
+            <!-- Search Bar (only on search page) -->
+            {% if request.endpoint == 'search' %}
+            <div class="header-search">
+                <form class="header-search-form" data-search-form>
+                    <div class="header-search-field autocomplete-wrapper">
+                        <i class="fa-solid fa-stethoscope"></i>
+                        <input id="header-search-specialty" type="text" placeholder="Primary Care Physician (PCP)"
+                            autocomplete="off" data-autocomplete="specialty">
+                        <div class="autocomplete-dropdown" id="header-specialty-dropdown"></div>
+                    </div>
+                    <div class="header-search-field autocomplete-wrapper">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <input id="header-search-location" type="text" placeholder="Montevideo, MO" autocomplete="off"
+                            data-autocomplete="location">
+                        <div class="autocomplete-dropdown" id="header-location-dropdown"></div>
+                    </div>
+                    <div class="header-search-field">
+                        <i class="fa-solid fa-shield"></i>
+                        <input type="text" placeholder="Add insurance" autocomplete="off">
+                    </div>
+                    <button type="submit" class="header-search-btn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+            </div>
+            {% endif %}
+
+            <!-- Header Actions -->
+            <div class="header-actions">
+                <a href="#" class="header-link">Help</a>
+
+                <!-- Profile Dropdown -->
+                <div class="profile-dropdown-wrapper">
+                    <button class="profile-btn" data-profile-toggle>
+                        <span>{{ current_user.email.split('@')[0] }}</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="profile-dropdown" data-profile-menu>
+                        <a href="{{ url_for('patient_dashboard') }}">
+                            <i class="fa-solid fa-house-medical"></i>
+                            Inicio
+                        </a>
+                        <a href="{{ url_for('search') }}">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            Buscar médicos
+                        </a>
+                        <a href="{{ url_for('patient_appointments') }}">
+                            <i class="fa-solid fa-calendar-check"></i>
+                            Mis Turnos
+                        </a>
+                        <a href="{{ url_for('patient_records') }}">
+                            <i class="fa-solid fa-file-medical"></i>
+                            Historia Clínica
+                        </a>
+                        <a href="{{ url_for('patient_profile_view') }}">
+                            <i class="fa-solid fa-user"></i>
+                            Mi Perfil
+                        </a>
+                        <hr>
+                        <a href="{{ url_for('logout') }}">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            Cerrar sesión
+                        </a>
+                    </div>
+                </div>
+
+                <a href="{{ url_for('register') }}" class="primary-btn">Sign up</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="full-width-main">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages" style="margin-bottom: 24px;">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Health Connect JS -->
+    <script src="{{ url_for('static', filename='js/healthconnect.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

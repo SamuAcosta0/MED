@@ -1,0 +1,36 @@
+{% extends "layouts/healthconnect_base.html" %}
+
+{% block title %}Iniciar Sesión | Health Connect{% endblock %}
+
+{% block content %}
+<section class="hero" style="min-height: 80vh; display: flex; align-items: center; justify-content: center;">
+    <div class="modal" style="position: relative; transform: none; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+        <div class="modal-header">
+            <h3>Iniciar sesión</h3>
+        </div>
+        <form class="form-grid" method="POST">
+            <label for="login-email">Usuario o correo</label>
+            <input id="login-email" name="email" type="email" placeholder="doctor@healthconnect.com" required />
+
+            <label for="login-password">Contraseña</label>
+            <input id="login-password" name="password" type="password" placeholder="••••••••" required />
+
+            <div style="margin-top: 10px;">
+                <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; font-size: 0.9em;">
+                    <input type="checkbox" name="remember" value="true"> Recordarme
+                </label>
+            </div>
+
+            <p class="form-hint">
+                Si eres médico ingresarás al panel médico. Si eres paciente, accederás a tu panel personal.
+            </p>
+            <button class="primary-btn" type="submit">Ingresar</button>
+
+            <p style="text-align: center; margin-top: 1rem; font-size: 0.9em;">
+                ¿No tienes cuenta? <a href="{{ url_for('register') }}" style="color: var(--primary);">Regístrate
+                    aquí</a>
+            </p>
+        </form>
+    </div>
+</section>
+{% endblock %}
