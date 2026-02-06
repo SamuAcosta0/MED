@@ -37,6 +37,17 @@ body {
   background: #f7f8fb;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
 a {
   text-decoration: none;
   color: inherit;
@@ -71,6 +82,10 @@ a {
   min-width: 320px;
 }
 
+.search-inputs .optional {
+  display: none;
+}
+
 .search-inputs .field {
   display: flex;
   align-items: center;
@@ -90,6 +105,18 @@ a {
 
 .search-inputs input:focus {
   outline: none;
+}
+
+.search-alert {
+  width: 100%;
+  margin-top: 0.6rem;
+  color: #b84b4b;
+  font-weight: 600;
+  display: none;
+}
+
+.search-alert.visible {
+  display: block;
 }
 
 .logo {
@@ -658,6 +685,15 @@ a {
   padding: var(--space-3);
 }
 
+.search-empty {
+  grid-column: 1 / -1;
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
+  box-shadow: var(--shadow-soft);
+  color: rgba(10, 31, 60, 0.7);
+}
+
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -678,6 +714,19 @@ a {
   gap: 0.4rem;
 }
 
+.chip.active {
+  border-color: rgba(10, 31, 60, 0.4);
+  background: rgba(240, 193, 90, 0.2);
+}
+
+.clear-filters {
+  display: none;
+}
+
+.clear-filters.visible {
+  display: inline-flex;
+}
+
 .results {
   display: grid;
   gap: var(--space-2);
@@ -689,6 +738,27 @@ a {
   justify-content: space-between;
   flex-wrap: wrap;
   padding: 0 var(--space-3);
+}
+
+.date-range {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: rgba(10, 31, 60, 0.7);
+}
+
+.results-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.results-actions select {
+  border: 1px solid rgba(10, 31, 60, 0.2);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  font-family: inherit;
 }
 
 .provider-card {
@@ -731,6 +801,17 @@ a {
   color: rgba(10, 31, 60, 0.6);
 }
 
+.provider-meta .link {
+  color: var(--navy-light);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .provider-slots {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -744,6 +825,11 @@ a {
   background: rgba(10, 31, 60, 0.05);
   font-weight: 600;
   cursor: pointer;
+}
+
+.slot:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .slot.highlight {
@@ -760,6 +846,10 @@ a {
   height: fit-content;
   position: sticky;
   top: 120px;
+}
+
+.map-panel.collapsed {
+  display: none;
 }
 
 .map-frame {
@@ -788,6 +878,10 @@ a {
   .map-panel {
     position: static;
   }
+
+  .search-inputs .optional {
+    display: flex;
+  }
 }
 
 @media (max-width: 720px) {
@@ -801,6 +895,8 @@ a {
 
   .filters {
     padding: 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
   }
 }
 

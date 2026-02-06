@@ -24,24 +24,38 @@
             <p class="logo-subtitle">Buscador médico</p>
           </div>
         </div>
-        <div class="search-inputs">
+        <form class="search-inputs" data-search-form>
           <div class="field">
+            <label class="sr-only" for="search-specialty">Especialidad</label>
             <i class="fa-solid fa-stethoscope"></i>
-            <input type="text" placeholder="Especialidad o médico" />
+            <input
+              id="search-specialty"
+              type="text"
+              placeholder="Especialidad o condición"
+              autocomplete="off"
+            />
           </div>
           <div class="field">
+            <label class="sr-only" for="search-location">Ubicación</label>
             <i class="fa-solid fa-location-dot"></i>
-            <input type="text" placeholder="Ciudad o región" />
+            <input
+              id="search-location"
+              type="text"
+              placeholder="Ciudad, barrio o código postal"
+              autocomplete="off"
+            />
           </div>
-          <div class="field">
+          <div class="field optional">
+            <label class="sr-only" for="search-insurance">Seguro</label>
             <i class="fa-solid fa-shield"></i>
-            <input type="text" placeholder="Seguro médico" />
+            <input id="search-insurance" type="text" placeholder="Seguro médico" />
           </div>
-          <button class="primary-btn">
+          <button class="primary-btn" type="submit">
             <i class="fa-solid fa-magnifying-glass"></i>
             Buscar
           </button>
-        </div>
+        </form>
+        <p class="search-alert" data-search-alert>Ingresá especialidad o ubicación.</p>
         <div class="nav-actions">
           <button class="ghost-btn">Ayuda</button>
           <button class="ghost-btn">Ingresar</button>
@@ -51,20 +65,46 @@
     </header>
 
     <main class="search-layout">
-      <section class="filters">
-        <button class="chip"><i class="fa-regular fa-calendar"></i> Flexible</button>
-        <button class="chip">Horario</button>
-        <button class="chip">Consulta anual</button>
-        <button class="chip">Especialidad</button>
-        <button class="chip">Género</button>
-        <button class="chip">Presencial / Video</button>
-        <button class="chip">Más filtros</button>
+      <p class="search-empty">Buscá por especialidad y ubicación para ver resultados.</p>
+      <section class="filters" data-filter-bar>
+        <button class="chip" data-filter="date">
+          <i class="fa-regular fa-calendar"></i>
+          Estoy flexible
+        </button>
+        <button class="chip" data-filter="time">Horario</button>
+        <button class="chip" data-filter="type">Presencial / Video</button>
+        <button class="chip" data-filter="specialty">Especialidad</button>
+        <button class="chip" data-filter="gender">Género</button>
+        <button class="chip" data-filter="insurance">Seguro</button>
+        <button class="chip" data-filter="more">Más filtros</button>
+        <button class="secondary-btn clear-filters" data-clear-filters>Limpiar filtros</button>
       </section>
 
       <section class="results">
         <div class="results-header">
-          <h2>6 médicos disponibles</h2>
-          <p>Hoy, 5 Feb - Mié, 18 Feb</p>
+          <div>
+            <h2>6 doctores</h2>
+            <p class="date-range">
+              <button class="ghost-btn" aria-label="Rango anterior">
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+              Hoy - 18 Feb
+              <button class="ghost-btn" aria-label="Rango siguiente">
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </p>
+          </div>
+          <div class="results-actions">
+            <select aria-label="Ordenar resultados">
+              <option>Mejor calificados</option>
+              <option>Más cercanos</option>
+              <option>Primera disponibilidad</option>
+            </select>
+            <button class="ghost-btn map-toggle" data-map-toggle>
+              <i class="fa-solid fa-map-location-dot"></i>
+              Ver mapa
+            </button>
+          </div>
         </div>
 
         <article class="provider-card">
@@ -74,20 +114,24 @@
               <h3>Dr. Chinedu Ngwudike, MD</h3>
               <p>Medicina interna · Atención primaria</p>
               <div class="provider-meta">
-                <span><i class="fa-solid fa-star"></i> 4.53 (1,467)</span>
-                <span><i class="fa-solid fa-video"></i> Videollamadas</span>
-                <span><i class="fa-solid fa-shield"></i> Seguro verificado</span>
+                <span><i class="fa-solid fa-star"></i> 4.53 (1,467 reseñas)</span>
+                <span><i class="fa-solid fa-video"></i> Video disponible</span>
+                <span><i class="fa-solid fa-shield"></i> En red</span>
+                <span class="link">Ver si está en tu red</span>
               </div>
-              <p class="note">Nuevos pacientes · Excelente tiempo de espera</p>
+              <p class="note">Turnos para nuevos pacientes · Tiempo de espera: excelente</p>
             </div>
+          </div>
+          <div class="card-actions">
+            <button class="secondary-btn">Ver perfil</button>
           </div>
           <div class="provider-slots">
             <button class="slot highlight">Jue 5 · 65 turnos</button>
-            <button class="slot">Vie 6 · Sin turnos</button>
-            <button class="slot">Sáb 7 · Sin turnos</button>
-            <button class="slot">Dom 8 · Sin turnos</button>
-            <button class="slot">Lun 9 · Sin turnos</button>
-            <button class="slot">Mar 10 · Sin turnos</button>
+            <button class="slot" disabled>Vie 6 · Sin turnos</button>
+            <button class="slot" disabled>Sáb 7 · Sin turnos</button>
+            <button class="slot" disabled>Dom 8 · Sin turnos</button>
+            <button class="slot" disabled>Lun 9 · Sin turnos</button>
+            <button class="slot" disabled>Mar 10 · Sin turnos</button>
             <button class="slot">Mié 11 · Ver más</button>
           </div>
         </article>
@@ -99,28 +143,35 @@
               <h3>Dr. Ikechukwu Ogbu, MD</h3>
               <p>Internista · Atención general</p>
               <div class="provider-meta">
-                <span><i class="fa-solid fa-star"></i> 4.64 (1,263)</span>
-                <span><i class="fa-solid fa-video"></i> Videollamadas</span>
-                <span><i class="fa-solid fa-shield"></i> Seguro verificado</span>
+                <span><i class="fa-solid fa-star"></i> 4.64 (1,263 reseñas)</span>
+                <span><i class="fa-solid fa-video"></i> Video disponible</span>
+                <span><i class="fa-solid fa-shield"></i> En red</span>
+                <span class="link">Ver si está en tu red</span>
               </div>
-              <p class="note">Nuevos pacientes · Atención rápida</p>
+              <p class="note">Turnos para nuevos pacientes · Tiempo de espera: rápido</p>
             </div>
+          </div>
+          <div class="card-actions">
+            <button class="secondary-btn">Ver perfil</button>
           </div>
           <div class="provider-slots">
             <button class="slot highlight">Jue 5 · 43 turnos</button>
-            <button class="slot">Vie 6 · Sin turnos</button>
-            <button class="slot">Sáb 7 · Sin turnos</button>
-            <button class="slot">Dom 8 · Sin turnos</button>
-            <button class="slot">Lun 9 · Sin turnos</button>
-            <button class="slot">Mar 10 · Sin turnos</button>
+            <button class="slot" disabled>Vie 6 · Sin turnos</button>
+            <button class="slot" disabled>Sáb 7 · Sin turnos</button>
+            <button class="slot" disabled>Dom 8 · Sin turnos</button>
+            <button class="slot" disabled>Lun 9 · Sin turnos</button>
+            <button class="slot" disabled>Mar 10 · Sin turnos</button>
             <button class="slot">Mié 11 · Ver más</button>
           </div>
         </article>
       </section>
 
-      <aside class="map-panel">
+      <aside class="map-panel" data-map-panel>
         <div class="map-header">
-          <button class="ghost-btn"><i class="fa-solid fa-expand"></i> Expandir mapa</button>
+          <button class="ghost-btn" data-map-toggle>
+            <i class="fa-solid fa-expand"></i>
+            Expandir mapa
+          </button>
         </div>
         <div class="map-frame">
           <iframe
@@ -135,5 +186,6 @@
         </div>
       </aside>
     </main>
+    <script src="script.js"></script>
   </body>
 </html>

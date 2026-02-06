@@ -83,3 +83,45 @@ if (panelNav) {
     });
   });
 }
+
+const searchForm = document.querySelector('[data-search-form]');
+const searchAlert = document.querySelector('[data-search-alert]');
+if (searchForm) {
+  searchForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const specialty = document.getElementById('search-specialty');
+    const location = document.getElementById('search-location');
+    const hasValue = (specialty && specialty.value.trim()) || (location && location.value.trim());
+    if (!hasValue) {
+      if (searchAlert) searchAlert.classList.add('visible');
+      return;
+    }
+    if (searchAlert) searchAlert.classList.remove('visible');
+  });
+}
+
+const filterBar = document.querySelector('[data-filter-bar]');
+const clearFilters = document.querySelector('[data-clear-filters]');
+if (filterBar && clearFilters) {
+  filterBar.addEventListener('click', (event) => {
+    const chip = event.target.closest('.chip');
+    if (!chip) return;
+    chip.classList.toggle('active');
+    const activeChips = filterBar.querySelectorAll('.chip.active');
+    clearFilters.classList.toggle('visible', activeChips.length > 0);
+  });
+
+  clearFilters.addEventListener('click', () => {
+    filterBar.querySelectorAll('.chip.active').forEach((chip) => chip.classList.remove('active'));
+    clearFilters.classList.remove('visible');
+  });
+}
+
+const mapToggles = document.querySelectorAll('[data-map-toggle]');
+const mapPanel = document.querySelector('[data-map-panel]');
+mapToggles.forEach((toggle) => {
+  toggle.addEventListener('click', () => {
+    if (!mapPanel) return;
+    mapPanel.classList.toggle('collapsed');
+  });
+});
