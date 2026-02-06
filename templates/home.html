@@ -138,6 +138,49 @@
             <p>Promedio de respuesta</p>
         </div>
     </div>
+    </div>
+</section>
+
+<section class="section pricing" id="precios">
+    <div class="section-header">
+        <p class="tag">Planes</p>
+        <h2>Planes flexibles para cada necesidad.</h2>
+    </div>
+    <div class="pricing-grid">
+        <div class="pricing-card">
+            <h3>Básico</h3>
+            <div class="price">$0<span>/mes</span></div>
+            <ul>
+                <li><i class="fa-solid fa-check"></i> Búsqueda de médicos</li>
+                <li><i class="fa-solid fa-check"></i> Agenda de citas básica</li>
+                <li><i class="fa-solid fa-check"></i> Historial simple</li>
+            </ul>
+            <button class="secondary-btn">Comenzar</button>
+        </div>
+        <div class="pricing-card featured">
+            <div class="badge">Recomendado</div>
+            <h3>Pro</h3>
+            <div class="price">$19<span>/mes</span></div>
+            <ul>
+                <li><i class="fa-solid fa-check"></i> Todo lo del Básico</li>
+                <li><i class="fa-solid fa-check"></i> Telemedicina HD</li>
+                <li><i class="fa-solid fa-check"></i> Chat directo con médicos</li>
+                <li><i class="fa-solid fa-check"></i> Recordatorios por WhatsApp</li>
+            </ul>
+            <button class="primary-btn">Elegir Pro</button>
+        </div>
+        <div class="pricing-card">
+            <h3>Elite</h3>
+            <div class="price">$49<span>/mes</span></div>
+            <ul>
+                <li><i class="fa-solid fa-check"></i> Todo lo del Pro</li>
+                <li><i class="fa-solid fa-check"></i> Atención prioritaria 24/7</li>
+                <li><i class="fa-solid fa-check"></i> Chequeo anual incluido</li>
+                <li><i class="fa-solid fa-check"></i> Descuentos en farmacias</li>
+            </ul>
+            <button class="secondary-btn">Elegir Elite</button>
+        </div>
+    </div>
 </section>
 
 <section class="section partners" id="aliados">
@@ -181,12 +224,15 @@
 <div class="modal-overlay" id="login-modal">
     <div class="modal">
         <div class="modal-header">
-            <h3>Iniciar sesión</h3>
+            <h3>Ingresar a Gregos</h3>
             <button class="modal-close" data-close-modal>×</button>
         </div>
         <form class="form-grid" action="{{ url_for('login') }}" method="POST">
             <label for="login-email">Usuario o correo</label>
-            <input id="login-email" name="email" type="email" placeholder="doctor@healthconnect.com" required />
+            <input id="login-email" name="email" type="email" placeholder="doctor@gregos.com" required />
+            <ul class="validation-requirements" id="login-email-requirements">
+                <li data-rule="email">Formato de correo válido</li>
+            </ul>
 
             <label for="login-password">Contraseña</label>
             <input id="login-password" name="password" type="password" placeholder="••••••••" required />
@@ -209,7 +255,7 @@
 <div class="modal-overlay" id="register-modal">
     <div class="modal">
         <div class="modal-header">
-            <h3>Registro Health Connect</h3>
+            <h3>Únete a Gregos</h3>
             <button class="modal-close" data-close-modal>×</button>
         </div>
         <div class="role-toggle" data-role-toggle>
@@ -223,9 +269,17 @@
             <!-- CAMPOS COMUNES -->
             <label for="reg-email">Email</label>
             <input id="reg-email" name="email" type="email" placeholder="tu@email.com" required />
+            <ul class="validation-requirements" id="reg-email-requirements">
+                <li data-rule="email">Correo electrónico válido</li>
+            </ul>
 
             <label for="reg-password">Contraseña</label>
             <input id="reg-password" name="password" type="password" placeholder="••••••••" required />
+            <ul class="validation-requirements" id="reg-password-requirements">
+                <li data-rule="length">Mínimo 8 caracteres</li>
+                <li data-rule="number">Un número</li>
+                <li data-rule="special">Un carácter especial (@$!%*?&)</li>
+            </ul>
 
             <!-- CAMPOS DOCTOR -->
             <div data-role-section="doctor">
@@ -276,7 +330,7 @@
             </div>
 
             <p class="form-hint">
-                * Los datos se guardarán en la base de datos de Health Connect.
+                * Los datos se guardarán en la base de datos de Gregos.
             </p>
             <button class="primary-btn" type="submit">Crear cuenta</button>
         </form>

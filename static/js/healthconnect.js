@@ -26,11 +26,12 @@ modalClosers.forEach((closer) => {
   });
 });
 
-document.addEventListener('click', (event) => {
+// Click outside disabled for data safety
+/* document.addEventListener('click', (event) => {
   if (event.target.classList.contains('modal-overlay')) {
     event.target.classList.remove('active');
   }
-});
+}); */
 
 const roleToggle = document.querySelector('[data-role-toggle]');
 if (roleToggle) {
@@ -102,3 +103,73 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
   });
 });
+
+
+/* --- Gregos Features --- */
+
+// Cursor Shadow
+const cursor = document.getElementById('cursor-shadow');
+if (cursor) {
+  let mouseX = 0;
+  let mouseY = 0;
+  let cursorX = 0;
+  let cursorY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  function animateCursor() {
+    const dx = mouseX - cursorX;
+    const dy = mouseY - cursorY;
+    cursorX += dx * 0.15;
+    cursorY += dy * 0.15;
+
+    cursor.style.left = cursorX + 'px';
+    cursor.style.top = cursorY + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+}
+
+// Validation Logic
+function setupValidation(inputId, listId, rules) {
+  const input = document.getElementById(inputId);
+  const list = document.getElementById(listId);
+  if (!input || !list) return;
+
+  input.addEventListener('input', () => {
+    const val = input.value;
+    rules.forEach(rule => {
+      const li = list.querySelector(`[data-rule="${rule.name}"]`);
+      if (!li) return;
+
+      const isValid = rule.check(val);
+      if (isValid) {
+        li.classList.add('valid');
+        li.classList.remove('invalid');
+      } else {
+        li.classList.remove('valid');
+        if (val.length > 0) li.classList.add('invalid');
+        else li.classList.remove('invalid');
+      }
+    });
+  });
+}
+
+// Login
+setupValidation('login-email', 'login-email-requirements', [
+  { name: 'email', check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) }
+]);
+
+// Register
+setupValidation('reg-email', 'reg-email-requirements', [
+  { name: 'email', check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) }
+]);
+
+setupValidation('reg-password', 'reg-password-requirements', [
+  { name: 'length', check: v => v.length >= 8 },
+  { name: 'number', check: v => /\d/.test(v) },
+  { name: 'special', check: v => /[@$!%*?&]/.test(v) }
+]);
