@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Health Connect | Buscador de médicos</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body class="search-body">
+    <header class="site-header">
+      <nav class="navbar search-nav">
+        <div class="logo">
+          <span class="logo-mark"><i class="fa-solid fa-heart-pulse"></i></span>
+          <div>
+            <p class="logo-title">Health Connect</p>
+            <p class="logo-subtitle">Buscador médico</p>
+          </div>
+        </div>
+        <form class="search-inputs" data-search-form>
+          <div class="field">
+            <label class="sr-only" for="search-specialty">Especialidad</label>
+            <i class="fa-solid fa-stethoscope"></i>
+            <input
+              id="search-specialty"
+              type="text"
+              placeholder="Especialidad o condición"
+              autocomplete="off"
+            />
+          </div>
+          <div class="field">
+            <label class="sr-only" for="search-location">Ubicación</label>
+            <i class="fa-solid fa-location-dot"></i>
+            <input
+              id="search-location"
+              type="text"
+              placeholder="Ciudad, barrio o código postal"
+              autocomplete="off"
+            />
+          </div>
+          <div class="field optional">
+            <label class="sr-only" for="search-insurance">Seguro</label>
+            <i class="fa-solid fa-shield"></i>
+            <input id="search-insurance" type="text" placeholder="Seguro médico" />
+          </div>
+          <button class="primary-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Buscar
+          </button>
+        </form>
+        <p class="search-alert" data-search-alert>Ingresá especialidad o ubicación.</p>
+        <div class="nav-actions">
+          <button class="ghost-btn">Ayuda</button>
+          <button class="ghost-btn">Ingresar</button>
+          <button class="primary-btn">Registrarse</button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="search-layout">
+      <p class="search-empty">Buscá por especialidad y ubicación para ver resultados.</p>
+      <section class="filters" data-filter-bar>
+        <button class="chip" data-filter="date">
+          <i class="fa-regular fa-calendar"></i>
+          Estoy flexible
+        </button>
+        <button class="chip" data-filter="time">Horario</button>
+        <button class="chip" data-filter="type">Presencial / Video</button>
+        <button class="chip" data-filter="specialty">Especialidad</button>
+        <button class="chip" data-filter="gender">Género</button>
+        <button class="chip" data-filter="insurance">Seguro</button>
+        <button class="chip" data-filter="more">Más filtros</button>
+        <button class="secondary-btn clear-filters" data-clear-filters>Limpiar filtros</button>
+      </section>
+
+      <section class="results">
+        <div class="results-header">
+          <div>
+            <h2>6 doctores</h2>
+            <p class="date-range">
+              <button class="ghost-btn" aria-label="Rango anterior">
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+              Hoy - 18 Feb
+              <button class="ghost-btn" aria-label="Rango siguiente">
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </p>
+          </div>
+          <div class="results-actions">
+            <select aria-label="Ordenar resultados">
+              <option>Mejor calificados</option>
+              <option>Más cercanos</option>
+              <option>Primera disponibilidad</option>
+            </select>
+            <button class="ghost-btn map-toggle" data-map-toggle>
+              <i class="fa-solid fa-map-location-dot"></i>
+              Ver mapa
+            </button>
+          </div>
+        </div>
+
+        <article class="provider-card">
+          <div class="provider-info">
+            <img src="https://images.unsplash.com/photo-1502767089025-6572583495b4?auto=format&fit=facearea&w=100&h=100&q=80" alt="Doctor" />
+            <div>
+              <h3>Dr. Chinedu Ngwudike, MD</h3>
+              <p>Medicina interna · Atención primaria</p>
+              <div class="provider-meta">
+                <span><i class="fa-solid fa-star"></i> 4.53 (1,467 reseñas)</span>
+                <span><i class="fa-solid fa-video"></i> Video disponible</span>
+                <span><i class="fa-solid fa-shield"></i> En red</span>
+                <span class="link">Ver si está en tu red</span>
+              </div>
+              <p class="note">Turnos para nuevos pacientes · Tiempo de espera: excelente</p>
+            </div>
+          </div>
+          <div class="card-actions">
+            <button class="secondary-btn">Ver perfil</button>
+          </div>
+          <div class="provider-slots">
+            <button class="slot highlight">Jue 5 · 65 turnos</button>
+            <button class="slot" disabled>Vie 6 · Sin turnos</button>
+            <button class="slot" disabled>Sáb 7 · Sin turnos</button>
+            <button class="slot" disabled>Dom 8 · Sin turnos</button>
+            <button class="slot" disabled>Lun 9 · Sin turnos</button>
+            <button class="slot" disabled>Mar 10 · Sin turnos</button>
+            <button class="slot">Mié 11 · Ver más</button>
+          </div>
+        </article>
+
+        <article class="provider-card">
+          <div class="provider-info">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=facearea&w=100&h=100&q=80" alt="Doctor" />
+            <div>
+              <h3>Dr. Ikechukwu Ogbu, MD</h3>
+              <p>Internista · Atención general</p>
+              <div class="provider-meta">
+                <span><i class="fa-solid fa-star"></i> 4.64 (1,263 reseñas)</span>
+                <span><i class="fa-solid fa-video"></i> Video disponible</span>
+                <span><i class="fa-solid fa-shield"></i> En red</span>
+                <span class="link">Ver si está en tu red</span>
+              </div>
+              <p class="note">Turnos para nuevos pacientes · Tiempo de espera: rápido</p>
+            </div>
+          </div>
+          <div class="card-actions">
+            <button class="secondary-btn">Ver perfil</button>
+          </div>
+          <div class="provider-slots">
+            <button class="slot highlight">Jue 5 · 43 turnos</button>
+            <button class="slot" disabled>Vie 6 · Sin turnos</button>
+            <button class="slot" disabled>Sáb 7 · Sin turnos</button>
+            <button class="slot" disabled>Dom 8 · Sin turnos</button>
+            <button class="slot" disabled>Lun 9 · Sin turnos</button>
+            <button class="slot" disabled>Mar 10 · Sin turnos</button>
+            <button class="slot">Mié 11 · Ver más</button>
+          </div>
+        </article>
+      </section>
+
+      <aside class="map-panel" data-map-panel>
+        <div class="map-header">
+          <button class="ghost-btn" data-map-toggle>
+            <i class="fa-solid fa-expand"></i>
+            Expandir mapa
+          </button>
+        </div>
+        <div class="map-frame">
+          <iframe
+            title="Mapa"
+            src="https://maps.google.com/maps?q=Montevideo&t=&z=12&ie=UTF8&iwloc=&output=embed"
+            loading="lazy"
+          ></iframe>
+        </div>
+        <div class="map-actions">
+          <button class="secondary-btn">Reservar turno</button>
+          <button class="primary-btn">Ver disponibilidad</button>
+        </div>
+      </aside>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
