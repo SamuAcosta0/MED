@@ -1,456 +1,197 @@
 {% extends "layouts/patient_base.html" %}
 
-{% block title %}Gregos | Buscar Especialistas{% endblock %}
+{% block title %}Buscar Médicos | Gregos{% endblock %}
+{% block header_title %}Buscar Médicos{% endblock %}
 
 {% block content %}
-<div class="patient-main">
-    <div class="panel-header">
-        <div>
-            <h1 data-i18n-es="Buscar médicos" data-i18n-en="Find doctors">Buscar médicos</h1>
-            <p class="header-subtitle" data-i18n-es="Encuentra al especialista ideal para ti"
-                data-i18n-en="Find the perfect specialist for you">
-                Encuentra al especialista ideal para ti
-            </p>
+<div class="grid grid-cols-12 gap-8">
+
+    <!-- Filters Sidebar (Sticky on Desktop) -->
+    <div class="col-span-3 hidden-mobile">
+        <div class="card p-4 sticky-top">
+            <h3 class="text-base mb-4">Filtrar por</h3>
+
+            <div class="mb-6">
+                <label class="input-label mb-2 block">Especialidad</label>
+                <select class="input w-full" style="height: 40px; font-size: 14px;">
+                    <option>Todas</option>
+                    <option>Clínica Médica</option>
+                    <option>Pediatría</option>
+                    <option>Dermatología</option>
+                </select>
+            </div>
+
+            <div class="mb-6">
+                <label class="input-label mb-2 block">Modalidad</label>
+                <div class="flex flex-col gap-2">
+                    <label class="flex items-center gap-2 text-sm text-sec">
+                        <input type="checkbox" checked> Videoconsulta
+                    </label>
+                    <label class="flex items-center gap-2 text-sm text-sec">
+                        <input type="checkbox"> Presencial
+                    </label>
+                    <label class="flex items-center gap-2 text-sm text-sec">
+                        <input type="checkbox"> Chat
+                    </label>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="input-label mb-2 block">Disponibilidad</label>
+                <div class="flex flex-wrap gap-2">
+                    <span class="chip active">Hoy</span>
+                    <span class="chip">Mañana</span>
+                    <span class="chip">Esta semana</span>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="input-label mb-2 block">Precio</label>
+                <input type="range" class="w-full">
+                <div class="flex justify-between text-xs text-sec mt-1">
+                    <span>$10k</span>
+                    <span>$50k+</span>
+                </div>
+            </div>
+
+            <button class="btn btn-secondary w-full text-sm">Limpiar filtros</button>
         </div>
-        <button class="secondary-btn" data-filter-toggle>
-            <i class="fa-solid fa-sliders"></i>
-            <span data-i18n-es="Filtros" data-i18n-en="Filters">Filtros</span>
-        </button>
     </div>
 
-    <!-- Filters Panel -->
-    <div class="filters-panel" data-filter-panel>
-        <div class="filters-header">
-            <h3 data-i18n-es="Filtros avanzados" data-i18n-en="Advanced filters">Filtros avanzados</h3>
-            <button class="ghost-btn" data-filter-toggle>×</button>
-        </div>
-        <div class="filters-grid">
-            <div>
-                <h4 data-i18n-es="Modalidad" data-i18n-en="Mode">Modalidad</h4>
-                <label><input type="checkbox" /> <span data-i18n-es="Presencial"
-                        data-i18n-en="In-person">Presencial</span></label>
-                <label><input type="checkbox" /> <span data-i18n-es="Videollamada"
-                        data-i18n-en="Video call">Videollamada</span></label>
-            </div>
-            <div>
-                <h4 data-i18n-es="Género" data-i18n-en="Gender">Género</h4>
-                <label><input type="checkbox" /> <span data-i18n-es="Mujer" data-i18n-en="Female">Mujer</span></label>
-                <label><input type="checkbox" /> <span data-i18n-es="Hombre" data-i18n-en="Male">Hombre</span></label>
-            </div>
-            <div>
-                <h4 data-i18n-es="Experiencia" data-i18n-en="Experience">Experiencia</h4>
-                <label><input type="checkbox" /> <span data-i18n-es="+5 años" data-i18n-en="+5 years">+5
-                        años</span></label>
-                <label><input type="checkbox" /> <span data-i18n-es="+10 años" data-i18n-en="+10 years">+10
-                        años</span></label>
-            </div>
-            <div>
-                <h4 data-i18n-es="Zona" data-i18n-en="Area">Zona</h4>
-                <label><input type="checkbox" /> <span data-i18n-es="Centro"
-                        data-i18n-en="Downtown">Centro</span></label>
-                <label><input type="checkbox" /> <span data-i18n-es="Costa" data-i18n-en="Coast">Costa</span></label>
-            </div>
-        </div>
-        <div class="filters-actions">
-            <button class="secondary-btn" data-clear-filters data-i18n-es="Limpiar" data-i18n-en="Clear">
-                Limpiar
-            </button>
-            <button class="primary-btn" data-i18n-es="Aplicar" data-i18n-en="Apply">Aplicar</button>
-        </div>
-    </div>
+    <!-- Results List -->
+    <div class="col-span-9 mobile-col-span-12">
 
-    <!-- Search Form -->
-    <form class="search-controls" data-search-form method="GET" action="{{ url_for('search') }}">
-        <div class="field">
-            <label class="sr-only" for="search-specialty">Especialidad</label>
-            <i class="fa-solid fa-stethoscope"></i>
-            <input id="search-specialty" name="specialty" type="text" placeholder="Especialidad o condición"
-                data-i18n-placeholder-es="Especialidad o condición" data-i18n-placeholder-en="Specialty or condition"
-                value="{{ request.args.get('specialty', '') }}" autocomplete="off" />
+        <!-- Search Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h2 style="font-size: 20px;">32 especialistas encontrados</h2>
+            <div class="flex items-center gap-2 text-sm text-sec">
+                Ordenar por: <span class="font-medium text-main">Recomendados</span>
+            </div>
         </div>
-        <div class="field">
-            <label class="sr-only" for="search-location">Ubicación</label>
-            <i class="fa-solid fa-location-dot"></i>
-            <input id="search-location" name="location" type="text" placeholder="Ciudad, barrio o código postal"
-                data-i18n-placeholder-es="Ciudad, barrio o código postal"
-                data-i18n-placeholder-en="City, neighborhood or ZIP code" value="{{ request.args.get('location', '') }}"
-                autocomplete="off" />
-        </div>
-        <div class="field optional">
-            <label class="sr-only" for="search-insurance">Sociedad médica</label>
-            <i class="fa-solid fa-shield"></i>
-            <input id="search-insurance" name="insurance" type="text" placeholder="Sociedad médica"
-                data-i18n-placeholder-es="Sociedad médica" data-i18n-placeholder-en="Insurance provider"
-                value="{{ request.args.get('insurance', '') }}" />
-        </div>
-        <button class="primary-btn" type="submit">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <span data-i18n-es="Buscar" data-i18n-en="Search">Buscar</span>
-        </button>
-    </form>
-    <p class="search-alert" data-search-alert data-i18n-es="Ingresá especialidad o ubicación."
-        data-i18n-en="Please enter specialty or location.">Ingresá especialidad o ubicación.</p>
 
-
-    <div class="search-layout">
-        <div class="results-column">
-            <div class="doctor-list">
-                {% for doctor in doctors %}
-                <article class="doctor-card">
-                    <div class="doctor-main-info" style="display: flex; gap: 1.5rem; align-items: flex-start;">
-                        {% if doctor.profile_image %}
-                        <img src="{{ doctor.profile_image }}" alt="Dr. {{ doctor.last_name }}" class="doctor-image">
-                        {% else %}
-                        <div class="doctor-image"
-                            style="background: var(--navy); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800;">
-                            {{ doctor.first_name[0] }}{{ doctor.last_name[0] }}
+        <div class="flex flex-col gap-4">
+            <!-- Doctor Card 1 -->
+            <div class="doctor-card card p-0 flex hover-lift">
+                <div class="p-6 flex gap-6 flex-1 items-start">
+                    <div
+                        class="avatar-lg bg-soft-primary text-primary flex items-center justify-center rounded-full text-xl font-bold">
+                        LM</div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <h3>Dra. Laura Martínez</h3>
+                            <svg class="icon text-primary w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                            </svg>
                         </div>
-                        {% endif %}
+                        <p class="text-sec text-sm mb-3">Cardiología • Adultos</p>
 
-                        <div class="doctor-details">
-                            <div class="doctor-header" style="display: flex; align-items: center; gap: 0.5rem;">
-                                <h3 style="font-size: 1.3rem; margin: 0;">Dr. {{ doctor.first_name }} {{
-                                    doctor.last_name }}</h3>
-                                <i class="fa-solid fa-circle-check" style="color: #4a90e2;"></i>
-                            </div>
-                            <p class="doctor-specialty"
-                                style="color: var(--gold); font-weight: 700; margin-bottom: 0.5rem;">{{
-                                doctor.specialties }}</p>
+                        <div class="flex items-center gap-4 text-sm mb-4">
+                            <span class="flex items-center gap-1 text-sec"><span class="stars text-warning">★ 4.9</span>
+                                (120)</span>
+                            <span class="flex items-center gap-1 text-sec">obs. $15.000</span>
+                        </div>
 
-                            <div class="doctor-badges"
-                                style="display: flex; gap: 1rem; font-size: 0.9rem; margin-bottom: 1rem;">
-                                <span><i class="fa-solid fa-star" style="color: #ffc107;"></i> 4.9 (120 reviews)</span>
-                                <span><i class="fa-solid fa-location-dot"></i> {{ doctor.region or 'Montevideo'
-                                    }}</span>
-                            </div>
-
-                            <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">
-                                {{ doctor.bio[:120] }}...
-                            </p>
-
-                            <div class="calendar-container">
-                                <p style="font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem;"
-                                    data-i18n-es="Próxima disponibilidad" data-i18n-en="Next availability">
-                                    Próxima disponibilidad
-                                </p>
-                                <div class="calendar-grid-14">
-                                    {% set days = ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'] %}
-                                    {% for i in range(14) %}
-                                    <div class="day-slot {% if i % 3 == 0 %}disabled{% endif %}"
-                                        data-date="2024-02-{{ 6+i }}">
-                                        <span class="slot-day" style="font-size: 0.65rem;">{{ days[(i + 4) % 7]
-                                            }}</span>
-                                        <span class="slot-date" style="font-size: 0.8rem; font-weight: 800;">{{ 6+i
-                                            }}</span>
-                                        <span class="slot-count" style="font-size: 0.65rem; color: #10b981;">{% if i % 3
-                                            != 0 %}3 slots{% else %}-{% endif %}</span>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
+                        <div class="flex gap-2">
+                            <span class="chip text-xs">Video</span>
+                            <span class="chip text-xs">Español</span>
                         </div>
                     </div>
-                </article>
-                {% endfor %}
-            </div>
-        </div>
+                </div>
 
-        <div class="map-panel" data-map-panel>
-            <div class="card" style="padding: 0; overflow: hidden; height: 600px; position: sticky; top: 120px;">
-                <iframe src="https://maps.google.com/maps?q=Montevideo&t=&z=12&ie=UTF8&iwloc=&output=embed"
-                    loading="lazy" style="width: 100%; height: 100%; border: 0;"></iframe>
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock %}
-
-<!-- Advanced Filters Modal (reused from previous implementation) -->
-<div class="time-modal-overlay" id="advanced-filters-overlay">
-    <div class="time-modal filters-modal">
-        <div class="time-modal-header">
-            <h3>Filtros avanzados</h3>
-            <button class="time-modal-close" data-close-filters aria-label="Cerrar">&times;</button>
-        </div>
-        <div class="time-modal-body">
-            <div class="filter-section">
-                <h4>Idioma</h4>
-                <div class="filter-options">
-                    <label class="filter-checkbox">
-                        <input type="checkbox" name="lang" value="es" checked>
-                        <span>Español</span>
-                    </label>
-                    <label class="filter-checkbox">
-                        <input type="checkbox" name="lang" value="en">
-                        <span>Inglés</span>
-                    </label>
-                    <label class="filter-checkbox">
-                        <input type="checkbox" name="lang" value="pt">
-                        <span>Portugués</span>
-                    </label>
+                <!-- Right Action Panel -->
+                <div class="availability-panel border-l p-6 bg-soft flex flex-col justify-center items-center gap-3"
+                    style="width: 200px;">
+                    <div class="text-center">
+                        <div class="text-xs font-bold text-success uppercase mb-1">Próximo turno</div>
+                        <div class="font-medium">Hoy, 15:30</div>
+                    </div>
+                    <a href="/doctors/1" class="btn btn-primary w-full text-sm">Reservar</a>
+                    <a href="/doctors/1" class="btn btn-tertiary w-full text-sm">Ver perfil</a>
                 </div>
             </div>
-            <div class="filter-section">
-                <h4>Disponibilidad</h4>
-                <div class="filter-options">
-                    <label class="filter-checkbox">
-                        <input type="checkbox" name="availability" value="new-patients">
-                        <span>Acepta nuevos pacientes</span>
-                    </label>
-                    <label class="filter-checkbox">
-                        <input type="checkbox" name="availability" value="same-day">
-                        <span>Turnos el mismo día</span>
-                    </label>
+
+            <!-- Doctor Card 2 -->
+            <div class="doctor-card card p-0 flex hover-lift">
+                <div class="p-6 flex gap-6 flex-1 items-start">
+                    <div
+                        class="avatar-lg bg-soft-accent text-accent flex items-center justify-center rounded-full text-xl font-bold">
+                        JP</div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <h3>Dr. Jorge Pérez</h3>
+                        </div>
+                        <p class="text-sec text-sm mb-3">Dermatología • Niños y Adultos</p>
+
+                        <div class="flex items-center gap-4 text-sm mb-4">
+                            <span class="flex items-center gap-1 text-sec"><span class="stars text-warning">★ 4.8</span>
+                                (85)</span>
+                            <span class="flex items-center gap-1 text-sec">obs. $12.000</span>
+                        </div>
+
+                        <div class="flex gap-2">
+                            <span class="chip text-xs">Presencial</span>
+                            <span class="chip text-xs">Video</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Action Panel -->
+                <div class="availability-panel border-l p-6 bg-soft flex flex-col justify-center items-center gap-3"
+                    style="width: 200px;">
+                    <div class="text-center">
+                        <div class="text-xs font-bold text-success uppercase mb-1">Próximo turno</div>
+                        <div class="font-medium">Mañana, 09:00</div>
+                    </div>
+                    <a href="/doctors/2" class="btn btn-primary w-full text-sm">Reservar</a>
+                    <a href="/doctors/2" class="btn btn-tertiary w-full text-sm">Ver perfil</a>
                 </div>
             </div>
-        </div>
-        <div class="time-modal-footer">
-            <button class="secondary-btn" data-reset-filters>Limpiar todo</button>
-            <button class="primary-btn" data-apply-filters>Aplicar filtros</button>
         </div>
     </div>
 </div>
 
 <style>
-    /* Search Page Layout */
-    .search-page-layout {
-        padding: 0;
-    }
-
-    .filters-row {
-        display: flex;
-        gap: 0.75rem;
-        flex-wrap: wrap;
-        padding: 1.5rem 0;
-        border-bottom: 1px solid rgba(10, 31, 60, 0.08);
-        margin-bottom: 1.5rem;
-    }
-
-    .search-results-container {
-        display: grid;
-        grid-template-columns: 1fr 400px;
-        gap: 1.5rem;
-    }
-
-    .results-column {
-        min-width: 0;
-    }
-
-    .results-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 1.5rem;
-    }
-
-    .results-count {
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-    }
-
-    .date-range-selector {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .date-nav-btn {
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 0.25rem;
-        color: rgba(10, 31, 60, 0.6);
-        transition: color 0.2s;
-    }
-
-    .date-nav-btn:hover {
-        color: var(--navy);
-    }
-
-    .date-range-text {
-        font-size: 0.95rem;
-        font-weight: 500;
-    }
-
-    .expand-map-btn {
-        font-size: 0.9rem;
-        padding: 0.5rem 1rem;
-    }
-
-    .doctor-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-
-    .doctor-card-full {
-        background: #fff;
-        border-radius: var(--radius-lg);
-        padding: 2rem;
-        box-shadow: 0 2px 12px rgba(10, 31, 60, 0.08);
-        transition: box-shadow 0.3s;
-    }
-
-    .doctor-card-full:hover {
-        box-shadow: 0 4px 20px rgba(10, 31, 60, 0.12);
-    }
-
-    .doctor-main-info {
-        display: flex;
-        gap: 1.5rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .doctor-avatar {
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, var(--navy-light), var(--navy));
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        font-size: 1.25rem;
-        flex-shrink: 0;
-    }
-
-    .doctor-details {
-        flex: 1;
-    }
-
-    .doctor-header {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 0.25rem;
-    }
-
-    .doctor-header h3 {
-        font-size: 1.1rem;
-        font-weight: 700;
-    }
-
-    .verified-badge {
-        color: #4a90e2;
-        font-size: 0.9rem;
-    }
-
-    .doctor-specialty {
-        color: rgba(10, 31, 60, 0.7);
-        margin-bottom: 0.75rem;
-    }
-
-    .doctor-badges {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        font-size: 0.9rem;
-        margin-bottom: 0.75rem;
-    }
-
-    .badge-rating {
-        display: flex;
-        align-items: center;
-        gap: 0.25rem;
-    }
-
-    .badge-rating i {
-        color: #ffc107;
-    }
-
-    .badge-info {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        color: rgba(10, 31, 60, 0.7);
-    }
-
-    .badge-info i {
-        font-size: 0.85rem;
-    }
-
-    .badge-link {
-        color: var(--navy-light);
-        text-decoration: underline;
-    }
-
-    .doctor-note {
-        font-size: 0.85rem;
-        color: rgba(10, 31, 60, 0.6);
-    }
-
-    /* 14-Day Calendar Grid */
-    .calendar-grid-14 {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-        gap: 0.5rem;
-        margin-bottom: 1rem;
-    }
-
-    .show-more-link {
-        background: none;
-        border: none;
-        color: var(--navy-light);
-        font-weight: 600;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: 0.9rem;
-        padding: 0.5rem 0;
-    }
-
-    .show-more-link:hover {
-        text-decoration: underline;
-    }
-
-    /* Map Column */
-    .map-column {
-        position: relative;
-    }
-
-    .map-sticky {
+    .sticky-top {
         position: sticky;
         top: 100px;
     }
 
-    .map-action-btn {
-        position: absolute;
-        top: 1rem;
-        left: 1rem;
-        z-index: 10;
-        background: #fff;
-        border: 1px solid rgba(10, 31, 60, 0.12);
-        border-radius: var(--radius-sm);
-        padding: 0.5rem 1rem;
-        font-size: 0.85rem;
-        font-weight: 500;
-        cursor: pointer;
-        box-shadow: 0 2px 8px rgba(10, 31, 60, 0.1);
+    .avatar-lg {
+        width: 64px;
+        height: 64px;
+        min-width: 64px;
     }
 
-    .map-action-btn:hover {
-        background: rgba(0, 0, 0, 0.02);
+    .text-warning {
+        color: var(--warning);
     }
 
-    .map-container {
-        width: 100%;
-        height: 600px;
-        border-radius: var(--radius-lg);
-        overflow: hidden;
-        box-shadow: 0 2px 12px rgba(10, 31, 60, 0.08);
+    .border-l {
+        border-left: 1px solid var(--border-color);
     }
 
-    @media (max-width: 1200px) {
-        .search-results-container {
-            grid-template-columns: 1fr;
+    .bg-soft {
+        background-color: #FBFBFD;
+    }
+
+    /* Responsive Search */
+    @media (max-width: 768px) {
+        .doctor-card {
+            flex-direction: column;
         }
 
-        .map-column {
-            display: none;
+        .availability-panel {
+            width: 100%;
+            border-left: none;
+            border-top: 1px solid var(--border-color);
+            padding: 16px;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .mobile-col-span-12 {
+            grid-column: span 12;
         }
     }
 </style>
