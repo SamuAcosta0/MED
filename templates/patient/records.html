@@ -1,17 +1,67 @@
 {% extends "layouts/patient_base.html" %}
 
+{% block title %}Health Connect | Historial Clínico{% endblock %}
+
 {% block content %}
-<div class="card">
-    <div class="card-header">
-        <h2>Historia Clínica</h2>
-        <button class="ghost-btn sm">
-            <i class="fa-solid fa-download"></i> Exportar
+<div class="patient-main">
+    <div class="panel-header">
+        <div>
+            <h1 data-i18n-es="Historia clínica" data-i18n-en="Medical records">Historia clínica</h1>
+            <p class="header-subtitle" data-i18n-es="Documentos y reportes exportables."
+                data-i18n-en="Documents and exportable reports.">
+                Documentos y reportes exportables.
+            </p>
+        </div>
+        <button class="primary-btn" data-i18n-es="Exportar PDF" data-i18n-en="Export PDF">
+            Exportar PDF
         </button>
     </div>
 
-    <div class="empty-state" style="text-align: center; padding: 48px; color: var(--text-sec);">
-        <i class="fa-solid fa-file-medical" style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;"></i>
-        <p>Aún no hay registros médicos disponibles.</p>
+    <div class="patient-grid">
+        <!-- Últimos Resultados -->
+        <div class="card">
+            <div class="card-header">
+                <h2 data-i18n-es="Últimos resultados" data-i18n-en="Latest results">Últimos resultados</h2>
+            </div>
+            <ul class="agenda">
+                <li>
+                    <span>Mar</span>
+                    <div>
+                        <h4>Laboratorio completo</h4>
+                        <p data-i18n-es="Disponible para descargar." data-i18n-en="Available for download.">
+                            Disponible para descargar.
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <span>Feb</span>
+                    <div>
+                        <h4>Ecocardiograma</h4>
+                        <p data-i18n-es="Informe actualizado." data-i18n-en="Report updated.">
+                            Informe actualizado.
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Indicaciones Médicas -->
+        <div class="card">
+            <div class="card-header">
+                <h2 data-i18n-es="Indicaciones médicas" data-i18n-en="Medical notes">Indicaciones médicas</h2>
+            </div>
+            <p>Seguimiento quincenal, control de presión y registro diario.</p>
+            <div class="profile-summary"
+                style="background: #f8fafc; padding: 1.5rem; border-radius: 16px; border: 1px dashed rgba(10, 31, 60, 0.1);">
+                <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; color: var(--navy);">
+                    <i class="fa-solid fa-sparkles"></i>
+                    <span data-i18n-es="Resumen IA" data-i18n-en="AI summary">Resumen IA</span>
+                </h4>
+                <p style="font-size: 0.9rem; color: var(--text-sec);">
+                    Evolución favorable, sin eventos críticos. Se recomienda mantener actividad física moderada.
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

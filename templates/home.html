@@ -230,13 +230,14 @@
 <div class="modal-overlay" id="login-modal">
     <div class="modal">
         <div class="modal-header">
-            <h3 data-i18n-es="Ingresar a Gregos" data-i18n-en="Login to Gregos">Ingresar a Gregos</h3>
+            <h3 data-i18n-es="Ingresar a Health Connect" data-i18n-en="Login to Health Connect">Ingresar a Health
+                Connect</h3>
             <button class="modal-close" data-close-modal>×</button>
         </div>
         <form class="form-grid" action="{{ url_for('login') }}" method="POST">
             <label for="login-email" data-i18n-es="Usuario o correo" data-i18n-en="Username or email">Usuario o
                 correo</label>
-            <input id="login-email" name="email" type="email" placeholder="doctor@gregos.com" required />
+            <input id="login-email" name="email" type="email" placeholder="doctor@healthconnect.com" required />
 
             <label for="login-password" data-i18n-es="Contraseña" data-i18n-en="Password">Contraseña</label>
             <input id="login-password" name="password" type="password" placeholder="••••••••" required />
@@ -257,7 +258,7 @@
 <div class="modal-overlay" id="register-modal">
     <div class="modal">
         <div class="modal-header">
-            <h3>Únete a Gregos</h3>
+            <h3>Únete a Health Connect</h3>
             <button class="modal-close" data-close-modal>×</button>
         </div>
         <div class="role-toggle" data-role-toggle>
@@ -332,7 +333,7 @@
             </div>
 
             <p class="form-hint">
-                * Los datos se guardarán en la base de datos de Gregos.
+                * Los datos se guardarán en la base de datos de Health Connect.
             </p>
             <button class="primary-btn" type="submit">Crear cuenta</button>
         </form>

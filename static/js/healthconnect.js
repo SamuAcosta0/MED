@@ -163,20 +163,26 @@ if (profileToggle && profileMenu) {
 // --- Internationalization (i18n) ---
 const languageButtons = document.querySelectorAll('[data-lang]');
 const translatables = document.querySelectorAll('[data-i18n-es]');
-const placeholders = document.querySelectorAll('[data-i18n-placeholder-es]');
 
 const setLanguage = (lang) => {
+  // Translate text content
   translatables.forEach((el) => {
     const text = lang === 'en' ? el.dataset.i18nEn : el.dataset.i18nEs;
     if (text) el.textContent = text;
   });
+
+  // Translate placeholders (search for both variants)
+  const placeholders = document.querySelectorAll('[data-i18n-placeholder-es]');
   placeholders.forEach((el) => {
     const text = lang === 'en' ? el.dataset.i18nPlaceholderEn : el.dataset.i18nPlaceholderEs;
     if (text) el.setAttribute('placeholder', text);
   });
+
+  // Update button states
   languageButtons.forEach((btn) => {
     btn.classList.toggle('active', btn.dataset.lang === lang);
   });
+
   // Store preference
   localStorage.setItem('gregos_lang', lang);
 };
@@ -192,6 +198,7 @@ if (languageButtons.length) {
   const savedLang = localStorage.getItem('gregos_lang') || 'es';
   setLanguage(savedLang);
 }
+
 
 // --- Gregos Specific: 14-Day Calendar interactions ---
 document.addEventListener('click', (e) => {

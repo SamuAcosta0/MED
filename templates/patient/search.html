@@ -20,21 +20,77 @@
 
     <!-- Filters Panel -->
     <div class="filters-panel" data-filter-panel>
-        <div class="filters-row">
-            <div class="filter-group">
-                <h4 data-i18n-es="Especialidad" data-i18n-en="Specialty">Especialidad</h4>
-                <div class="quick-filters">
-                    <button class="chip active">Cardiología</button>
-                    <button class="chip">Dermatología</button>
-                    <button class="chip">Pediatría</button>
-                    <button class="chip">Psicología</button>
-                </div>
+        <div class="filters-header">
+            <h3 data-i18n-es="Filtros avanzados" data-i18n-en="Advanced filters">Filtros avanzados</h3>
+            <button class="ghost-btn" data-filter-toggle>×</button>
+        </div>
+        <div class="filters-grid">
+            <div>
+                <h4 data-i18n-es="Modalidad" data-i18n-en="Mode">Modalidad</h4>
+                <label><input type="checkbox" /> <span data-i18n-es="Presencial"
+                        data-i18n-en="In-person">Presencial</span></label>
+                <label><input type="checkbox" /> <span data-i18n-es="Videollamada"
+                        data-i18n-en="Video call">Videollamada</span></label>
             </div>
-            <button class="ghost-btn" data-clear-filters data-i18n-es="Limpiar filtros" data-i18n-en="Clear filters">
-                Limpiar filtros
+            <div>
+                <h4 data-i18n-es="Género" data-i18n-en="Gender">Género</h4>
+                <label><input type="checkbox" /> <span data-i18n-es="Mujer" data-i18n-en="Female">Mujer</span></label>
+                <label><input type="checkbox" /> <span data-i18n-es="Hombre" data-i18n-en="Male">Hombre</span></label>
+            </div>
+            <div>
+                <h4 data-i18n-es="Experiencia" data-i18n-en="Experience">Experiencia</h4>
+                <label><input type="checkbox" /> <span data-i18n-es="+5 años" data-i18n-en="+5 years">+5
+                        años</span></label>
+                <label><input type="checkbox" /> <span data-i18n-es="+10 años" data-i18n-en="+10 years">+10
+                        años</span></label>
+            </div>
+            <div>
+                <h4 data-i18n-es="Zona" data-i18n-en="Area">Zona</h4>
+                <label><input type="checkbox" /> <span data-i18n-es="Centro"
+                        data-i18n-en="Downtown">Centro</span></label>
+                <label><input type="checkbox" /> <span data-i18n-es="Costa" data-i18n-en="Coast">Costa</span></label>
+            </div>
+        </div>
+        <div class="filters-actions">
+            <button class="secondary-btn" data-clear-filters data-i18n-es="Limpiar" data-i18n-en="Clear">
+                Limpiar
             </button>
+            <button class="primary-btn" data-i18n-es="Aplicar" data-i18n-en="Apply">Aplicar</button>
         </div>
     </div>
+
+    <!-- Search Form -->
+    <form class="search-controls" data-search-form method="GET" action="{{ url_for('search') }}">
+        <div class="field">
+            <label class="sr-only" for="search-specialty">Especialidad</label>
+            <i class="fa-solid fa-stethoscope"></i>
+            <input id="search-specialty" name="specialty" type="text" placeholder="Especialidad o condición"
+                data-i18n-placeholder-es="Especialidad o condición" data-i18n-placeholder-en="Specialty or condition"
+                value="{{ request.args.get('specialty', '') }}" autocomplete="off" />
+        </div>
+        <div class="field">
+            <label class="sr-only" for="search-location">Ubicación</label>
+            <i class="fa-solid fa-location-dot"></i>
+            <input id="search-location" name="location" type="text" placeholder="Ciudad, barrio o código postal"
+                data-i18n-placeholder-es="Ciudad, barrio o código postal"
+                data-i18n-placeholder-en="City, neighborhood or ZIP code" value="{{ request.args.get('location', '') }}"
+                autocomplete="off" />
+        </div>
+        <div class="field optional">
+            <label class="sr-only" for="search-insurance">Sociedad médica</label>
+            <i class="fa-solid fa-shield"></i>
+            <input id="search-insurance" name="insurance" type="text" placeholder="Sociedad médica"
+                data-i18n-placeholder-es="Sociedad médica" data-i18n-placeholder-en="Insurance provider"
+                value="{{ request.args.get('insurance', '') }}" />
+        </div>
+        <button class="primary-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span data-i18n-es="Buscar" data-i18n-en="Search">Buscar</span>
+        </button>
+    </form>
+    <p class="search-alert" data-search-alert data-i18n-es="Ingresá especialidad o ubicación."
+        data-i18n-en="Please enter specialty or location.">Ingresá especialidad o ubicación.</p>
+
 
     <div class="search-layout">
         <div class="results-column">

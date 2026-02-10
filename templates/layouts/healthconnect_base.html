@@ -4,10 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Gregos | Cuidado médico premium{% endblock %}</title>
+    <title>{% block title %}Health Connect | Cuidado médico premium{% endblock %}</title>
 
     <!-- Health Connect Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/variables.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/healthconnect.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/hero.css') }}">
 
     <!-- Fonts -->
     <link rel="stylesheet"
@@ -26,7 +29,7 @@
             <a href="/" class="logo">
                 <span class="logo-mark"><i class="fa-solid fa-heart-pulse"></i></span>
                 <div>
-                    <p class="logo-title">Gregos</p>
+                    <p class="logo-title">Health Connect</p>
                     <p class="logo-subtitle" data-i18n-es="Cuidado médico premium" data-i18n-en="Premium Medical Care">
                         Cuidado médico premium
                     </p>
@@ -96,13 +99,13 @@
                 </div>
                 {% else %}
                 <div class="nav-actions">
-                    <button class="ghost-btn" data-open-modal="login" data-i18n-es="Ingresar" data-i18n-en="Login">
+                    <a href="{{ url_for('login') }}" class="ghost-btn" data-i18n-es="Ingresar" data-i18n-en="Login">
                         Ingresar
-                    </button>
-                    <button class="primary-btn" data-open-modal="register" data-i18n-es="Registrarse"
+                    </a>
+                    <a href="{{ url_for('register') }}" class="primary-btn" data-i18n-es="Registrarse"
                         data-i18n-en="Sign Up">
                         Registrarse
-                    </button>
+                    </a>
                 </div>
                 {% endif %}
             </div>
@@ -130,7 +133,7 @@
     <footer id="contacto" class="site-footer">
         <div class="footer-grid">
             <div>
-                <h3>Gregos</h3>
+                <h3>Health Connect</h3>
                 <p>Ubicación: Av. Central 820, Ciudad Médica.</p>
                 <p>Contacto: +1 (555) 456-9800</p>
                 <p>Correo: contacto@gregos.com</p>
@@ -163,7 +166,7 @@
             </div>
         </div>
         <p class="footer-bottom">
-            © 2024 Gregos. Todos los derechos reservados.
+            © 2024 Health Connect. Todos los derechos reservados.
         </p>
     </footer>
     {% endblock %}

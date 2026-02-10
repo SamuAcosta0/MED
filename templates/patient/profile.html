@@ -1,29 +1,81 @@
 {% extends "layouts/patient_base.html" %}
 
+{% block title %}Health Connect | Mi Perfil{% endblock %}
+
 {% block content %}
-<div class="card" style="max-width: 600px; margin: 0 auto;">
-    <div class="card-header">
-        <h2>Mi Perfil</h2>
+<div class="patient-main">
+    <div class="panel-header">
+        <div>
+            <h1 data-i18n-es="Mi perfil" data-i18n-en="My profile">Mi perfil</h1>
+            <p class="header-subtitle" data-i18n-es="Tus datos personales y preferencias."
+                data-i18n-en="Your personal details and preferences.">
+                Tus datos personales y preferencias.
+            </p>
+        </div>
     </div>
 
-    <form style="margin-top: 24px; display: grid; gap: 16px;">
-        <div>
-            <label style="display: block; margin-bottom: 8px; font-weight: 500;">Nombre</label>
-            <input type="text" value="{{ current_user.patient_profile.first_name }}" disabled
-                style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background-color: var(--bg-surface);">
+    <div class="patient-grid profile-grid">
+        <!-- Profile Card -->
+        <div class="card profile-card">
+            <div class="profile-details">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=facearea&w=160&h=160&q=80"
+                    alt="{{ current_user.email.split('@')[0] | title }}" />
+                <div>
+                    <h2>{{ current_user.email.split('@')[0] | title }}</h2>
+                    <p>{{ current_user.email }}</p>
+                    <p>Montevideo, Uruguay</p>
+                    <p data-i18n-es="Dirección postal: Av. Central 2045" data-i18n-en="Address: 2045 Central Ave">
+                        Dirección postal: Av. Central 2045
+                    </p>
+                </div>
+            </div>
+            <div class="profile-tags">
+                <span>
+                    <i class="fa-solid fa-id-card"></i>
+                    <span data-i18n-es="Perfil verificado" data-i18n-en="Verified profile">Perfil verificado</span>
+                </span>
+                <span>
+                    <i class="fa-solid fa-globe"></i> Español / English
+                </span>
+            </div>
         </div>
 
-        <div>
-            <label style="display: block; margin-bottom: 8px; font-weight: 500;">Email</label>
-            <input type="email" value="{{ current_user.email }}" disabled
-                style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background-color: var(--bg-surface);">
+        <!-- Location Map -->
+        <div class="card">
+            <div class="card-header">
+                <h2 data-i18n-es="Ubicación" data-i18n-en="Location">Ubicación</h2>
+            </div>
+            <div class="map-frame small">
+                <iframe title="Mapa" src="https://maps.google.com/maps?q=Montevideo&t=&z=12&ie=UTF8&iwloc=&output=embed"
+                    loading="lazy"></iframe>
+            </div>
         </div>
 
-        <div>
-            <label style="display: block; margin-bottom: 8px; font-weight: 500;">País</label>
-            <input type="text" value="{{ current_user.patient_profile.country }}" disabled
-                style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background-color: var(--bg-surface);">
+        <!-- Preferences -->
+        <div class="card">
+            <div class="card-header">
+                <h2 data-i18n-es="Preferencias" data-i18n-en="Preferences">Preferencias</h2>
+            </div>
+            <div class="form-grid">
+                <label for="notif-pref" data-i18n-es="Notificaciones" data-i18n-en="Notifications">
+                    Notificaciones
+                </label>
+                <select id="notif-pref">
+                    <option data-i18n-es="Tiempo real" data-i18n-en="Real-time">Tiempo real</option>
+                    <option data-i18n-es="Resumen semanal" data-i18n-en="Weekly summary">Resumen semanal</option>
+                </select>
+                <label for="contact-pref" data-i18n-es="Canal preferido" data-i18n-en="Preferred channel">
+                    Canal preferido
+                </label>
+                <select id="contact-pref">
+                    <option>WhatsApp</option>
+                    <option>Email</option>
+                </select>
+                <button class="primary-btn" data-i18n-es="Guardar cambios" data-i18n-en="Save changes">
+                    Guardar cambios
+                </button>
+            </div>
         </div>
-    </form>
+    </div>
 </div>
 {% endblock %}

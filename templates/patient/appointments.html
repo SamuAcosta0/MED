@@ -1,17 +1,79 @@
 {% extends "layouts/patient_base.html" %}
 
+{% block title %}Health Connect | Mis Turnos{% endblock %}
+
 {% block content %}
-<div class="card">
-    <div class="card-header">
-        <h2>Mis Turnos</h2>
-        <button class="primary-btn sm">
-            <i class="fa-solid fa-plus"></i> Nuevo turno
-        </button>
+<div class="patient-main">
+    <div class="panel-header">
+        <div>
+            <h1 data-i18n-es="Mis turnos" data-i18n-en="Appointments">Mis turnos</h1>
+            <p class="header-subtitle" data-i18n-es="Tus próximas consultas y recordatorios."
+                data-i18n-en="Your upcoming visits and reminders.">
+                Tus próximas consultas y recordatorios.
+            </p>
+        </div>
     </div>
 
-    <div class="empty-state" style="text-align: center; padding: 48px; color: var(--text-sec);">
-        <i class="fa-solid fa-calendar-xmark" style="font-size: 48px; margin-bottom: 16px; opacity: 0.5;"></i>
-        <p>No tienes turnos programados.</p>
+    <div class="patient-grid">
+        <!-- Calendario Semanal -->
+        <div class="card">
+            <div class="card-header">
+                <h2 data-i18n-es="Calendario" data-i18n-en="Calendar">Calendario</h2>
+            </div>
+            <div class="calendar-grid">
+                <div>
+                    <span data-i18n-es="Lun" data-i18n-en="Mon">Lun</span>
+                    <p>09:30 Consulta cardiología</p>
+                </div>
+                <div>
+                    <span data-i18n-es="Mar" data-i18n-en="Tue">Mar</span>
+                    <p>11:00 Control nutricional</p>
+                </div>
+                <div>
+                    <span data-i18n-es="Mié" data-i18n-en="Wed">Mié</span>
+                    <p data-i18n-es="Libre" data-i18n-en="Free">Libre</p>
+                </div>
+                <div>
+                    <span data-i18n-es="Jue" data-i18n-en="Thu">Jue</span>
+                    <p>15:00 Videollamada</p>
+                </div>
+                <div>
+                    <span data-i18n-es="Vie" data-i18n-en="Fri">Vie</span>
+                    <p data-i18n-es="Libre" data-i18n-en="Free">Libre</p>
+                </div>
+                <div>
+                    <span data-i18n-es="Sáb" data-i18n-en="Sat">Sáb</span>
+                    <p data-i18n-es="Libre" data-i18n-en="Free">Libre</p>
+                </div>
+                <div>
+                    <span data-i18n-es="Dom" data-i18n-en="Sun">Dom</span>
+                    <p data-i18n-es="Libre" data-i18n-en="Free">Libre</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Historial de Turnos -->
+        <div class="card">
+            <div class="card-header">
+                <h2 data-i18n-es="Historial de turnos" data-i18n-en="Appointment history">Historial de turnos</h2>
+            </div>
+            <ul class="agenda">
+                <li>
+                    <span>10:00</span>
+                    <div>
+                        <h4>Chequeo general</h4>
+                        <p>12/02/2024 · Clínica Central</p>
+                    </div>
+                </li>
+                <li>
+                    <span>15:30</span>
+                    <div>
+                        <h4>Consulta cardiología</h4>
+                        <p>22/01/2024 · Health Connect</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 {% endblock %}

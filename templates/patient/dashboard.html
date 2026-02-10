@@ -88,22 +88,65 @@
             </div>
             <div class="quick-actions">
                 <button data-patient-switch="search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <span data-i18n-es="Buscar" data-i18n-en="Search">Buscar</span>
-                </button>
-                <button data-patient-switch="appointments">
-                    <i class="fa-solid fa-calendar-days"></i>
-                    <span data-i18n-es="Citas" data-i18n-en="Appts">Citas</span>
+                    <i class="fa-solid fa-calendar-plus"></i>
+                    <span data-i18n-es="Agendar" data-i18n-en="Book">Agendar</span>
                 </button>
                 <button data-patient-switch="records">
-                    <i class="fa-solid fa-file-waveform"></i>
+                    <i class="fa-solid fa-file-medical"></i>
                     <span data-i18n-es="Historial" data-i18n-en="Records">Historial</span>
                 </button>
+                <button data-patient-switch="appointments">
+                    <i class="fa-solid fa-comments"></i>
+                    <span data-i18n-es="Mensajes" data-i18n-en="Messages">Mensajes</span>
+                </button>
                 <button data-patient-switch="profile">
-                    <i class="fa-solid fa-user-gear"></i>
-                    <span data-i18n-es="Perfil" data-i18n-en="Profile">Perfil</span>
+                    <i class="fa-solid fa-heart"></i>
+                    <span data-i18n-es="Tratamientos" data-i18n-en="Treatments">Tratamientos</span>
                 </button>
             </div>
+        </div>
+
+        <!-- Mensajes nuevos -->
+        <div class="card">
+            <div class="card-header">
+                <h2 data-i18n-es="Mensajes nuevos" data-i18n-en="New messages">Mensajes nuevos</h2>
+            </div>
+            <p data-i18n-es="2 conversaciones activas" data-i18n-en="2 active conversations">
+                2 conversaciones activas
+            </p>
+            <div class="profile-summary"
+                style="background: #f8fafc; padding: 1.5rem; border-radius: 16px; border: 1px dashed rgba(10, 31, 60, 0.1);">
+                <h4 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; color: var(--navy);">
+                    <i class="fa-solid fa-sparkles"></i>
+                    <span data-i18n-es="Resumen IA" data-i18n-en="AI summary">Resumen IA</span>
+                </h4>
+                <p style="font-size: 0.9rem; color: var(--text-sec);">
+                    Evolución estable, sin eventos críticos. Mantener hidratación y registrar síntomas diarios.
+                </p>
+            </div>
+        </div>
+
+        <!-- Agenda -->
+        <div class="card">
+            <div class="card-header">
+                <h2 data-i18n-es="Agenda" data-i18n-en="Agenda">Agenda</h2>
+            </div>
+            <ul class="agenda">
+                <li>
+                    <span>10:00</span>
+                    <div>
+                        <h4>Consulta cardiología</h4>
+                        <p>Dra. Valentina Ortiz</p>
+                    </div>
+                </li>
+                <li>
+                    <span>16:00</span>
+                    <div>
+                        <h4>Control nutricional</h4>
+                        <p>Lic. Marina López</p>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
