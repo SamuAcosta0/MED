@@ -1,0 +1,55 @@
+{% extends "layouts/doctor_base.html" %}
+
+{% block content %}
+<header class="dashboard-header">
+    <div>
+        <p class="tag">Agenda</p>
+        <h1>Calendario de citas</h1>
+    </div>
+    <div class="header-actions">
+        <button class="ghost-btn">Configurar disponibilidad</button>
+        <button class="primary-btn">Nueva cita</button>
+    </div>
+</header>
+
+<div class="card">
+    <div class="card-header">
+        <h2>Próximos turnos</h2>
+    </div>
+
+    {% if appointments %}
+    <div class="calendar-list" style="margin-top: 16px;">
+        {% for apt in appointments %}
+        <div class="appointment-card"
+            style="display: flex; gap: 16px; padding: 16px; border: 1px solid var(--border-color); border-radius: var(--radius-md); margin-bottom: 12px; align-items: center;">
+            <div class="date-box"
+                style="background: var(--bg-surface); padding: 12px; border-radius: var(--radius-md); text-align: center; min-width: 80px;">
+                <div style="font-size: 24px; font-weight: 700; color: var(--primary);">{{ apt.date.day }}</div>
+                <div style="font-size: 14px; color: var(--text-sec);">{{ apt.date.strftime('%b') }}</div>
+            </div>
+
+            <div class="apt-info" style="flex: 1;">
+                <div style="font-weight: 600; font-size: 18px;">{{ apt.time.strftime('%H:%M') }} - {{ apt.type }}</div>
+                <div style="color: var(--text-sec);">Paciente: {{ apt.patient.first_name }} {{ apt.patient.last_name }}
+                </div>
+                <div style="color: var(--text-sec); font-size: 14px;">{{ apt.reason }}</div>
+            </div>
+
+            <div class="apt-actions">
+                <span class="status-badge {{ apt.status }}"
+                    style="padding: 4px 12px; border-radius: 99px; font-size: 12px; font-weight: 600; background: var(--bg-surface); border: 1px solid var(--border-color);">
+                    {{ apt.status }}
+                </span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state" style="text-align: center; padding: 48px;">
+        <i class="fa-solid fa-calendar"
+            style="font-size: 48px; color: var(--text-sec); opacity: 0.3; margin-bottom: 16px;"></i>
+        <p>Tu agenda está vacía.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

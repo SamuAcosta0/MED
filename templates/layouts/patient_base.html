@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Connect | Panel Paciente</title>
+
+    <!-- Health Connect Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/healthconnect.css') }}">
+
+    <!-- Fonts -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body class="dashboard-body">
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-mark"><i class="fa-solid fa-heart-pulse"></i></span>
+                <div>
+                    <p class="logo-title">Health Connect</p>
+                    <p class="logo-subtitle">Panel Paciente</p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a class="{{ 'active' if request.endpoint == 'patient_dashboard' else '' }}"
+                    href="{{ url_for('patient_dashboard') }}">
+                    <i class="fa-solid fa-house-medical"></i>
+                    Inicio
+                </a>
+                <a class="{{ 'active' if request.endpoint == 'search' else '' }}" href="{{ url_for('search') }}">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    Buscar médicos
+                </a>
+                <a class="{{ 'active' if request.endpoint == 'patient_appointments' else '' }}"
+                    href="{{ url_for('patient_appointments') }}">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    Mis Turnos
+                </a>
+                <a class="{{ 'active' if request.endpoint == 'patient_records' else '' }}"
+                    href="{{ url_for('patient_records') }}">
+                    <i class="fa-solid fa-file-medical"></i>
+                    Historia Clínica
+                </a>
+                <a class="{{ 'active' if request.endpoint == 'patient_profile_view' else '' }}"
+                    href="{{ url_for('patient_profile_view') }}">
+                    <i class="fa-solid fa-user"></i>
+                    Mi Perfil
+                </a>
+            </nav>
+
+            <a href="{{ url_for('logout') }}" class="ghost-btn logout"
+                style="text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                Cerrar sesión
+            </a>
+        </aside>
+
+        <main class="dashboard-main">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="flash-messages" style="margin-bottom: 24px;">
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <!-- Health Connect JS -->
+    <script src="{{ url_for('static', filename='js/healthconnect.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>

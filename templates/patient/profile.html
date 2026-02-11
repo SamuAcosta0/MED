@@ -1,0 +1,29 @@
+{% extends "layouts/patient_base.html" %}
+
+{% block content %}
+<div class="card" style="max-width: 600px; margin: 0 auto;">
+    <div class="card-header">
+        <h2>Mi Perfil</h2>
+    </div>
+
+    <form style="margin-top: 24px; display: grid; gap: 16px;">
+        <div>
+            <label style="display: block; margin-bottom: 8px; font-weight: 500;">Nombre</label>
+            <input type="text" value="{{ current_user.patient_profile.first_name }}" disabled
+                style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background-color: var(--bg-surface);">
+        </div>
+
+        <div>
+            <label style="display: block; margin-bottom: 8px; font-weight: 500;">Email</label>
+            <input type="email" value="{{ current_user.email }}" disabled
+                style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background-color: var(--bg-surface);">
+        </div>
+
+        <div>
+            <label style="display: block; margin-bottom: 8px; font-weight: 500;">País</label>
+            <input type="text" value="{{ current_user.patient_profile.country }}" disabled
+                style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); background-color: var(--bg-surface);">
+        </div>
+    </form>
+</div>
+{% endblock %}
