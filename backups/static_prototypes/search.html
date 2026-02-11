@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Health Connect | Buscador de médicos</title>
+    <title>Health Connect | Buscar doctores</title>
     <link rel="stylesheet" href="./styles.css" />
     <link
       rel="stylesheet"
@@ -16,124 +16,313 @@
   </head>
   <body class="search-body">
     <header class="site-header">
-      <nav class="navbar search-nav">
+      <nav class="navbar patient-topbar">
         <div class="logo">
           <span class="logo-mark"><i class="fa-solid fa-heart-pulse"></i></span>
           <div>
             <p class="logo-title">Health Connect</p>
-            <p class="logo-subtitle">Buscador médico</p>
+            <p class="logo-subtitle" data-i18n-es="Buscar doctores" data-i18n-en="Find doctors">
+              Buscar doctores
+            </p>
           </div>
         </div>
-        <div class="search-inputs">
-          <div class="field">
-            <i class="fa-solid fa-stethoscope"></i>
-            <input type="text" placeholder="Especialidad o médico" />
-          </div>
-          <div class="field">
-            <i class="fa-solid fa-location-dot"></i>
-            <input type="text" placeholder="Ciudad o región" />
-          </div>
-          <div class="field">
-            <i class="fa-solid fa-shield"></i>
-            <input type="text" placeholder="Seguro médico" />
-          </div>
-          <button class="primary-btn">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            Buscar
-          </button>
+        <div class="patient-links">
+          <a class="nav-link" href="patient.html" data-i18n-es="Inicio" data-i18n-en="Home">
+            Inicio
+          </a>
+          <a class="nav-link active" href="search.html" data-i18n-es="Buscar médicos" data-i18n-en="Find doctors">
+            Buscar médicos
+          </a>
+          <a class="nav-link" href="patient.html" data-i18n-es="Mis turnos" data-i18n-en="Appointments">
+            Mis turnos
+          </a>
+          <a class="nav-link" href="patient.html" data-i18n-es="Historia clínica" data-i18n-en="Medical records">
+            Historia clínica
+          </a>
         </div>
-        <div class="nav-actions">
-          <button class="ghost-btn">Ayuda</button>
-          <button class="ghost-btn">Ingresar</button>
-          <button class="primary-btn">Registrarse</button>
+        <div class="top-actions">
+          <div class="language-toggle">
+            <button class="active" data-lang="es">ES</button>
+            <button data-lang="en">EN</button>
+          </div>
+          <div class="profile-menu-wrapper">
+            <button class="profile-button" data-profile-toggle>
+              <img
+                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=facearea&w=60&h=60&q=80"
+                alt="Perfil"
+              />
+              <span data-i18n-es="Mi perfil" data-i18n-en="My profile">Mi perfil</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="profile-menu" data-profile-menu>
+              <a href="patient.html" data-i18n-es="Mi perfil" data-i18n-en="My profile">Mi perfil</a>
+              <a href="patient.html" data-i18n-es="Configuración" data-i18n-en="Settings">Configuración</a>
+              <a href="index.html" data-i18n-es="Cerrar sesión" data-i18n-en="Log out">Cerrar sesión</a>
+            </div>
+          </div>
         </div>
       </nav>
     </header>
 
-    <main class="search-layout">
-      <section class="filters">
-        <button class="chip"><i class="fa-regular fa-calendar"></i> Flexible</button>
-        <button class="chip">Horario</button>
-        <button class="chip">Consulta anual</button>
-        <button class="chip">Especialidad</button>
-        <button class="chip">Género</button>
-        <button class="chip">Presencial / Video</button>
-        <button class="chip">Más filtros</button>
-      </section>
-
-      <section class="results">
-        <div class="results-header">
-          <h2>6 médicos disponibles</h2>
-          <p>Hoy, 5 Feb - Mié, 18 Feb</p>
+    <main class="patient-main">
+      <section class="patient-panel active">
+        <div class="panel-header">
+          <div>
+            <h1 data-i18n-es="Buscar médicos" data-i18n-en="Find doctors">Buscar médicos</h1>
+            <p class="header-subtitle" data-i18n-es="Explora especialistas y agenda tu turno." data-i18n-en="Explore specialists and book your visit.">
+              Explora especialistas y agenda tu turno.
+            </p>
+          </div>
+          <button class="secondary-btn" data-filter-toggle data-i18n-es="Filtros" data-i18n-en="Filters">
+            Filtros
+          </button>
         </div>
 
-        <article class="provider-card">
-          <div class="provider-info">
-            <img src="https://images.unsplash.com/photo-1502767089025-6572583495b4?auto=format&fit=facearea&w=100&h=100&q=80" alt="Doctor" />
+        <form class="search-controls" data-search-form>
+          <div class="field">
+            <label class="sr-only" for="search-specialty">Especialidad</label>
+            <i class="fa-solid fa-stethoscope"></i>
+            <input
+              id="search-specialty"
+              type="text"
+              placeholder="Especialidad o condición"
+              data-i18n-placeholder-es="Especialidad o condición"
+              data-i18n-placeholder-en="Specialty or condition"
+              autocomplete="off"
+            />
+          </div>
+          <div class="field">
+            <label class="sr-only" for="search-location">Ubicación</label>
+            <i class="fa-solid fa-location-dot"></i>
+            <input
+              id="search-location"
+              type="text"
+              placeholder="Ciudad, barrio o código postal"
+              data-i18n-placeholder-es="Ciudad, barrio o código postal"
+              data-i18n-placeholder-en="City, neighborhood or postal code"
+              autocomplete="off"
+            />
+          </div>
+          <div class="field optional">
+            <label class="sr-only" for="search-insurance">Sociedad médica</label>
+            <i class="fa-solid fa-shield"></i>
+            <input
+              id="search-insurance"
+              type="text"
+              placeholder="Sociedad médica"
+              data-i18n-placeholder-es="Sociedad médica"
+              data-i18n-placeholder-en="Medical network"
+            />
+          </div>
+          <button class="primary-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span data-i18n-es="Buscar" data-i18n-en="Search">Buscar</span>
+          </button>
+        </form>
+        <p
+          class="search-alert"
+          data-search-alert
+          data-i18n-es="Ingresá especialidad o ubicación."
+          data-i18n-en="Enter a specialty or location."
+        >
+          Ingresá especialidad o ubicación.
+        </p>
+
+        <div class="filters-panel" data-filter-panel>
+          <div class="filters-header">
+            <h3 data-i18n-es="Filtros avanzados" data-i18n-en="Advanced filters">Filtros avanzados</h3>
+            <button class="ghost-btn" data-filter-toggle>×</button>
+          </div>
+          <div class="filters-grid">
             <div>
-              <h3>Dr. Chinedu Ngwudike, MD</h3>
-              <p>Medicina interna · Atención primaria</p>
-              <div class="provider-meta">
-                <span><i class="fa-solid fa-star"></i> 4.53 (1,467)</span>
-                <span><i class="fa-solid fa-video"></i> Videollamadas</span>
-                <span><i class="fa-solid fa-shield"></i> Seguro verificado</span>
-              </div>
-              <p class="note">Nuevos pacientes · Excelente tiempo de espera</p>
+              <h4 data-i18n-es="Modalidad" data-i18n-en="Mode">Modalidad</h4>
+              <label>
+                <input type="checkbox" />
+                <span data-i18n-es="Presencial" data-i18n-en="In-person">Presencial</span>
+              </label>
+              <label>
+                <input type="checkbox" />
+                <span data-i18n-es="Videollamada" data-i18n-en="Video visit">Videollamada</span>
+              </label>
+            </div>
+            <div>
+              <h4 data-i18n-es="Género" data-i18n-en="Gender">Género</h4>
+              <label>
+                <input type="checkbox" />
+                <span data-i18n-es="Mujer" data-i18n-en="Woman">Mujer</span>
+              </label>
+              <label>
+                <input type="checkbox" />
+                <span data-i18n-es="Hombre" data-i18n-en="Man">Hombre</span>
+              </label>
+            </div>
+            <div>
+              <h4 data-i18n-es="Experiencia" data-i18n-en="Experience">Experiencia</h4>
+              <label>
+                <input type="checkbox" />
+                <span data-i18n-es="+5 años" data-i18n-en="+5 years">+5 años</span>
+              </label>
+              <label>
+                <input type="checkbox" />
+                <span data-i18n-es="+10 años" data-i18n-en="+10 years">+10 años</span>
+              </label>
+            </div>
+            <div>
+              <h4 data-i18n-es="Zona" data-i18n-en="Area">Zona</h4>
+              <label>
+                <input type="checkbox" />
+                <span data-i18n-es="Centro" data-i18n-en="Downtown">Centro</span>
+              </label>
+              <label>
+                <input type="checkbox" />
+                <span data-i18n-es="Costa" data-i18n-en="Coast">Costa</span>
+              </label>
             </div>
           </div>
-          <div class="provider-slots">
-            <button class="slot highlight">Jue 5 · 65 turnos</button>
-            <button class="slot">Vie 6 · Sin turnos</button>
-            <button class="slot">Sáb 7 · Sin turnos</button>
-            <button class="slot">Dom 8 · Sin turnos</button>
-            <button class="slot">Lun 9 · Sin turnos</button>
-            <button class="slot">Mar 10 · Sin turnos</button>
-            <button class="slot">Mié 11 · Ver más</button>
+          <div class="filters-actions">
+            <button class="secondary-btn" data-clear-filters data-i18n-es="Limpiar" data-i18n-en="Clear">
+              Limpiar
+            </button>
+            <button class="primary-btn" data-i18n-es="Aplicar" data-i18n-en="Apply">Aplicar</button>
           </div>
-        </article>
+        </div>
 
-        <article class="provider-card">
-          <div class="provider-info">
-            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=facearea&w=100&h=100&q=80" alt="Doctor" />
-            <div>
-              <h3>Dr. Ikechukwu Ogbu, MD</h3>
-              <p>Internista · Atención general</p>
-              <div class="provider-meta">
-                <span><i class="fa-solid fa-star"></i> 4.64 (1,263)</span>
-                <span><i class="fa-solid fa-video"></i> Videollamadas</span>
-                <span><i class="fa-solid fa-shield"></i> Seguro verificado</span>
+        <div class="search-layout">
+          <section class="results">
+            <div class="results-header">
+              <div>
+                <h2 data-i18n-es="6 doctores" data-i18n-en="6 doctors">6 doctores</h2>
+                <p class="date-range">
+                  <button class="ghost-btn" aria-label="Rango anterior">
+                    <i class="fa-solid fa-chevron-left"></i>
+                  </button>
+                  Hoy - 18 Feb
+                  <button class="ghost-btn" aria-label="Rango siguiente">
+                    <i class="fa-solid fa-chevron-right"></i>
+                  </button>
+                </p>
               </div>
-              <p class="note">Nuevos pacientes · Atención rápida</p>
+              <div class="results-actions">
+                <select aria-label="Ordenar resultados">
+                  <option data-i18n-es="Mejor calificados" data-i18n-en="Top rated">
+                    Mejor calificados
+                  </option>
+                  <option data-i18n-es="Más cercanos" data-i18n-en="Closest">Más cercanos</option>
+                  <option data-i18n-es="Primera disponibilidad" data-i18n-en="First available">
+                    Primera disponibilidad
+                  </option>
+                </select>
+                <button class="ghost-btn map-toggle" data-map-toggle>
+                  <i class="fa-solid fa-map-location-dot"></i>
+                  <span data-i18n-es="Ver mapa" data-i18n-en="View map">Ver mapa</span>
+                </button>
+              </div>
             </div>
-          </div>
-          <div class="provider-slots">
-            <button class="slot highlight">Jue 5 · 43 turnos</button>
-            <button class="slot">Vie 6 · Sin turnos</button>
-            <button class="slot">Sáb 7 · Sin turnos</button>
-            <button class="slot">Dom 8 · Sin turnos</button>
-            <button class="slot">Lun 9 · Sin turnos</button>
-            <button class="slot">Mar 10 · Sin turnos</button>
-            <button class="slot">Mié 11 · Ver más</button>
-          </div>
-        </article>
-      </section>
 
-      <aside class="map-panel">
-        <div class="map-header">
-          <button class="ghost-btn"><i class="fa-solid fa-expand"></i> Expandir mapa</button>
+            <article class="provider-card">
+              <div class="provider-info">
+                <img src="https://images.unsplash.com/photo-1502767089025-6572583495b4?auto=format&fit=facearea&w=100&h=100&q=80" alt="Doctor" />
+                <div>
+                  <h3>Dr. Chinedu Ngwudike, MD</h3>
+                  <p data-i18n-es="Medicina interna · Atención primaria" data-i18n-en="Internal medicine · Primary care">
+                    Medicina interna · Atención primaria
+                  </p>
+                  <div class="provider-meta">
+                    <span><i class="fa-solid fa-star"></i> 4.53 (1,467 reseñas)</span>
+                    <span><i class="fa-solid fa-video"></i> Video disponible</span>
+                    <span><i class="fa-solid fa-shield"></i> En red</span>
+                    <span class="link" data-i18n-es="Ver si está en tu red" data-i18n-en="Check if in-network">
+                      Ver si está en tu red
+                    </span>
+                  </div>
+                  <p
+                    class="note"
+                    data-i18n-es="Turnos para nuevos pacientes · Tiempo de espera: excelente"
+                    data-i18n-en="New patient visits · Excellent wait time"
+                  >
+                    Turnos para nuevos pacientes · Tiempo de espera: excelente
+                  </p>
+                </div>
+              </div>
+              <div class="card-actions">
+                <button class="secondary-btn">Ver perfil</button>
+              </div>
+              <div class="provider-slots">
+                <button class="slot highlight">Lun 9 · 65 turnos</button>
+                <button class="slot" disabled>Mar 10 · Sin turnos</button>
+                <button class="slot" disabled>Mié 11 · Sin turnos</button>
+                <button class="slot" disabled>Jue 12 · Sin turnos</button>
+                <button class="slot" disabled>Vie 13 · Sin turnos</button>
+                <button class="slot">Sáb 14 · Ver más</button>
+              </div>
+            </article>
+
+            <article class="provider-card">
+              <div class="provider-info">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=facearea&w=100&h=100&q=80" alt="Doctor" />
+                <div>
+                  <h3>Dr. Ikechukwu Ogbu, MD</h3>
+                  <p data-i18n-es="Internista · Atención general" data-i18n-en="Internist · General care">
+                    Internista · Atención general
+                  </p>
+                  <div class="provider-meta">
+                    <span><i class="fa-solid fa-star"></i> 4.64 (1,263 reseñas)</span>
+                    <span><i class="fa-solid fa-video"></i> Video disponible</span>
+                    <span><i class="fa-solid fa-shield"></i> En red</span>
+                    <span class="link" data-i18n-es="Ver si está en tu red" data-i18n-en="Check if in-network">
+                      Ver si está en tu red
+                    </span>
+                  </div>
+                  <p
+                    class="note"
+                    data-i18n-es="Turnos para nuevos pacientes · Tiempo de espera: rápido"
+                    data-i18n-en="New patient visits · Fast wait time"
+                  >
+                    Turnos para nuevos pacientes · Tiempo de espera: rápido
+                  </p>
+                </div>
+              </div>
+              <div class="card-actions">
+                <button class="secondary-btn">Ver perfil</button>
+              </div>
+              <div class="provider-slots">
+                <button class="slot highlight">Lun 9 · 43 turnos</button>
+                <button class="slot" disabled>Mar 10 · Sin turnos</button>
+                <button class="slot" disabled>Mié 11 · Sin turnos</button>
+                <button class="slot" disabled>Jue 12 · Sin turnos</button>
+                <button class="slot" disabled>Vie 13 · Sin turnos</button>
+                <button class="slot">Sáb 14 · Ver más</button>
+              </div>
+            </article>
+          </section>
+
+          <aside class="map-panel" data-map-panel>
+            <div class="map-header">
+              <button class="ghost-btn" data-map-toggle>
+                <i class="fa-solid fa-expand"></i>
+                <span data-i18n-es="Expandir mapa" data-i18n-en="Expand map">Expandir mapa</span>
+              </button>
+            </div>
+            <div class="map-frame">
+              <iframe
+                title="Mapa"
+                src="https://maps.google.com/maps?q=Montevideo&t=&z=12&ie=UTF8&iwloc=&output=embed"
+                loading="lazy"
+              ></iframe>
+            </div>
+            <div class="map-actions">
+              <button class="secondary-btn" data-i18n-es="Reservar turno" data-i18n-en="Book visit">
+                Reservar turno
+              </button>
+              <button class="primary-btn" data-i18n-es="Ver disponibilidad" data-i18n-en="View availability">
+                Ver disponibilidad
+              </button>
+            </div>
+          </aside>
         </div>
-        <div class="map-frame">
-          <iframe
-            title="Mapa"
-            src="https://maps.google.com/maps?q=Montevideo&t=&z=12&ie=UTF8&iwloc=&output=embed"
-            loading="lazy"
-          ></iframe>
-        </div>
-        <div class="map-actions">
-          <button class="secondary-btn">Reservar turno</button>
-          <button class="primary-btn">Ver disponibilidad</button>
-        </div>
-      </aside>
+      </section>
     </main>
+
+    <script src="script.js"></script>
   </body>
 </html>
